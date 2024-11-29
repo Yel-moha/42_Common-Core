@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 17:36:11 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/24 19:14:53 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/11/28 23:18:33 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strrchr(const char *s, int c)
 		return ((char *)&s[j]);
 	return (0);
 }
-/*
+/* 
 #include <stdio.h>
 #include <string.h>
 
@@ -56,4 +56,4 @@ int main(void)
 
     return 0;
 }
-*/
+ */
