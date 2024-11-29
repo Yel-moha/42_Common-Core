@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 23:18:16 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/29 00:57:35 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:42:21 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	nstr = ft_substr(s1, j, (i - j));
 	return (nstr);
 }
-
+/* 
 int main(void)
 {
     char *result;
@@ -79,3 +79,4 @@ int main(void)
 
     return 0;
 }
+ */
