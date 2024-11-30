@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 23:18:16 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/29 15:42:21 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:42:45 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*nstr;
 	size_t	i;
 	size_t	j;
-	// aggiungere i controlli su set vuoto o s1
+
 	j = 0;
 	i = ft_strlen(s1);
 	while (ft_strchr(set, s1[i - 1]) != 0 && i > j)

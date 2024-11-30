@@ -1,57 +1,36 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/29 11:40:04 by cstate            #+#    #+#              #
-#    Updated: 2024/11/29 16:00:10 by yel-moha         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#REMOVE MAIN AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+NAME = libft.a
+CC = cc 
+CFLAGS = -Wall -Wextra -Werror  
+SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+	ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c \
+	ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c \
+	ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c \
+	ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_calloc.c ft_strdup.c\
+	#ft_itoa.c \
+	ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
+	ft_putendl_fd.c ft_putnbr_fd.c 
 
-# Variabili principali
-NAME = libft.a           # Nome della libreria finale
-CC = cc                  # Compilatore
-CFLAGS = -Wall -Wextra -Werror  # Flag di compilazione
-INC_DIR = .              # Directory dei file header
+OBJ = $(SRC:.c=.o)
 
-# File sorgente
-SRC = ft_atoi.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
-      ft_strlen.c ft_memset.c ft_bzero.c ft_memmove.c ft_strlcpy.c ft_strncmp.c \
-      ft_strnstr.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_memchr.c \
-      ft_memcmp.c ft_memcpy.c ft_strlcat.c ft_calloc.c ft_strdup.c \
-      ft_substr.c ft_strjoin.c ft_strtrim.c
 
-# File oggetto
-OBJS = $(SRC:%.c=%.o)
 
-# Regola principale per creare la libreria
-all: $(NAME)
+all : $(NAME)
+	
 
-# Regola per creare il file di libreria statica (archivio)
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $(SRC)
 
-# Regola generica per compilare i file oggetto
 %.o: %.c
-	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Pulizia dei file oggetto
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJ)
 
-# Pulizia completa (oggetti + libreria)
 fclean: clean
 	rm -f $(NAME)
 
-# Ricostruzione totale
 re: fclean all
+	
 
-# Creazione di una libreria condivisa (se necessario in futuro)
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRC)
-	$(CC) -nostartfiles -shared -o libft.so $(OBJS)
-
-# Evitare conflitti con file esistenti chiamati come i target
-.PHONY: all clean fclean re so
+.PHONY: all clean fclean re
