@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:56:18 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/24 21:58:53 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:39:26 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	i = 0;
 	num = 0;
-	while (str[i] == '+' || str[i] == '-' || str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || \
+			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
-			sign = sign * -1;
+			sign = -1;
 		i++;
 	}
-	while (str[i] >= '1' && str[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
 		num = ((str[i] - 48) + (num * 10));
 		i++;

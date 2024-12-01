@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/23 17:36:35 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 17:41:11 by yel-moha         ###   ########.fr       */
+/*   Created: 2024/12/01 23:17:57 by yel-moha          #+#    #+#             */
+/*   Updated: 2024/12/01 23:33:17 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+void	ft_putendl_fd(char *s, int fd)
 {
-	int	i;
+	size_t	len;
+	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	if (!s)
+		return ;
+	len = ft_strlen(s);
+	while (i < len)
 	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
+		write(fd, &s[i], 1);
 		i++;
 	}
-	if (c == '\0')
-		return ((char *)&s[i]);
-	return (0);
+	write(fd, "\n", 1);
 }
+
+/* int main(void)
+{	
+	// Apri un file in scrittura
+	int fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644); 
+	if (fd == -1) // Controlla errori
+		return 1;
+
+	ft_putstr_fd("Baracca", fd); // Scrive 'B' nel file "output.txt"
+	close(fd); // Chiudi il file
+	return 0;
+} */

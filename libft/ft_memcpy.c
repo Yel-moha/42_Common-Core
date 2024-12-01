@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:42:01 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/19 22:24:13 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:08:42 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	char		*d;
 	const char	*s;
 
+	if (!dest && !src)
+		return (NULL);
 	d = (char *)dest;
 	s = (const char *) src;
 	while (n--)

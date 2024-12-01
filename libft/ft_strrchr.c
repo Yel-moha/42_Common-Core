@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 17:36:11 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/28 23:18:33 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:22:38 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	*last_occurrence;
 
 	i = 0;
-	j = 0;
+	last_occurrence = NULL;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
-			j = i;
+		if (s[i] == (char)c)
+			last_occurrence = (char *)&s[i];
 		i++;
 	}
-	if (j > 0)
-		return ((char *)&s[j]);
-	return (0);
+	if (c == '\0')
+		return ((char *)&s[i]);
+	return (last_occurrence);
 }
 /* 
 #include <stdio.h>

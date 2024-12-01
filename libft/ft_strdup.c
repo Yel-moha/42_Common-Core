@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 21:02:58 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/27 22:57:40 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:46:11 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	*ft_strdup(const char *s1)
 	char	*str;
 	size_t	len;
 
-	if (s1 == NULL)
-		return (NULL);
 	len = ft_strlen(s1);
 	str = ft_calloc(1, len + 1);
 	if (str == NULL)

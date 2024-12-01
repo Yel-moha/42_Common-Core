@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/23 17:36:35 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 17:41:11 by yel-moha         ###   ########.fr       */
+/*   Created: 2024/12/01 22:47:25 by yel-moha          #+#    #+#             */
+/*   Updated: 2024/12/01 22:59:12 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+void	ft_putchar_fd(char c, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if (c == '\0')
-		return ((char *)&s[i]);
-	return (0);
+	write(fd, &c, 1);
 }
+
+/* 
+int main(void)
+{	
+	// Apri un file in scrittura
+	int fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644); 
+	if (fd == -1) // Controlla errori
+		return 1;
+
+	ft_putchar_fd('B', fd); // Scrive 'B' nel file "output.txt"
+	close(fd); // Chiudi il file
+	return 0;
+}
+
+ */
