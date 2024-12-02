@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 22:06:39 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/11/27 00:01:43 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:37:56 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (start >= ft_strlen(s))
 		return (ft_strdup(""));
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
 	nstr = ft_calloc(len + 1, sizeof(char));
 	if (nstr == NULL)
 		return (NULL);

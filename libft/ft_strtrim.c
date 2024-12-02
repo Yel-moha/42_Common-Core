@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 23:18:16 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 19:13:56 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:36:08 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	nstr = ft_calloc((i - j) + 1, sizeof(char));
 	if (!nstr)
 		return (NULL);
-	nstr = ft_substr(s1, j, (i - j));
+	ft_memcpy(nstr, s1 + j, i - j);
+	nstr[i - j] = '\0';
 	return (nstr);
+	/* nstr = ft_substr(s1, j, (i - j));
+	return (nstr); */
 }
 /* 
 int main(void)

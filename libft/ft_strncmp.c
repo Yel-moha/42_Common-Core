@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:26:33 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 17:25:29 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:21:07 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	if (n == 0)
+		return (0);
 	while (--n && *s1 && *s2 && *s1 == *s2)
 	{
 		s1++;
