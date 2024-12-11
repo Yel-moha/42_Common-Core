@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 23:17:57 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/02 21:52:18 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:38:39 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_putendl_fd(char *s, int fd)
 	size_t	i;
 
 	i = 0;
-	if (!s || fd < 0)
+	if (!s)
 		return ;
 	len = ft_strlen(s);
 	while (i < len)

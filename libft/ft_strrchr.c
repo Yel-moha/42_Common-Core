@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 17:36:11 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 17:22:38 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:48:08 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strrchr(const char *s, int c)
 			last_occurrence = (char *)&s[i];
 		i++;
 	}
-	if (c == '\0')
+	if (s[i] == (char)c)
 		return ((char *)&s[i]);
 	return (last_occurrence);
 }
@@ -36,8 +36,10 @@ char	*ft_strrchr(const char *s, int c)
 
 int main(void)
 {
-    const char *str = "Hello, World!";
+    const char *str = "teste";
     int test_chars[] = {'o', 'W', 'l', 'z', '\0'};
+	 //char str1[] = "NULL";
+	 //char *ptr = str1;
     char *result_ft, *result_orig;
     int i;
 
@@ -47,10 +49,10 @@ int main(void)
         result_ft = ft_strrchr(str, test_chars[i]);
         result_orig = strrchr(str, test_chars[i]);
 
-        printf("Character: '%c'\n", test_chars[i]);
-        printf("ft_strrchr: %s\n", result_ft);
-
-        printf("strrchr: %s\n", result_orig);
+        printf("%d Character: '%c'\n",str[i], test_chars[i]);
+        printf("%dft_strrchr: %p\n",str[i], (void*)result_ft);
+		//printf("Posizione del carattere trovato: %p\n", (void*)ptr);
+        printf("%dstrrchr: %p\n",str[i], (void*)result_orig);
         printf("\n");
     }
 

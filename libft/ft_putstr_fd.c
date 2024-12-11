@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 23:01:02 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/02 21:38:54 by yel-moha         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:39:00 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_putstr_fd(char *s, int fd)
 	size_t	i;
 
 	i = 0;
-	if (fd < 0 || !s)
+	if (!s)
 		return ;
 	len = ft_strlen(s);
 	while (i < len)
