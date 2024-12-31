@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:50:26 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/13 21:50:47 by yel-moha         ###   ########.fr       */
+/*   Created: 2024/11/20 19:44:10 by yel-moha          #+#    #+#             */
+/*   Updated: 2024/11/24 19:40:28 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putstr(char *str)
+#include "libft.h"
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	if (size > 0)
 	{
-		write (1, &str[i], 1);
-		i++;
+		while (i < (size - 1) && src[i] != '\0')
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
+	while (src[i] != '\0')
+		i++;
+	return (i);
 }
-/*
-int main(void)
-{
-    char str[] = "Hello World";
-    ft_putstr(str);
-    return 0;
-}
-*/

@@ -10,29 +10,48 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Nome della libreria finale
 NAME = libftprintf.a
-FUNC = ft_printf.c ft_print_exadecimal.c ft_print_nbr.c
-BFUNC =
-OBJ = $(FUNC:.c=.o)
-BOBJ = $(BFUNC:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -I libft
 
-all:            $(NAME)
+# Sorgenti e oggetti
+SRCS = ft_printf.c handle_char.c handle_hex.c handle_integer.c handle_pointer.c handle_string.c
+OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJ)
-        @ar rcs $(NAME) $(OBJ)
+# Comandi
+AR = ar -rcs
+RM = rm -f
 
+# Directory della libreria libft
+LIBFT_DIR = libft
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
+
+# Regola principale
+all: $(NAME)
+
+# Costruisce la libreria principale
+$(NAME): $(OBJS) $(LIBFT_LIB)
+	$(AR) $(NAME) $(OBJS)
+
+# Compila libft
+$(LIBFT_LIB):
+	$(MAKE) -C $(LIBFT_DIR)
+
+# Regola per compilare i file oggetto
 %.o: %.c
-        @gcc $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
+# Pulisce gli oggetti della libreria locale
 clean:
-        @rm -f $(OBJ) $(BOBJ)
+	$(RM) $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
+# Rimuove anche le librerie
 fclean: clean
-        @rm -f $(NAME)
-
-#bonus: $(OBJ) $(BOBJ)                                                                              
-#       @ar rcs $(NAME) $(OBJ) $(BOBJ)                                                              
-
-re:             fclean all
+	$(RM) $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	
+# Ricostruisce tutto
+re: fclean all

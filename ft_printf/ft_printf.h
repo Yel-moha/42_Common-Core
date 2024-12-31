@@ -5,14 +5,14 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-// Main function
+
 int	ft_printf(const char *format, ...);
 
-// Utility functions
-int	ft_putchar(char c);
-int	ft_putstr(char *s);
-int	ft_putnbr(int n);
-int	ft_putnbr_base(unsigned long n, char *base);
-int	ft_put_unsigned(unsigned int n);
+int handle_string(char *str);
+int handle_integer(int n);
+int	handle_char(char c);
+int handle_hex(unsigned int value, char specifier);
+int handle_unsigned(unsigned int value);
+int handle_pointer(void *ptr);
 
 #endif

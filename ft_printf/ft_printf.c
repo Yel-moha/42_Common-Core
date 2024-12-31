@@ -1,61 +1,47 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:38:37 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/13 21:49:19 by yel-moha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
+#include <stdarg.h>
+#include <unistd.h>
 
-static int	handle_conversion(char specifier, va_list args)
+static int	handle_format(va_list args, const char format)
 {
-	if (specifier == 'c')
-		return (ft_putchar(va_arg(args, int)));
-	else if (specifier == 's')
-		return (ft_putstr(va_arg(args, char *)));
-	else if (specifier == 'd' || specifier == 'i')
-		return (ft_putnbr(va_arg(args, int)));
-	else if (specifier == 'u')
-		return (ft_put_unsigned(va_arg(args, unsigned int)));
-	else if (specifier == 'x')
-		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef"));
-	else if (specifier == 'X')
-		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF"));
-	else if (specifier == 'p')
-	{
-		ft_putstr("0x");
-		return (2 + ft_putnbr_base(va_arg(args, unsigned long), "0123456789abcdef"));
-	}
-	else if (specifier == '%')
-		return (ft_putchar('%'));
-	return (0);
+    if (format == 'c')
+        return (handle_char(va_arg(args, int)));
+    else if (format == 's')
+        return (handle_string(va_arg(args, char *)));
+    else if (format == 'p')
+        return (handle_pointer(va_arg(args, void *)));
+    else if (format == 'd' || format == 'i')
+        return (handle_integer(va_arg(args, int)));
+    else if (format == 'u')
+        return (handle_unsigned(va_arg(args, unsigned int)));
+    else if (format == 'x' || format == 'X')
+        return (handle_hex(va_arg(args, unsigned int), format));
+    else if (format == '%')
+        return (handle_char('%'));
+    return (0);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	args;
-	int		i;
-	int		printed;
+    va_list	args;
+    int		printed;
 
-	i = 0;
-	printed = 0;
-	va_start(args, format);
-	while (format[i])
-	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			printed += handle_conversion(format[i + 1], args);
-			i++;
-		}
-		else
-			printed += ft_putchar(format[i]);
-		i++;
-	}
-	va_end(args);
-	return (printed);
+    va_start(args, format);
+    printed = 0;
+    while (*format)
+    {
+        if (*format == '%' && *(format + 1))
+        {
+            format++;
+            printed += handle_format(args, *format);
+        }
+        else
+        {
+            write(1, format, 1);
+            printed++;
+        }
+        format++;
+    }
+    va_end(args);
+    return (printed);
 }
