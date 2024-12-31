@@ -1,0 +1,4 @@
+Questa è la prima riga.
+Questa è la seconda riga.
+Ecco un'altra riga per testare.
+L'ultima riga senza newline finale
