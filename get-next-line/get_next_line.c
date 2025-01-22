@@ -1,48 +1,54 @@
-#include "get_next_line.h"
+# include "get_next_line.h"
 
-static char	*read_line(int fd, char *buffer)
+char *extract_line(char **buffer)
 {
-	char	temp[BUFFER_SIZE + 1];
-	int		bytes_read;
+	char *line;
+	char *temp;
+	char *new_line;
 
-	while (1)
+	new_line = ft_strchr(*buffer, '\n');
+	if(new_line)
 	{
-		bytes_read = read(fd, temp, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break;
-		temp[bytes_read] = '\0';
-		buffer = ft_strjoin(buffer, temp);
-		if (!buffer)
-			return (NULL);
-		if (ft_strchr(buffer, '\n'))
-			break;
+		line = malloc(new_line - *buffer + 2);
+		if (!line)
+			return NULL;
+		line[new_line - *buffer + 1] = '\0';
+		temp = *buffer;
+		*buffer = ft_strdup(new_line + 1);
+		ft_strncpy(line, temp, new_line - temp + 1);
+		free(temp);
 	}
-	return (buffer);
-}
-
-static char	*extract_line(char **buffer)
-{
-	char	*line;
-	char	*temp;
-	size_t	i = 0;
-
-	if (!(*buffer) || !(*buffer)[0])
-		return (NULL);
-	while ((*buffer)[i] && (*buffer)[i] != '\n')
-		i++;
-	line = ft_substr(*buffer, 0, i + 1);
-	temp = ft_strdup((*buffer)[i] == '\n' ? &(*buffer)[i + 1] : "");
-	free(*buffer);
-	*buffer = temp;
+	else
+	{
+		line = ft_strdup(*buffer);
+		free(*buffer);
+		*buffer = NULL;
+	}
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffers[MAX_FD];
+	static char *buffer;
+	char		buf[BUFFER_SIZE + 1];
+	int			bytes_read;
+	char 		*new_buffer;
 
-	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
-		return (NULL);
-	buffers[fd] = read_line(fd, buffers[fd]);
-	return (extract_line(&buffers[fd]));
+	if(fd < 0 || fd > MAX_FD || BUFFER_SIZE <= 0)
+		return NULL;
+	while(!ft_strchr(buffer, '\n') && (bytes_read = read(fd, buf, BUFFER_SIZE)) > 0)
+	{
+		buf[bytes_read] = '\0';
+		new_buffer = ft_strjoin((const char *)buffer, (const char *)buf);
+		//new_buffer = ft_strjoin(buffer, buf);
+		free(buffer);
+		buffer = new_buffer;
+	}
+	if (!buffer || (bytes_read < 0 && !buffer[0]))
+	{
+		free(buffer);
+		buffer = NULL;
+		return NULL;
+	}
+	return extract_line(&buffer);
 }
