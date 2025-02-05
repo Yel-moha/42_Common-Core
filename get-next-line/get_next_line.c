@@ -35,9 +35,7 @@ static void	*read_line(int fd, char *buffer)
 			break ;
 	}
 	free(temp);
-	if (bytes_read < 0 || !buffer)
-		return (free(buffer), NULL);
-	if (bytes_read == 0 && !buffer[0])
+	if ((bytes_read < 0 || !buffer) || (bytes_read == 0 && !buffer[0]))
 		return (free(buffer), NULL);
 	return (buffer);
 }
