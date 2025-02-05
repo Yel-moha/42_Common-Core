@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 10:32:13 by yel-moha          #+#    #+#             */
-/*   Updated: 2025/01/30 10:32:13 by yel-moha         ###   ########.fr       */
+/*   Created: 2025/01/29 19:09:38 by yel-moha          #+#    #+#             */
+/*   Updated: 2025/01/29 19:09:38 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strdup(const char *s1)
 
 	len = 0;
 	i = 0;
+	if (!s1)
+		return (NULL);
 	while (s1[len])
 		len++;
 	dup = (char *)malloc(len + 1);
@@ -36,8 +38,8 @@ char	*ft_strdup(const char *s1)
 
 char	*ft_strjoin(char *s1, const char *s2)
 {
-	size_t	len1;
-	size_t	len2;
+	int	len1;
+	int	len2;
 	char	*joined;
 	int		i;
 	int		j;
@@ -53,10 +55,10 @@ char	*ft_strjoin(char *s1, const char *s2)
 		len2++;
 	joined = (char *)malloc(len1 + len2 + 1);
 	if (!joined)
-		return (NULL);
-	while (++i < (int)len1)
+		return (free(s1), NULL);
+	while (++i < len1)
 		joined[i] = s1[i];
-	while (++j < (int)len2)
+	while (++j < len2)
 		joined[len1 + j] = s2[j];
 	joined[len1 + len2] = '\0';
 	free(s1);
