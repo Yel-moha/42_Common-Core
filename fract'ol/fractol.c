@@ -1,3 +1,6 @@
+#include "fractol.h"
+
+
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -9,6 +12,10 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void   *draw_mandelbrot(void *arg)
 {
+    /**
+     * Pointer to the t_vars struct, which likely contains variables and data
+     * needed for the Mandelbrot fractal rendering.
+     */
     t_vars	*vars;
     t_data	*img;
     int		x;
