@@ -1,13 +1,16 @@
+
+################################################
+
 NAME = fractol
 
 SRCS = fractol_utils.c
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lbz2
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
 
 all: $(NAME)
 
@@ -15,7 +18,7 @@ $(NAME): $(OBJS) $(MLX)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
 
 $(MLX):
-	make -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)
 
 clean:
 	rm -f $(OBJS)

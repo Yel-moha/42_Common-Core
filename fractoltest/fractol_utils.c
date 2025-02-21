@@ -19,13 +19,7 @@ int mandelbrot(double real, double imag, int max_iter)
     return i;
 }
 */
-int key_hook(int keycode, void *param)
-{
-    if (keycode == 53) // 53 è il codice per il tasto ESC
-        exit(0);
-    return (0);
-}
- 
+
 /* 
 int main(void)
 {
@@ -39,7 +33,7 @@ int main(void)
 }
  */
 
-int main(void)
+/* int main(void)
 {
     void *mlx;
     void *win;
@@ -55,7 +49,47 @@ int main(void)
     mlx_loop(mlx);
     return (0);
 }
+ */
 
+
+int key_hook(int keycode, void *param)
+{
+    if (keycode == 65307) // 53 è il codice per il tasto ESC su macOS
+    {
+        // Chiudi la finestra e esci dal programma
+        void *mlx = ((void **)param)[0];
+        void *win = ((void **)param)[1];
+        mlx_destroy_window(mlx, win);
+        exit(0);
+    }
+    return (0);
+}
+
+int main(void)
+{
+    void *mlx;
+    void *win;
+    void *params[2];
+
+    mlx = mlx_init();
+    win = mlx_new_window(mlx, 800, 600, "Fract'ol");
+
+    // Passa mlx e win come parametri
+    params[0] = mlx;
+    params[1] = win;
+
+    // Disegna un pixel rosso alla posizione (400, 300)
+    int i = 100;
+    while (--i)
+        mlx_pixel_put(mlx, win, 100 + i*i, 300 - i*i, 0xFF0000);
+
+    // Collega la funzione key_hook all'evento della tastiera
+    mlx_key_hook(win, key_hook, params);
+
+    // Entra nel loop principale
+    mlx_loop(mlx);
+    return (0);
+}
 
 
 /* int main(void)
