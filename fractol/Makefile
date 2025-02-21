@@ -1,5 +1,5 @@
 # Nome della libreria finale
-NAME = fractol.a
+NAME = fractol
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -I minilibx_linux
