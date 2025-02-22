@@ -3,7 +3,7 @@
 
 NAME = fractol
 
-SRCS = fractol_utils.c
+SRCS = fractol_utils.c mandelbrot.c main.c
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
