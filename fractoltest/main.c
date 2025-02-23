@@ -11,16 +11,7 @@ int main(void)
     ///////////////////////////////////////////////////////////////////////////
 
 
-    /////////////////Parte Corrisponednza pixel con coordinate/////////////////////
-    int x = 300;
-    int y = 380;
-    int width = 800;
-    int height = 600;
-    double real = (x - width / 3) * 4.0 / width;
-    double imag = (y - height / 2) * 4.0 / width;
-    printf("Coordinate: (%d, %d)\n", x, y);
-    printf("Coordinate complesse: (%f, %f)\n", real, imag);
-    //////////////////////////////////////////////////////////////////////////////
+   
 
     
     void *mlx;
@@ -36,9 +27,7 @@ int main(void)
         params[0] = mlx;
         params[1] = win;
 
-        // Disegna un pixel rosso alla posizione (400, 300)
         int i = 1;
-        //int j = 1;
         while (++i < 800)
         {
                 mlx_pixel_put(mlx, win, i, 300, 0x00FF00);
@@ -47,17 +36,38 @@ int main(void)
                 i++;
         }
         //////////////////////////////////////////////////////////////////////////////
+
+         /////////////////Parte Corrisponednza pixel con coordinate/////////////////////
+    int x = 1;
+    int y = 1;
     int max_iter = 100;
-    int j = mandelbrot(real, imag, max_iter);
-    printf("Iterazioni: %d\n", j);
-    if (j == max_iter)
+    int width = 800;
+    int height = 600;
+    int k;
+    double real;
+    double imag;
+    while (x <= 800)
     {
-        mlx_pixel_put(mlx, win, x, y, 0x00FF00);
-        printf("Il punto appartiene all'insieme di Mandelbrot\n");
+        real = 0;
+        imag = 0;
+        while(y <= 600)
+        {
+            real = (x - width / 3) * 4.0 / width;
+            imag = (y - height / 2) * 4.0 / width;
+            k = mandelbrot(real, imag, max_iter);
+            if (k == max_iter)
+                mlx_pixel_put (mlx, win, x, y, 0x00FF00);
+            //else
+                //mlx_pixel_put (mlx, win, x, y, 0x00FF00);
+            y++;
+            //mlx_loop(mlx);
+        }
+        x++;
+        y = 1;
     }
-    else
-        printf("Il punto non appartiene all'insieme di Mandelbrot\n");
-    ////////////////////////////////////////////////////
+    /* printf("Coordinate: (%d, %d)\n", x, y);
+    printf("Coordinate complesse: (%f, %f)\n", real, imag); */
+    //////////////////////////////////////////////////////////////////////////////
         // Collega la funzione key_hook all'evento della tastiera
         mlx_key_hook(win, key_hook, params);
 
