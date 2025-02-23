@@ -8,6 +8,9 @@
 
 #include <stdlib.h>
 
+#define WIDTH 800
+#define HEIGHT 600
+
 int key_hook(int keycode, void *param);
 int mandelbrot(double real, double imag, int max_iter);
 
