@@ -1,11 +1,17 @@
 #include "fractol.h"
 #include <stdio.h>
 #include <string.h> // strcmp function sostituire con ft_strcmp in libft
+#include <stdbool.h>
 
 int main(int argc, char **argv)
 {
-
+    //bool state = true;
     t_fractal fractal;
+   /*  if(state)
+    {
+        init_fractal(&fractal);
+        state = false;
+    } */
     init_fractal(&fractal);
 
     if(argc == 1)

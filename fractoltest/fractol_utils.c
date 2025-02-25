@@ -6,9 +6,10 @@ void init_fractal(t_fractal *fractal)
     fractal->max_re = 1.0;
     fractal->min_im = -1.2;
     //fractal->min_im = -1.3075;
-    fractal->max_im = 1.0;
+    fractal->max_im = 1.2;
     fractal->mlx = NULL;
     fractal->win = NULL;
+    fractal->img = NULL; // Inizializza l'immagine buffer a NULL
 }
 
 int key_hook(int keycode, void *param)
@@ -48,6 +49,8 @@ int mouse_hook(int button, int x, int y, void *param)
       zoom(param, x, y, 0.9); // 0.9 è il fattore di zoom per ridurre
       //draw_fractal(fractal);
     }
+   /*  else
+        zoom(param, x, y, 1.0); */
     return (0);
 }
 
@@ -58,19 +61,20 @@ void zoom(void *param, int x, int y, double zoom_factor)
 {
     t_fractal *fractal = (t_fractal *)param;
      // Mappa le coordinate del mouse al piano complesso
-    double mouse_re = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
-    double mouse_im = fractal->max_im - (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
+    double mouse_re = fractal->min_re + ((double)x / WIDTH )* (fractal->max_re - fractal->min_re);
+    double mouse_im = fractal->min_im + ((double)y / HEIGHT )* (fractal->max_im - fractal->min_im);
      
     printf("Mouse coordinates: (%d, %d)\n", x, y);
     printf("Mapped to complex plane: (%f, %f)\n", mouse_re, mouse_im);
 
-    double re_range = (fractal->max_re - fractal->min_re) * zoom_factor;
+    /* double re_range = (fractal->max_re - fractal->min_re) * zoom_factor;
     double im_range = (fractal->max_im - fractal->min_im) * zoom_factor;
-
-    fractal->min_re = mouse_re - re_range / 2;
-    fractal->max_re = mouse_re + re_range / 2;
-    fractal->min_im = mouse_im - im_range / 2;
-    fractal->max_im = mouse_im + im_range / 2;
+  */
+    
+    fractal->min_re = mouse_re - (mouse_re - fractal->min_re) * zoom_factor;
+    fractal->max_re = mouse_re + (fractal->max_re - mouse_re) * zoom_factor;
+    fractal->min_im = mouse_im - (mouse_im - fractal->min_im) * zoom_factor;
+    fractal->max_im = mouse_im + (fractal->max_im - mouse_im) * zoom_factor;
 
     printf("Zoom at (%d, %d) with factor %f\n", x, y, zoom_factor);
 
@@ -85,11 +89,11 @@ void draw_fractal(t_fractal *fractal)
         fractal->mlx = mlx_init();
         fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fract'ol");
     }
-  /*   else
+    if (!fractal->img)
     {
-        mlx_clear_window(fractal->mlx, fractal->win);
-    } */
-
+        fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
+        fractal->data = (int *)mlx_get_data_addr(fractal->img, &fractal->bpp, &fractal->size_line, &fractal->endian);
+    }
     int x = 0;
     int y;
     int max_iter = 100;
@@ -105,19 +109,26 @@ void draw_fractal(t_fractal *fractal)
             real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
             imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
             k = mandelbrot(real, imag, max_iter);
-            //mlx_pixel_put(fractal->mlx, fractal->win, x, y, k * 0x010101);
             if (k == max_iter)
-                mlx_pixel_put(fractal->mlx, fractal->win, x, y, 0x000000);
+                fractal->data[y * WIDTH + x] = 0x000000;
+                //mlx_pixel_put(fractal->mlx, fractal->win, x, y, 0x000000);
             else
-                mlx_pixel_put(fractal->mlx, fractal->win, x, y, k * 0x010101);
-               // mlx_pixel_put(fractal->mlx, fractal->win, x, y, 0xFFFFFF);
-            //0xFFFFFF
+            {
+                // scala grigi
+                //mlx_pixel_put(fractal->mlx, fractal->win, x, y, 3*k * 0x010101);
+                //psyco color
+                int red = (int)(255 * sin(0.1 * k));
+                int green = (int)(255 * sin(0.1 * k + 2));
+                int blue = (int)(255 * sin(0.1 * k + 4));
+                int color = (red << 16) | (green << 8) | blue;
+                fractal->data[y * WIDTH + x] = color;
+            }
             y++;
         }
         x++;
     }
+    mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
     mlx_key_hook(fractal->win, key_hook, (void *)fractal);
     mlx_mouse_hook(fractal->win, mouse_hook, (void *)fractal);
     mlx_loop(fractal->mlx);
-
 }

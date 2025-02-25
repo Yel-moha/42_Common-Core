@@ -5,7 +5,7 @@
 #include <complex.h>
 
 #include <stdio.h>
-
+#include <math.h>
 #include <stdlib.h>
 
 #define WIDTH 800
@@ -19,6 +19,11 @@ typedef struct s_fractal
     double max_im;
     void *mlx;
     void *win;
+    void *img; // Aggiungi questa variabile per l'immagine buffer
+    int *data; // Aggiungi questa variabile per i dati dell'immagine
+    int bpp;
+    int size_line;
+    int endian;
 } t_fractal;
 
 int key_hook(int keycode, void *param);
