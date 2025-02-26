@@ -119,18 +119,20 @@ void draw_fractal(t_fractal *fractal)
             else
             {
                 // scala grigi
-                mlx_pixel_put(fractal->mlx, fractal->win, x, y, 3*k * 0x010101);
+                //mlx_pixel_put(fractal->mlx, fractal->win, x, y, 3*k * 0x010101);
                 //psyco color
-                /* int red = (int)(255 * sin(0.1 * k));
+                int red = (int)(255 * sin(0.1 * k));
                 int green = (int)(255 * sin(0.1 * k + 2));
                 int blue = (int)(255 * sin(0.1 * k + 4));
                 int color = (red << 16) | (green << 8) | blue;
-                */
-                fractal->data[y * WIDTH + x] = k * 0x010101;
+                
+                //fractal->data[y * WIDTH + x] = k * 0x010101;
+                fractal->data[y * WIDTH + x] = color;
             }
             y++;
         }
         x++;
+
     }
     mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
     mlx_key_hook(fractal->win, key_hook, (void *)fractal);
