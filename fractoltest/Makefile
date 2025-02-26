@@ -7,7 +7,7 @@ SRCS = fractol_utils.c mandelbrot.c main.c
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g # -g per debug gdb
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm

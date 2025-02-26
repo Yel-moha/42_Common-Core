@@ -12,14 +12,18 @@ void init_fractal(t_fractal *fractal)
     fractal->img = NULL; // Inizializza l'immagine buffer a NULL
 }
 
-int key_hook(int keycode, void *param)
+int key_hook(int keycode, t_fractal *fractal)
 {
     if (keycode == 65307) // 65307 è il codice per il tasto ESC su macOS
     {
         // Chiudi la finestra e esci dal programma
-        void *mlx = ((void **)param)[0];
-        void *win = ((void **)param)[1];
-        mlx_destroy_window(mlx, win);
+        //void *mlx = ((void **)param)[0];
+        //void *win = ((void **)param)[1];
+        mlx_destroy_image(fractal->mlx, fractal->img);
+        mlx_destroy_window(fractal->mlx, fractal->win);
+        mlx_destroy_display(fractal->mlx);
+        free(fractal->mlx);
+
         exit(0);
     }
     return (0);
@@ -38,7 +42,7 @@ int mouse_hook(int button, int x, int y, void *param)
     {
         //mlx_clear_window(fractal->mlx, fractal->win);
         // Chiama la funzione zoom per ingrandire
-       zoom(param, x, y, 1.1); // 1.1 è il fattore di zoom per ingrandire
+       zoom(param, x, y, 1.3); // 1.1 è il fattore di zoom per ingrandire
       // draw_fractal(fractal);
     }
     else if (button == 5) // 5 è il codice per la rotellina del mouse giù
@@ -46,7 +50,7 @@ int mouse_hook(int button, int x, int y, void *param)
         //mlx_clear_window(fractal->mlx, fractal->win);
         
         // Chiama la funzione zoom per ridurre
-      zoom(param, x, y, 0.9); // 0.9 è il fattore di zoom per ridurre
+      zoom(param, x, y, 0.7); // 0.9 è il fattore di zoom per ridurre
       //draw_fractal(fractal);
     }
    /*  else
@@ -115,13 +119,14 @@ void draw_fractal(t_fractal *fractal)
             else
             {
                 // scala grigi
-                //mlx_pixel_put(fractal->mlx, fractal->win, x, y, 3*k * 0x010101);
+                mlx_pixel_put(fractal->mlx, fractal->win, x, y, 3*k * 0x010101);
                 //psyco color
-                int red = (int)(255 * sin(0.1 * k));
+                /* int red = (int)(255 * sin(0.1 * k));
                 int green = (int)(255 * sin(0.1 * k + 2));
                 int blue = (int)(255 * sin(0.1 * k + 4));
                 int color = (red << 16) | (green << 8) | blue;
-                fractal->data[y * WIDTH + x] = color;
+                */
+                fractal->data[y * WIDTH + x] = k * 0x010101;
             }
             y++;
         }

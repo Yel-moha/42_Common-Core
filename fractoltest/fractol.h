@@ -26,7 +26,7 @@ typedef struct s_fractal
     int endian;
 } t_fractal;
 
-int key_hook(int keycode, void *param);
+int key_hook(int keycode, t_fractal *fractal);
 int mouse_hook(int button, int x, int y, void *param);
 void zoom(void *param, int x, int y, double zoom_factor);
 void draw_fractal(t_fractal *fractal);
