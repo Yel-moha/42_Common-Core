@@ -1,58 +1,278 @@
 #include "fractol.h"
+#include "ft_printf/ft_printf.h"
+#include "ft_printf/libft/libft.h"
 
-
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void init_fractal(t_fractal *fractal)
 {
-    char	*dst;
-
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int *)dst = color;
+    fractal->min_re = -2.0;
+    fractal->max_re = 1.0;
+    fractal->min_im = -1.2;
+    fractal->max_im = 1.2;
+    fractal->julia_re = -0.7;
+    fractal->julia_im = 0.27015;
+    fractal->mlx = NULL;
+    fractal->win = NULL;
+    fractal->img = NULL;
 }
 
-void   *draw_mandelbrot(void *arg)
+void display_usage(void)
 {
-    /**
-     * Pointer to the t_vars struct, which likely contains variables and data
-     * needed for the Mandelbrot fractal rendering.
-     */
-    t_vars	*vars;
-    t_data	*img;
-    int		x;
-    int		y;
-    int		color;
-    double	z_re;
-    double	z_im;
-    double	c_re;
-    double	c_im;
-    double	tmp;
-    int		i;
+    //ft_printf("Usage: ./fractol [mandelbrot | julia | sierpinski]\n");
+    ft_printf("Usage: ./fractol [mandelbrot | julia | sierpinski]\n");
+    exit(1);
+}
 
-    vars = (t_vars *)arg;
-    img = &vars->img;
-    y = 0;
-    while (y < 800)
+void zoom(void *param, int x, int y, double zoom_factor)
+{
+    t_fractal *fractal = (t_fractal *)param;
+    // Mappa le coordinate del mouse al piano complesso
+    double mouse_re = fractal->min_re + ((double)x / WIDTH) * (fractal->max_re - fractal->min_re);
+    double mouse_im = fractal->min_im + ((double)y / HEIGHT) * (fractal->max_im - fractal->min_im);
+
+    //ft_printf("Mouse coordinates: (%d, %d)\n", x, y);
+    //ft_printf("Mapped to complex plane: (%f, %f)\n", mouse_re, mouse_im);
+
+    printf("Mouse coordinates: (%d, %d)\n", x, y);
+    printf("Mapped to complex plane: (%f, %f)\n", mouse_re, mouse_im);
+
+    fractal->min_re = mouse_re - (mouse_re - fractal->min_re) * zoom_factor;
+    fractal->max_re = mouse_re + (fractal->max_re - mouse_re) * zoom_factor;
+    fractal->min_im = mouse_im - (mouse_im - fractal->min_im) * zoom_factor;
+    fractal->max_im = mouse_im + (fractal->max_im - mouse_im) * zoom_factor;
+
+    //ft_printf("Zoom at (%d, %d) with factor %f\n", x, y, zoom_factor);
+    printf("Zoom at (%d, %d) with factor %f\n", x, y, zoom_factor);
+
+    //choose_fractal(fractal);
+}
+
+
+int key_hook(int keycode, t_fractal *fractal, int iterations)
+{
+    if (keycode == 65307)
     {
-        x = 0;
-        while (x < 800)
-        {
-            z_re = 0;
-            z_im = 0;
-            c_re = (x - 400) / 200.0;
-            c_im = (y - 400) / 200.0;
-            i = 0;
-            while (z_re * z_re + z_im * z_im <= 4 && i < 100)
-            {
-                tmp = z_re;
-                z_re = z_re * z_re - z_im * z_im + c_re;
-                z_im = 2 * tmp * z_im + c_im;
-                i++;
-            }
-            color = i * 255 / 100;
-            my_mlx_pixel_put(img, x, y, color);
-            x++;
-        }
-        y++;
+        mlx_destroy_image(fractal->mlx, fractal->img);
+        mlx_destroy_window(fractal->mlx, fractal->win);
+        mlx_destroy_display(fractal->mlx);
+        free(fractal->mlx);
+
+        exit(0);
     }
-    return (NULL);
+    if (keycode == 125 /*inserire numero per shift*/)
+        get_color(iterations);
+    return (0);
+}
+
+int choose_fractal(t_fractal *fractal)
+{
+    int fractal_flag;
+
+    fractal_flag = 0;
+    if (ft_strncmp(fractal->type, "mandelbrot", 10) == 0)
+        fractal_flag = 1;
+    else if (ft_strncmp(fractal->type, "sierpinski", 10) == 0)
+        fractal_flag = 3;
+    else if (ft_strncmp(fractal->type, "julia", 5) == 0)
+        fractal_flag = 2;
+    return (fractal_flag);
+}
+
+
+int get_color(int iterations)
+{
+    int color;
+
+    color = iterations * 0x010101;
+    return(color);
+}
+
+int mouse_hook(int button, int x, int y, void *param, int flag)
+{
+    t_fractal *fractal;
+
+    fractal = (t_fractal *)param;
+    if (button == 5) // 4 è il codice per la rotellina del mouse su
+    {
+        mlx_clear_window(fractal->mlx, fractal->win);
+        // Chiama la funzione zoom per ingrandire
+        zoom(param, x, y, 2.0); // 1.1 è il fattore di zoom per ingrandire
+        // draw_fractal(fractal);
+    }
+    else if (button == 4) // 5 è il codice per la rotellina del mouse giù
+    {
+        mlx_clear_window(fractal->mlx, fractal->win);
+        // Chiama la funzione zoom per ridurre
+        zoom(param, x, y, 0.5); // 0.9 è il fattore di zoom per ridurre
+        // draw_fractal(fractal);
+    }
+    /*  else
+        zoom(param, x, y, 1.0); */
+    flag = choose_fractal(fractal);
+    draw_fractal(fractal, flag);
+    return (0);
+}
+
+
+void draw_fractal(t_fractal *fractal, int flag)
+{
+    int x;
+    int y;
+    int k;
+    double real;
+    double imag;
+
+    init_image(fractal);
+    x = 0;
+   
+    while (x < WIDTH)
+    {
+        y = 0;
+        while (y < HEIGHT)
+        {
+            real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
+            imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
+            if (flag == 1)
+                k = mandelbrot(real, imag);
+            else if (flag == 2)
+                k = julia(real, imag, fractal->julia_re, fractal->julia_im);
+            else if (flag == 3)
+                ;
+                //k = burningship(real, imag, MAX_ITER);
+            if (k == MAX_ITER)
+                fractal->data[y * WIDTH + x] = 0x000000;
+            else
+            {
+                fractal->data[y * WIDTH + x] = get_color(k);
+            }
+            y++;
+        }
+        x++;
+    }
+    //zoom(fractal, 0, 0, 1.0);
+    execute_fractal(fractal);
+}
+
+
+
+/* void draw_mandelbrot(t_fractal *fractal)
+{
+    int x;
+    int y;
+    int k;
+    double real;
+    double imag;
+
+    init_image(fractal);
+    x = 0;
+    while (x < WIDTH)
+    {
+        y = 0;
+        while (y < HEIGHT)
+        {
+            real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
+            imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
+            k = mandelbrot(real, imag);
+            if (k == MAX_ITER)
+                fractal->data[y * WIDTH + x] = 0x000000;
+            else
+            {
+                fractal->data[y * WIDTH + x] = get_color(k);
+            }
+            y++;
+        }
+        x++;
+    }
+    //zoom(fractal, 0, 0, 1.0);
+    execute_fractal(fractal);
+}
+
+void draw_julia(t_fractal *fractal)
+{
+    int x = 0;
+    int y;
+    int k;
+    double real;
+    double imag;
+
+    init_image(fractal);
+    while (x < WIDTH)
+    {
+        y = 0;
+        while (y < HEIGHT)
+        {
+            real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
+            imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
+            k = julia(real, imag, fractal->julia_re, fractal->julia_im);
+            if (k == MAX_ITER)
+                fractal->data[y * WIDTH + x] = 0x000000;
+            else
+            {
+                fractal->data[y * WIDTH + x] = k * 0x010101;
+            }
+            y++;
+        }
+        x++;
+    }
+    execute_fractal(fractal);
+}
+
+void draw_sierpinski(t_fractal *fractal)
+{
+    int x = 0;
+    int y;
+    int k;
+    double real;
+    double imag;
+
+    init_image(fractal);
+    while (x < WIDTH)
+    {
+        y = 0;
+        while (y < HEIGHT)
+        {
+            real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
+            imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
+            k = mandelbrot(real, imag);
+            if (k == MAX_ITER)
+                fractal->data[y * WIDTH + x] = 0x000000;
+            else
+                fractal->data[y * WIDTH + x] = get_color(k);
+            y++;
+        }
+        x++;
+    }
+    execute_fractal(fractal);
+}
+ */
+
+
+void execute_fractal(t_fractal *fractal)
+{
+    mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
+    mlx_key_hook(fractal->win, key_hook, (void *)fractal);
+    mlx_mouse_hook(fractal->win, mouse_hook, (void *)fractal);
+    mlx_loop(fractal->mlx);
+}
+
+
+void init_image(t_fractal *fractal)
+{
+    int fractal_flag;
+
+    fractal_flag = choose_fractal(fractal);
+    if (fractal_flag == 1 || fractal_flag == 2 || fractal_flag == 3)
+    {
+        if (!fractal->mlx)
+        {
+            fractal->mlx = mlx_init();
+            fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, fractal->type);
+        }
+        if (!fractal->img)
+        {
+            fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
+            fractal->data = (int *)mlx_get_data_addr(fractal->img, &fractal->bpp, &fractal->size_line, &fractal->endian);
+        }
+    }
+    else
+        display_usage();
 }

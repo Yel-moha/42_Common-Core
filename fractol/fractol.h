@@ -1,34 +1,59 @@
-//#include "libft.h"
-//#include <mlx.h> // Includiamo la libreria MLX
-#include <math.h> 
-#include <pthread.h> 
+#ifndef FRACTOL_H
+#define FRACTOL_H
+
+#include "minilibx-linux/mlx.h"
+#include "ft_printf/ft_printf.h"
+#include "ft_printf/libft/libft.h"
+#include <complex.h>
+
 #include <stdio.h>
+//#include <math.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
 
+#define WIDTH 800
+#define HEIGHT 600
+#define MAX_ITER 100
 
-/* Structure to handle image data */
-typedef struct s_data
+typedef struct s_fractal
 {
-	void	*img;			/* Pointer to the image */
-	char	*addr;			/* Address of the image data */
-	int		bits_per_pixel;	/* Number of bits per pixel */
-	int		line_length;	/* Length of a line in bytes */
-	int		endian;			/* Endianness of the image */
-}    t_data;
+    double min_re;
+    double max_re;
+    double min_im;
+    double max_im;
+	double julia_re;
+	double julia_im;
+    void *mlx;
+    void *win;
+    void *img; // Aggiungi questa variabile per l'immagine buffer
+    int *data; // Aggiungi questa variabile per i dati dell'immagine
+	char *type;
+    int bpp;
+    int size_line;
+    int endian;
+} t_fractal;
 
-/* Structure to handle MLX window and image variables */
-typedef struct s_vars
-{
-	void	*mlx;			/* MLX connection pointer */
-	void	*win;			/* Window pointer */
-	t_data	img;			/* Image structure */
-}   t_vars;
+int key_hook(int keycode, t_fractal *fractal, int iterations);
+int mouse_hook(int button, int x, int y, void *param, int flag);
+void zoom(void *param, int x, int y, double zoom_factor);
+//void draw_fractal(t_fractal *fractal);
+int mandelbrot(double real, double imag);
+void init_fractal(t_fractal *fractal);
+int julia(double real, double imag, double julia_re, double julia_im);
+int burningship(double real, double imag, int max_iter);
+int close_window(void *param);
+void display_usage(void);
+void	show_diaplay(t_fractal *fractal);
+/* void draw_julia(t_fractal *fractal);
+void draw_sierpinski(t_fractal *fractal);
+void draw_mandelbrot(t_fractal *fractal); */
+void draw_fractal(t_fractal *fractal, int flag);
+int choose_fractal(t_fractal *fractal);
+int get_color (int iterations);
+void execute_fractal(t_fractal *fractal);
+void init_image(t_fractal *fractal);
+//int	ft_strcmp(const char *s1, const char *s2);
+/* void	ft_strlcpy(char *dst, const char *src);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+ */
 
-
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void   *draw_mandelbrot(void *arg);
-void   *draw_julia(void *arg);
+#endif

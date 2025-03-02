@@ -1,45 +1,54 @@
-# Nome della libreria finale
+################################################
+
 NAME = fractol
 
-CC = clang
-CFLAGS = -Wall -Wextra -Werror -I minilibx_linux
-
-# Sorgenti e oggetti
-SRCS = fractol.c
+SRCS = fractol.c fractals.c main.c
 OBJS = $(SRCS:.c=.o)
 
-# Comandi
-AR = ar -rcs
-RM = rm -f
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -g # -g per debug gdb
 
-# Directory della libreria MLX
-MLX_DIR = minilibx_linux
-MLX_LIB = $(MLX_DIR)/libmlx.a
+LIBFT_DIR = ft_printf
+LIBFT = $(LIBFT_DIR)/libftprintf.a
+LIBFT_FLAGS = -L$(LIBFT_DIR) -lftprintf
 
-# Regola principale
+MLX_DIR = minilibx-linux
+MLX = $(MLX_DIR)/libmlx_linux.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
+
+FT_DIR = ft_printf/libft
+FT = $(FT_DIR)/libft.a
+FT_FLAGS = -L$(FT_DIR) -lft
+
 all: $(NAME)
 
-# Costruisce la libreria principale
-$(NAME): $(OBJS) $(MLX_LIB)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) $(FT_FLAGS) -o $(NAME)
 
-# Compila MLX
-$(MLX_LIB):
+$(FT):
+	$(MAKE) -C $(FT_DIR)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(MLX):
 	$(MAKE) -C $(MLX_DIR)
 
-# Regola per compilare i file oggetto
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Pulisce gli oggetti della libreria locale
 clean:
-	$(RM) $(OBJS)
+	rm -f $(OBJS)
+	$(MAKE) -C $(FT_DIR) clean
+	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
 
-# Rimuove anche le librerie
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C $(MLX_DIR) fclean
-	
-# Ricostruisce tutto
+	rm -f $(NAME)
+	$(MAKE) -C $(FT_DIR) fclean
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(MLX_DIR) clean
+
 re: fclean all
+
+.PHONY: all clean fclean re
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
