@@ -46,18 +46,12 @@ void c_julia(t_fractal *fractal, char **type)
     }
 
     if (type[2][0] == '-')
-    {
         fractal->julia_re = -(ft_atoi(&type[2][1]) + ft_atoi(julia_re[1]) * pow(0.1, ft_strlen(julia_re[1])));
-        //fractal->julia_re = -1 * fractal->julia_re;
-    }
-        else
+    else
         fractal->julia_re = ft_atoi(type[2]) + ft_atoi(julia_re[1]) * pow(0.1, ft_strlen(julia_re[1]));
 
     if (type[3][0] == '-')
-    {
         fractal->julia_im = -(ft_atoi(&type[3][1]) + ft_atoi(julia_im[1]) * pow(0.1, ft_strlen(julia_im[1])));
-        //fractal->julia_im = -1 * fractal->julia_im;
-    }
     else
         fractal->julia_im = ft_atoi(type[3]) + ft_atoi(julia_im[1]) * pow(0.1, ft_strlen(julia_im[1]));
 
