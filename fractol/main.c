@@ -93,23 +93,33 @@ int close_window(void *param)
 
 int main(int argc, char **argv) {
     t_fractal *fractal;
+	int choice;
 
-    if (argc != 2) {
+    if (argc != 2 && argc != 4) {
         display_usage();
-        return 1;  // Terminare l'esecuzione se il numero di argomenti è errato
+        return 1;
     }
-
-    // Allocazione memoria per fractal
     fractal = (t_fractal *)malloc(sizeof(t_fractal));
-    if (!fractal) {  // Controllo per errori di allocazione
+    if (!fractal)
+	{
         perror("Memory allocation failed");
         return 1;
     }
-
-    // Inizializza fractal
-    init_fractal(fractal);
-	fractal->type = (char *)malloc(ft_strlen(argv[1]) + 1);
-    // Controlla il tipo di fractale passato come argomento
+	init_fractal(fractal, argv[1]);
+	if(argc ==4)	
+		c_julia(fractal, argv);
+	ft_printf("argc: %d\n", argc);
+	ft_printf("argv[1]: %s\n", argv[1]);
+	ft_printf("argv[2]: %s\n", argv[2]);
+	ft_printf("argv[3]: %s\n", argv[3]);
+    choice = choose_fractal(fractal, argv[1]);
+	ft_printf("la schelta del frattale é %d \n", choice);
+	if (choice == 0) {
+		display_usage();
+		free(fractal);
+		return 1;
+	}
+	/* fractal->type = (char *)malloc(ft_strlen(argv[1]) + 1);
     if (ft_strncmp(argv[1], "mandelbrot", ft_strlen(argv[1])) == 0) {
         ft_strlcpy(fractal->type, "mandelbrot", 1 + ft_strlen(argv[1]));
     } else if (ft_strncmp(argv[1], "julia", ft_strlen(argv[1])) == 0) {
@@ -118,20 +128,13 @@ int main(int argc, char **argv) {
         ft_strlcpy(fractal->type, "sierpinski", 1 + ft_strlen(argv[1]));
     } else {
         display_usage();
-        free(fractal);  // Libera la memoria allocata in caso di errore
-        return 1;  // Uscita dal programma
-    }
-
-    // Inizializza e visualizza il fractale
-
-    int choice;
-    choice = choose_fractal(fractal);
-	init_image(fractal);
+        free(fractal); 
+        return 1;
+    } */
+    //choice = choose_fractal(fractal);
+	init_image(fractal, fractal->type);
 	draw_fractal(fractal, choice);
-	//execute_fractal(fractal);
-	ft_printf(" il flag è: %s, = %d\n", fractal->type, choose_fractal(fractal));
-
-    // Libera la memoria allocata
+	ft_printf(" il flag è: %s, = %d\n", fractal->type, choice);
     free(fractal);
 
     return 0;

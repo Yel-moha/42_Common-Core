@@ -1,13 +1,27 @@
 #include "fractol.h"
 #include "ft_printf/ft_printf.h"
 #include "ft_printf/libft/libft.h"
+#include <math.h>
 
-void init_fractal(t_fractal *fractal)
+void init_fractal(t_fractal *fractal, char *type)
 {
-    fractal->min_re = -2.0;
-    fractal->max_re = 1.0;
-    fractal->min_im = -1.2;
-    fractal->max_im = 1.2;
+    //if (fractal->type == "mandelbrot")
+    if(ft_strncmp(type , "mandelbrot", 10) == 0 || ft_strncmp(type , "sierpinski", 10) == 0)
+    {
+        fractal->min_re = -2.0;
+        fractal->max_re = 1.0;
+        fractal->min_im = -1.2;
+        fractal->max_im = 1.2;
+    }
+    else if (ft_strncmp(type , "julia", 5) == 0)
+    {
+        fractal->min_re = -1.5;
+        fractal->max_re = 1.5;
+        fractal->min_im = -1.5;
+        fractal->max_im = 1.5;
+    }
+    else
+        display_usage();
     fractal->julia_re = -0.7;
     fractal->julia_im = 0.27015;
     fractal->mlx = NULL;
@@ -15,10 +29,46 @@ void init_fractal(t_fractal *fractal)
     fractal->img = NULL;
 }
 
-void display_usage(void)
+void c_julia(t_fractal *fractal, char **type)
+{
+    char **julia_re;
+    char **julia_im;
+
+    julia_re = malloc(sizeof(char *) * 2);
+    julia_im = malloc(sizeof(char *) * 2);
+    julia_re = ft_split(type[2], '.');
+    julia_im = ft_split(type[3], '.');
+
+    if (!julia_re || !julia_im || !julia_re[0] || !julia_re[1] || !julia_im[0] || !julia_im[1])
+    {
+        display_usage();
+        return;
+    }
+
+    if (type[2][0] == '-')
+        fractal->julia_re = -(ft_atoi(&type[2][1]) + ft_atoi(julia_re[1]) * pow(0.1, ft_strlen(julia_re[1])));
+    else
+        fractal->julia_re = ft_atoi(type[2]) + ft_atoi(julia_re[1]) * pow(0.1, ft_strlen(julia_re[1]));
+
+    if (type[3][0] == '-')
+        fractal->julia_im = -(ft_atoi(&type[3][1]) + ft_atoi(julia_im[1]) * pow(0.1, ft_strlen(julia_im[1])));
+    else
+        fractal->julia_im = ft_atoi(type[3]) + ft_atoi(julia_im[1]) * pow(0.1, ft_strlen(julia_im[1]));
+
+    free(julia_re[0]);
+    free(julia_re[1]);
+    free(julia_re);
+    free(julia_im[0]);
+    free(julia_im[1]);
+    free(julia_im);
+    
+    printf("julia_re: %f\n", fractal->julia_re);
+    printf("julia_im: %f\n", fractal->julia_im);
+}void display_usage(void)
 {
     //ft_printf("Usage: ./fractol [mandelbrot | julia | sierpinski]\n");
     ft_printf("Usage: ./fractol [mandelbrot | julia | sierpinski]\n");
+   // {\displaystyle c=0,285+0,013i;0,45-0,1428i;-0,70176-0,3842i;-0,835-0,2321i.}
     exit(1);
 }
 
@@ -63,17 +113,21 @@ int key_hook(int keycode, t_fractal *fractal, int iterations)
     return (0);
 }
 
-int choose_fractal(t_fractal *fractal)
+int choose_fractal(t_fractal *fractal, char *type)
 {
     int fractal_flag;
 
     fractal_flag = 0;
+    fractal->type = malloc(ft_strlen(type) + 1);
+    fractal->type = type;
     if (ft_strncmp(fractal->type, "mandelbrot", 10) == 0)
         fractal_flag = 1;
     else if (ft_strncmp(fractal->type, "sierpinski", 10) == 0)
         fractal_flag = 3;
     else if (ft_strncmp(fractal->type, "julia", 5) == 0)
         fractal_flag = 2;
+    else
+        display_usage();
     return (fractal_flag);
 }
 
@@ -81,9 +135,20 @@ int choose_fractal(t_fractal *fractal)
 int get_color(int iterations)
 {
     int color;
-
+    if (iterations == 0)
+        return (0x000000);
+  /*   else if (iterations == 1)
+        return (0xFFFFFF);
+        if (iterations == 2)
+        return (0x0000FF);
     color = iterations * 0x010101;
-    return(color);
+    return(color); */
+    color = (iterations * 7) % 0xFFFFFF;
+    color = ((color << 8) | (color >> 16)) + iterations * 128;
+    color = color * (iterations % 7 + 1);
+    color = color % 0xFFFFFF;
+    
+    return (color | 0x101010);
 }
 
 int mouse_hook(int button, int x, int y, void *param, int flag)
@@ -107,7 +172,7 @@ int mouse_hook(int button, int x, int y, void *param, int flag)
     }
     /*  else
         zoom(param, x, y, 1.0); */
-    flag = choose_fractal(fractal);
+    flag = choose_fractal(fractal, fractal->type);
     draw_fractal(fractal, flag);
     return (0);
 }
@@ -121,7 +186,7 @@ void draw_fractal(t_fractal *fractal, int flag)
     double real;
     double imag;
 
-    init_image(fractal);
+    init_image(fractal, fractal->type);
     x = 0;
    
     while (x < WIDTH)
@@ -255,11 +320,11 @@ void execute_fractal(t_fractal *fractal)
 }
 
 
-void init_image(t_fractal *fractal)
+void init_image(t_fractal *fractal, char *type)
 {
     int fractal_flag;
 
-    fractal_flag = choose_fractal(fractal);
+    fractal_flag = choose_fractal(fractal, type);
     if (fractal_flag == 1 || fractal_flag == 2 || fractal_flag == 3)
     {
         if (!fractal->mlx)
