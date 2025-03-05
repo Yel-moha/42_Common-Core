@@ -320,7 +320,7 @@ int get_color(int iterations, int color_mode)
     if (flag == 2)
         return (julia(real, imag, fractal->julia_re, fractal->julia_im));
     if (flag == 3)
-        return (sierpinski(real, real, MAX_ITER));
+        return (sierpinski(real, imag, MAX_ITER));
     return (0);
 }
 
@@ -342,7 +342,7 @@ void draw_fractal(t_fractal *fractal, int flag)
             //imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
             k = compute_fractal(fractal, x, y, flag);
                // if (k = MAX_ITER)
-                    fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
+            fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
             //fractal->data[y * WIDTH + x] = (k == MAX_ITER) ? 0xFFFFFF : 0x000000;
             
         }

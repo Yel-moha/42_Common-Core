@@ -7,7 +7,7 @@
 #include <complex.h>
 
 #include <stdio.h>
-//#include <math.h>
+#include <math.h>
 #include <stdlib.h>
 
 #define WIDTH 800
@@ -40,7 +40,6 @@ void zoom(void *param, int x, int y, double zoom_factor);
 int mandelbrot(double real, double imag);
 void init_fractal(t_fractal *fractal, char *type);
 int julia(double real, double imag, double julia_re, double julia_im);
-int burningship(double real, double imag, int max_iter);
 //int close_window(void *param);
 void display_usage(void);
 void	show_diaplay(t_fractal *fractal);
