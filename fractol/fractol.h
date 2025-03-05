@@ -6,8 +6,8 @@
 #include "ft_printf/libft/libft.h"
 #include <complex.h>
 
-#include <stdio.h>
-#include <math.h>
+/* #include <stdio.h>
+#include <math.h> */
 #include <stdlib.h>
 
 #define WIDTH 800
@@ -57,6 +57,7 @@ int close_window(t_fractal *fractal);
 void free_split(char **arr);
 double parse_julia_value(char *str);
 int sierpinski (double real, double imag, int max_iter);
+void free_fractal(t_fractal *fractal);
 //int	ft_strcmp(const char *s1, const char *s2);
 /* void	ft_strlcpy(char *dst, const char *src);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);

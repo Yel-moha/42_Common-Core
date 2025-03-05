@@ -5,22 +5,21 @@
 
 void init_fractal(t_fractal *fractal, char *type)
 {
-    //if (fractal->type == "mandelbrot")
-    if(ft_strncmp(type , "mandelbrot", 10) == 0 || ft_strncmp(type , "sierpinski", 10) == 0)
+    if (ft_strncmp(type, "mandelbrot", 10) == 0)
     {
         fractal->min_re = -2.0;
         fractal->max_re = 1.0;
         fractal->min_im = -1.2;
         fractal->max_im = 1.2;
     }
-    else if (ft_strncmp(type , "julia", 5) == 0)
+    else if (ft_strncmp(type, "julia", 5) == 0)
     {
         fractal->min_re = -1.5;
         fractal->max_re = 1.5;
         fractal->min_im = -1.5;
         fractal->max_im = 1.5;
     }
-    else if(ft_strncmp(type , "sierpinski", 10) == 0)
+    else if (ft_strncmp(type, "sierpinski", 10) == 0)
     {
         fractal->min_re = -1.0;
         fractal->max_re = 1.0;
@@ -28,18 +27,30 @@ void init_fractal(t_fractal *fractal, char *type)
         fractal->max_im = 1.0;
     }
     else
+    {
         display_usage();
+        return;
+    }
+
+    fractal->type = type;
     fractal->julia_re = -0.7;
     fractal->julia_im = 0.27015;
     fractal->color_mode = 0;
     fractal->mlx = NULL;
     fractal->win = NULL;
     fractal->img = NULL;
+    fractal->bpp = 0;
+    fractal->size_line = 0;
+    fractal->endian = 0;
 }
 
 void free_split(char **arr)
 {
-    int i = 0;
+    int i;
+    
+    i = 0;
+    if (!arr)
+        return;
     while (arr[i])
         free(arr[i++]);
     free(arr);
@@ -52,9 +63,14 @@ double parse_julia_value(char *str)
 
     split = ft_split(str, '.');
     if (!split || !split[0] || !split[1])
-        return (display_usage(), 0);
+    {
+        free_split(split);
+        display_usage();
+        return (0);
+    }
 
-    result = ft_atoi(split[0]) + ft_atoi(split[1]) * pow(0.1, ft_strlen(split[1]));
+    result = ft_atoi(split[0]) + ft_atoi(split[1]) * \
+            pow(0.1, ft_strlen(split[1]));
     if (str[0] == '-')
         result = -result;
 
@@ -85,37 +101,26 @@ void display_usage(void)
 void zoom(void *param, int x, int y, double zoom_factor)
 {
     t_fractal *fractal = (t_fractal *)param;
-    // Mappa le coordinate del mouse al piano complesso
     double mouse_re = fractal->min_re + ((double)x / WIDTH) * (fractal->max_re - fractal->min_re);
     double mouse_im = fractal->min_im + ((double)y / HEIGHT) * (fractal->max_im - fractal->min_im);
 
-    //ft_printf("Mouse coordinates: (%d, %d)\n", x, y);
-    //ft_printf("Mapped to complex plane: (%f, %f)\n", mouse_re, mouse_im);
-
-    printf("Mouse coordinates: (%d, %d)\n", x, y);
-    printf("Mapped to complex plane: (%f, %f)\n", mouse_re, mouse_im);
+    ft_printf("Mouse coordinates: (%d, %d)\n", x, y);
+    ft_printf("Mapped to complex plane: (%f, %f)\n", mouse_re, mouse_im);
 
     fractal->min_re = mouse_re - (mouse_re - fractal->min_re) * zoom_factor;
     fractal->max_re = mouse_re + (fractal->max_re - mouse_re) * zoom_factor;
     fractal->min_im = mouse_im - (mouse_im - fractal->min_im) * zoom_factor;
     fractal->max_im = mouse_im + (fractal->max_im - mouse_im) * zoom_factor;
 
-    //ft_printf("Zoom at (%d, %d) with factor %f\n", x, y, zoom_factor);
-    printf("Zoom at (%d, %d) with factor %f\n", x, y, zoom_factor);
-
-    //choose_fractal(fractal);
+    ft_printf("Zoom at (%d, %d) with factor %f\n", x, y, zoom_factor);
 }
-
 
 int key_hook(int keycode, t_fractal *fractal, int iterations)
 {
     int color;
     if (keycode == 65307)
     {
-        mlx_destroy_image(fractal->mlx, fractal->img);
-        mlx_destroy_window(fractal->mlx, fractal->win);
-        mlx_destroy_display(fractal->mlx);
-        free(fractal->mlx);
+        free_fractal(fractal);
         exit(0);
     }
     if (keycode == 65505)
@@ -132,7 +137,6 @@ int choose_fractal(t_fractal *fractal, char *type)
     int fractal_flag;
 
     fractal_flag = 0;
-    fractal->type = malloc(ft_strlen(type) + 1);
     fractal->type = type;
     if (ft_strncmp(fractal->type, "mandelbrot", 10) == 0)
         fractal_flag = 1;
@@ -144,7 +148,6 @@ int choose_fractal(t_fractal *fractal, char *type)
         display_usage();
     return (fractal_flag);
 }
-
 
 int get_color(int iterations, int shift_color)
 {
@@ -180,135 +183,27 @@ int get_color(int iterations, int shift_color)
         return (color);
 }
 
-
 int mouse_hook(int button, int x, int y, void *param, int flag)
 {
     t_fractal *fractal;
 
     fractal = (t_fractal *)param;
-    if (button == 5) // 4 è il codice per la rotellina del mouse su
+    if (button == 5)
     {
         mlx_clear_window(fractal->mlx, fractal->win);
-        // Chiama la funzione zoom per ingrandire
-        zoom(param, x, y, 2.0); // 1.1 è il fattore di zoom per ingrandire
-        // draw_fractal(fractal);
+        zoom(param, x, y, 2.0);
     }
-    else if (button == 4) // 5 è il codice per la rotellina del mouse giù
+    else if (button == 4)
     {
         mlx_clear_window(fractal->mlx, fractal->win);
-        // Chiama la funzione zoom per ridurre
-        zoom(param, x, y, 0.5); // 0.9 è il fattore di zoom per ridurre
-        // draw_fractal(fractal);
+        zoom(param, x, y, 0.5);
     }
-    /*  else
-        zoom(param, x, y, 1.0); */
     flag = choose_fractal(fractal, fractal->type);
     draw_fractal(fractal, flag);
     return (0);
-  }
-
-/* 
-int key_hook(int keycode, t_fractal *fractal)
-{
-    static int color_mode = 0;
-
-    if (keycode == 65307) // Tasto ESC per uscire
-    {
-        mlx_destroy_image(fractal->mlx, fractal->img);
-        mlx_destroy_window(fractal->mlx, fractal->win);
-        mlx_destroy_display(fractal->mlx);
-        free(fractal->mlx);
-        exit(0);
-    }
-
-    if (keycode == 65364) // Shift per cambiare colore
-    {
-        color_mode = (color_mode + 1) % 7; // Cicla tra 7 modalità
-        ft_printf("Shift key pressed, color mode: %d\n", color_mode);
-    }
-
-    fractal->color_mode = color_mode; // Aggiorna il colore del frattale
-    return (0);
-}
- */
-/* 
-int get_color(int iterations, int color_mode)
-{
-    if (iterations == 0)
-        return 0x000000; // Colore nero per i punti fuori dal frattale
-
-    int color = 0;
-
-    switch (color_mode)
-    {
-        case 0: // Rosso psichedelico
-            color = iterations * 0xFF0000;
-            break;
-        case 1: // Verde psichedelico
-            color = iterations * 0x00FF00;
-            break;
-        case 2: // Blu psichedelico
-            color = iterations * 0x0000FF;
-            break;
-        case 3: // Viola psichedelico
-            color = iterations * 0xFF00FF;
-            break;
-        case 4: // Giallo psichedelico
-            color = iterations * 0xFFFF00;
-            break;
-        case 5: // Ciano psichedelico
-            color = iterations * 0x00FFFF;
-            break;
-        case 6: // Scala di grigi
-            color = (iterations * 255 / 100) * 0x010101; // Dal nero al bianco
-            break;
-    }
-    return color;
-}
- */
-
-/* void draw_fractal(t_fractal *fractal, int flag)
-{
-    int x;
-    int y;
-    int k;
-    double real;
-    double imag;
-
-    init_image(fractal, fractal->type);
-    x = 0;
-   
-    while (x < WIDTH)
-    {
-        y = 0;
-        while (y < HEIGHT)
-        {
-            real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
-            imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
-            if (flag == 1)
-                k = mandelbrot(real, imag);
-            else if (flag == 2)
-                k = julia(real, imag, fractal->julia_re, fractal->julia_im);
-            else if (flag == 3)
-                ;
-                //k = burningship(real, imag, MAX_ITER);
-            if (k == MAX_ITER)
-                fractal->data[y * WIDTH + x] = 0x000000;
-            else
-            {
-                fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
-            }
-            y++;
-        }
-        x++;
-    }
-    //zoom(fractal, 0, 0, 1.0);
-    execute_fractal(fractal);
 }
 
- */
-
- static int compute_fractal(t_fractal *fractal, int x, int y, int flag)
+static int compute_fractal(t_fractal *fractal, int x, int y, int flag)
 {
     double real;
     double imag;
@@ -326,9 +221,6 @@ int get_color(int iterations, int color_mode)
 
 void draw_fractal(t_fractal *fractal, int flag)
 {
-   
-    //double real;
-    //double imag;
     int x, y, k;
 
     init_image(fractal, fractal->type);
@@ -338,13 +230,8 @@ void draw_fractal(t_fractal *fractal, int flag)
         y = -1;
         while (++y < HEIGHT)
         {
-            //real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
-            //imag = fractal->min_im + (double)y / HEIGHT * (fractal->max_im - fractal->min_im);
             k = compute_fractal(fractal, x, y, flag);
-               // if (k = MAX_ITER)
             fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
-            //fractal->data[y * WIDTH + x] = (k == MAX_ITER) ? 0xFFFFFF : 0x000000;
-            
         }
     }
     execute_fractal(fractal);
@@ -361,13 +248,11 @@ void execute_fractal(t_fractal *fractal)
 
 int close_window(t_fractal *fractal)
 {
-    mlx_destroy_image(fractal->mlx, fractal->img);
-    mlx_destroy_window(fractal->mlx, fractal->win);
-    mlx_destroy_display(fractal->mlx);
-    free(fractal->mlx);
+    free_fractal(fractal);
     exit(0);
     return (0);
 }
+
 void init_image(t_fractal *fractal, char *type)
 {
     int fractal_flag;
@@ -388,4 +273,17 @@ void init_image(t_fractal *fractal, char *type)
     }
     else
         display_usage();
+}
+
+void free_fractal(t_fractal *fractal)
+{
+    if (fractal->img)
+        mlx_destroy_image(fractal->mlx, fractal->img);
+    if (fractal->win)
+        mlx_destroy_window(fractal->mlx, fractal->win);
+    if (fractal->mlx)
+    {
+        mlx_destroy_display(fractal->mlx);
+        free(fractal->mlx);
+    }
 }

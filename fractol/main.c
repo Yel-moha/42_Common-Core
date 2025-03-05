@@ -1,90 +1,3 @@
-/* #include "fractol.h"
-#include "ft_printf/ft_printf.h"
-#include "ft_printf/libft/libft.h"
-
-void show_display(t_fractal *fractal)
-{
-	choose_fractal(fractal);
-	mlx_key_hook(fractal->win, key_hook, fractal);
-	mlx_mouse_hook(fractal->win, mouse_hook, fractal);
-	mlx_hook(fractal->win, 17, 0, close_window, fractal);
-	mlx_loop(fractal->mlx);
-}
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	if (!s1 || !s2) // Aggiungi questo controllo per evitare il segfault
-        return (-1);
-	while (*s1 && *s2 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
-}
-
-int main(int argc, char **argv)
-{
-    t_fractal *fractal;
-
-	fractal = malloc(sizeof(t_fractal));
-	if (!fractal)
-		return (1);
-	/////////////////////////////////
-	ft_printf(" mandelbrto: %d\n", ft_strncmp(argv[1], "mandelbrot", 10));
-	ft_printf(" julia: %d\n", strncmp(argv[1], "julia", 5));
-	ft_printf(" sierpinski: %d\n", ft_strncmp(argv[1], "sierpinski", 10));
-	ft_printf("argc: %d\n", argc);
-    for (int i = 0; i < argc; i++)
-        ft_printf("argv[%d]: %s\n", i, argv[i]);
-    
-	//////////////////////////////
-    if (argc < 2)
-        display_usage();
-	else if (argc == 2)
-	{
-		if (ft_strncmp(argv[1], "mandelbrot", 10) == 0)
-		{
-			ft_printf("sono a mandelbrto ---->mandelbrot\n");
-			draw_mandelbrot(fractal);
-			show_display(fractal);
-		}
-		else if (ft_strncmp(argv[1], "sierpinski", 10) == 0)
-		{
-			draw_sierpinski(fractal);
-			show_display(fractal);
-		}
-		else
-			display_usage();
-	}
-	else if (argc >= 2 && ft_strncmp(argv[1], "julia", 5) == 0)
-	{
-		fractal->julia_re = atof(argv[2]);
-		fractal->julia_im = atof(argv[3]);
-		draw_julia(fractal);
-		show_display(fractal);
-	}
-	else
-		display_usage();
-	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
-    mlx_key_hook(fractal->win, key_hook, (void *)fractal);
-    mlx_mouse_hook(fractal->win, mouse_hook, (void *)fractal);
-    mlx_loop(fractal->mlx);
-	free(fractal);
-	return (0);
-}
-
-int close_window(void *param)
-{
-	t_fractal *fractal;
-
-	fractal = (t_fractal *)param;
-	mlx_destroy_image(fractal->mlx, fractal->img);
-	mlx_destroy_window(fractal->mlx, fractal->win);
-	mlx_destroy_display(fractal->mlx);
-	free(fractal->mlx);
-	exit(0);
-} */
-
 #include "fractol.h"
 #include "ft_printf/ft_printf.h"
 #include "ft_printf/libft/libft.h"
@@ -102,40 +15,24 @@ int main(int argc, char **argv) {
     fractal = (t_fractal *)malloc(sizeof(t_fractal));
     if (!fractal)
 	{
-        perror("Memory allocation failed");
+       // perror("Memory allocation failed");
         return 1;
     }
 	init_fractal(fractal, argv[1]);
-	if(argc ==4)	
+	if(argc == 4)	
 		c_julia(fractal, argv);
-	ft_printf("argc: %d\n", argc);
-	ft_printf("argv[1]: %s\n", argv[1]);
-	ft_printf("argv[2]: %s\n", argv[2]);
-	ft_printf("argv[3]: %s\n", argv[3]);
     choice = choose_fractal(fractal, argv[1]);
-	ft_printf("la schelta del frattale é %d \n", choice);
-	if (choice == 0) {
+	if (!choice) {
 		display_usage();
-		free(fractal);
+		free_fractal(fractal);
+		//free(fractal->mlx);
 		return 1;
 	}
-	/* fractal->type = (char *)malloc(ft_strlen(argv[1]) + 1);
-    if (ft_strncmp(argv[1], "mandelbrot", ft_strlen(argv[1])) == 0) {
-        ft_strlcpy(fractal->type, "mandelbrot", 1 + ft_strlen(argv[1]));
-    } else if (ft_strncmp(argv[1], "julia", ft_strlen(argv[1])) == 0) {
-        ft_strlcpy(fractal->type, "julia", 1 + ft_strlen(argv[1]));
-    } else if (ft_strncmp(argv[1], "sierpinski", ft_strlen(argv[1])) == 0) {
-        ft_strlcpy(fractal->type, "sierpinski", 1 + ft_strlen(argv[1]));
-    } else {
-        display_usage();
-        free(fractal); 
-        return 1;
-    } */
-    //choice = choose_fractal(fractal);
+	
 	init_image(fractal, fractal->type);
 	draw_fractal(fractal, choice);
 	ft_printf(" il flag è: %s, = %d\n", fractal->type, choice);
-    free(fractal);
+    free_fractal(fractal);
 
     return 0;
 }
