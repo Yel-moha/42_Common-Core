@@ -37,3 +37,22 @@ int julia(double real, double imag, double julia_re, double julia_im)
     }
     return i;
 }
+
+int sierpinski (double real, double imag, int max_iter)
+{
+    double z_real = 0.0;
+    double z_imag = 0.0;
+    double c_real = real;
+    double c_imag = imag;
+    int i = 0;
+    while (i < max_iter)
+    {
+        double temp_real = z_real;
+        z_real = z_real * z_real - z_imag * z_imag + c_real;
+        z_imag = 2 * temp_real * z_imag + c_imag;
+        if (z_real * z_real + z_imag * z_imag > 4)
+            break;
+        i++;
+    }
+    return i;
+}

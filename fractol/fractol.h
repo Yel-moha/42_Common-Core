@@ -22,6 +22,7 @@ typedef struct s_fractal
     double max_im;
 	double julia_re;
 	double julia_im;
+    int color_mode;
     void *mlx;
     void *win;
     void *img; // Aggiungi questa variabile per l'immagine buffer
@@ -40,7 +41,7 @@ int mandelbrot(double real, double imag);
 void init_fractal(t_fractal *fractal, char *type);
 int julia(double real, double imag, double julia_re, double julia_im);
 int burningship(double real, double imag, int max_iter);
-int close_window(void *param);
+//int close_window(void *param);
 void display_usage(void);
 void	show_diaplay(t_fractal *fractal);
 /* void draw_julia(t_fractal *fractal);
@@ -48,10 +49,15 @@ void draw_sierpinski(t_fractal *fractal);
 void draw_mandelbrot(t_fractal *fractal); */
 void draw_fractal(t_fractal *fractal, int flag);
 int choose_fractal(t_fractal *fractal, char *type);
-int get_color (int iterations);
+//int get_color (int iterations);
 void execute_fractal(t_fractal *fractal);
 void init_image(t_fractal *fractal, char *type);
 void c_julia(t_fractal *fractal, char **type);
+int get_color(int iterations, int shift_color);
+int close_window(t_fractal *fractal);
+void free_split(char **arr);
+double parse_julia_value(char *str);
+int sierpinski (double real, double imag, int max_iter);
 //int	ft_strcmp(const char *s1, const char *s2);
 /* void	ft_strlcpy(char *dst, const char *src);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
