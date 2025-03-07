@@ -19,12 +19,12 @@ void init_fractal(t_fractal *fractal, char *type)
         fractal->min_im = -1.5;
         fractal->max_im = 1.5;
     }
-    else if (ft_strncmp(type, "sierpinski", 10) == 0)
+    else if (ft_strncmp(type, "cantor", 6) == 0)
     {
-        fractal->min_re = -1.0;
+        fractal->min_re = 0.0;
         fractal->max_re = 1.0;
-        fractal->min_im = -1.0;
-        fractal->max_im = 1.0;
+        fractal->min_im = 0.0;
+        fractal->max_im = 0.0;
     }
     else
     {
@@ -116,10 +116,11 @@ void zoom(void *param, int x, int y, double zoom_factor)
     ft_printf("Zoom at (%d, %d) with factor %f\n", x, y, zoom_factor);
 }
 
-int key_hook(int keycode, t_fractal *fractal, int iterations)
+/* int key_hook(int keycode, t_fractal *fractal, int iterations)
 {
-   // int color;
+    int color;
     int flag;
+    //int color;
 
     if (keycode == 65307)
     {
@@ -128,16 +129,50 @@ int key_hook(int keycode, t_fractal *fractal, int iterations)
     }
     if (keycode == 65505)
     {
+        ft_printf(" keycode = %d\n", keycode);
         flag = choose_fractal(fractal, fractal->type);
         fractal->color_mode++;
-        iterations = iterations % 256;
-        fractal->color_mode = get_color(iterations, fractal->color_mode);
-        ft_printf("color: %d\n", fractal->color_mode);
+        if(fractal->color_mode == 7)
+            fractal->color_mode = 0;
+        //ft_printf("color: %d\n", fractal->color_mode);
+        color = iterations;
+        color = get_color(iterations, fractal->color_mode) % 128;
+        //fractal->color_mode = get_color(iterations, fractal->color_mode);
+        ft_printf("fractal_color_mode: %d\n", fractal->color_mode);
         mlx_clear_window(fractal->mlx, fractal->win);
         draw_fractal(fractal, flag);
         //mlx_clear_window(fractal->mlx, fractal->win);
         //mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
         ft_printf(" shift key pressed\n");
+        
+    }
+    return (0);
+} */
+
+int key_hook(int keycode, t_fractal *fractal)
+{
+    int flag;
+
+    if (keycode == 65307)  // Tasto ESC
+    {
+        free_fractal(fractal);
+        exit(0);
+    }
+    if (keycode == 65505)  // Tasto Shift sinistro
+    {
+        ft_printf("Shift key pressed\n");
+
+        // Cambia la modalità colore
+        fractal->color_mode++;
+        if (fractal->color_mode == 7)
+            fractal->color_mode = 0;
+
+        ft_printf("Color mode: %d\n", fractal->color_mode);
+
+        // Ridisegna il frattale
+        mlx_clear_window(fractal->mlx, fractal->win);
+        flag = choose_fractal(fractal, fractal->type);
+        draw_fractal(fractal, flag);
     }
     return (0);
 }
@@ -150,7 +185,7 @@ int choose_fractal(t_fractal *fractal, char *type)
     fractal->type = type;
     if (ft_strncmp(fractal->type, "mandelbrot", 10) == 0)
         fractal_flag = 1;
-    else if (ft_strncmp(fractal->type, "sierpinski", 10) == 0)
+    else if (ft_strncmp(fractal->type, "cantor", 6) == 0)
         fractal_flag = 3;
     else if (ft_strncmp(fractal->type, "julia", 5) == 0)
         fractal_flag = 2;
@@ -183,7 +218,7 @@ void init_image(t_fractal *fractal, char *type)
         display_usage();
 }
 
-int get_color(int iterations, int shift_color)
+/* int get_color(int iterations, int shift_color)
 {
     //static int color_shift;
     //int color;
@@ -210,43 +245,43 @@ int get_color(int iterations, int shift_color)
         return (iterations << 16) | (iterations);  // Rosso + Blu
     else
         return (0xFFFFFF);  // Bianco (default)
-    /*
+
     // Aggiorna il color_shift
     color_shift = (color_shift + shift_color) % 6;
 
     // Calcola il colore in base al color_shift con effetti psichedelici
-    switch (color_shift)
-    {
-        case 0: 
-            color = (int)((sin(t) * 127 + 128)) << 16;  // Rosso dinamico
-            break;
-        case 1: 
-            color = (int)((sin(t + 2) * 127 + 128)) << 8;  // Verde dinamico
-            break;
-        case 2: 
-            color = (int)((sin(t + 4) * 127 + 128));  // Blu dinamico
-            break;
-        case 3: 
-            color = ((int)((sin(t) * 127 + 128)) << 16) | 
-                    ((int)((sin(t + 2) * 127 + 128)) << 8);  // Rosso + Verde
-            break;
-        case 4: 
-            color = ((int)((sin(t + 2) * 127 + 128)) << 8) | 
-                    ((int)((sin(t + 4) * 127 + 128)));  // Verde + Blu
-            break;
-        case 5: 
-            color = ((int)((sin(t) * 127 + 128)) << 16) | 
-                    ((int)((sin(t + 4) * 127 + 128)));  // Rosso + Blu
-            break;
-        default: 
-            color = 0xFFFFFF;  // Bianco (default)
-            break;
-    }
-
-    // Stampa il colore (opzionale, per debug)
-    printf("color: 0x%06X\n", color);
+    
+}
  */
-    //return (color);
+
+ #include <math.h>
+
+int get_color(int iterations, int shift_color)
+{
+    double t;
+    int r;
+    int g;
+    int b;
+
+    t = (double)iterations / 10.0;  // Normalizza le iterazioni
+    if (iterations == MAX_ITER)
+        return (0x000000);
+    else
+    {
+        r = (int)((sin(t + 10 * shift_color) * 127 + 128));
+        g = (int)((sin(t + 10 * shift_color + 2) * 127 + 128));
+        b = (int)((sin(t + 10 * shift_color + 4) * 127 + 128));
+        return(effect_psychedelic(r, g, b));
+    }
+}
+
+int effect_psychedelic(int r, int g, int b)
+{
+   // int r_psychedelic;
+    //int g_psychedelic;
+    //int b_psychedelic;
+    return((r * 65536) + (g * 256) + b);
+
 }
 
 int mouse_hook(int button, int x, int y, void *param, int flag)
@@ -281,11 +316,10 @@ static int compute_fractal(t_fractal *fractal, int x, int y, int flag)
     if (flag == 2)
         return (julia(real, imag, fractal->julia_re, fractal->julia_im));
     if (flag == 3)
-        return (sierpinski(real, imag, MAX_ITER));
+        return (is_in_cantor(fractal->min_re, fractal->max_re  , 0));
     return (0);
 }
-
-void draw_fractal(t_fractal *fractal, int flag)
+/* void draw_fractal(t_fractal *fractal, int flag)
 {
     int x, y, k;
 
@@ -301,8 +335,36 @@ void draw_fractal(t_fractal *fractal, int flag)
         }
     }
     execute_fractal(fractal);
-}
+} */
+void draw_fractal(t_fractal *fractal, int flag)
+{
+    int x, y, k;
 
+    init_image(fractal, fractal->type);
+    x = -1;
+    while (++x < WIDTH)
+    {
+        y = -1;
+        while (++y < HEIGHT)
+        {
+            // Calcola il valore del frattale
+            k = compute_fractal(fractal, x, y, flag);
+
+            // Se il numero di iterazioni è 0, colore nero
+        
+                //fractal->data[y * WIDTH + x] = 0x000000;  // Nero
+        
+                // Applica l'effetto psichedelico
+                if (flag == 3 && k == 0)
+                    fractal->data[y * WIDTH + x] = 0x000000;
+               // else if (flag == 3 && k != 0)
+                //fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
+                fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
+            
+        }
+    }
+    execute_fractal(fractal);
+}
 void execute_fractal(t_fractal *fractal)
 {
     mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);

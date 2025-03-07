@@ -38,21 +38,21 @@ int julia(double real, double imag, double julia_re, double julia_im)
     return i;
 }
 
-int sierpinski (double real, double imag, int max_iter)
+bool is_in_cantor(double min_re, double max_re, int level)
 {
-    double z_real = 0.0;
-    double z_imag = 0.0;
-    double c_real = real;
-    double c_imag = imag;
-    int i = 0;
-    while (i < max_iter)
-    {
-        double temp_real = z_real;
-        z_real = z_real * z_real - z_imag * z_imag + c_real;
-        z_imag = 2 * temp_real * z_imag + c_imag;
-        if (z_real * z_real + z_imag * z_imag > 4)
-            break;
-        i++;
-    }
-    return i;
+    if (level == MAX_ITER)
+        return true;
+
+    // Divide l'intervallo [0, 1] in tre parti
+    double third = (max_re - min_re) / 3.0;
+
+    // Se il punto è nel terzo centrale, non appartiene all'insieme di Cantor
+    if (min_re >= third && min_re <= 2 * third)
+        return false;
+
+    // Altrimenti, verifica i due segmenti laterali
+    if (min_re < third)
+        return is_in_cantor(min_re * 3, min_re * 3 + third, level + 1);
+    else
+        return is_in_cantor((min_re - 2 * third) * 3, (min_re - 2 * third) * 3 + third, level + 1);
 }

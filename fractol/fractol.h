@@ -5,6 +5,7 @@
 #include "ft_printf/ft_printf.h"
 #include "ft_printf/libft/libft.h"
 #include <complex.h>
+#include <stdbool.h>
 
 /* #include <stdio.h>
 #include <math.h> */
@@ -33,7 +34,8 @@ typedef struct s_fractal
     int endian;
 } t_fractal;
 
-int key_hook(int keycode, t_fractal *fractal, int iterations);
+//int key_hook(int keycode, t_fractal *fractal, int iterations);
+int key_hook(int keycode, t_fractal *fractal);
 int mouse_hook(int button, int x, int y, void *param, int flag);
 void zoom(void *param, int x, int y, double zoom_factor);
 //void draw_fractal(t_fractal *fractal);
@@ -56,8 +58,9 @@ int get_color(int iterations, int shift_color);
 int close_window(t_fractal *fractal);
 void free_split(char **arr);
 double parse_julia_value(char *str);
-int sierpinski (double real, double imag, int max_iter);
 void free_fractal(t_fractal *fractal);
+int effect_psychedelic(int r, int g, int b);
+bool is_in_cantor(double min_re, double max_re, int level);
 //int	ft_strcmp(const char *s1, const char *s2);
 /* void	ft_strlcpy(char *dst, const char *src);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
