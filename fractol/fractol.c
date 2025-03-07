@@ -42,6 +42,7 @@ void init_fractal(t_fractal *fractal, char *type)
     fractal->bpp = 0;
     fractal->size_line = 0;
     fractal->endian = 0;
+   //free(type);////////////////////
 }
 
 void free_split(char **arr)
@@ -117,7 +118,9 @@ void zoom(void *param, int x, int y, double zoom_factor)
 
 int key_hook(int keycode, t_fractal *fractal, int iterations)
 {
-    int color;
+   // int color;
+    int flag;
+
     if (keycode == 65307)
     {
         free_fractal(fractal);
@@ -125,8 +128,15 @@ int key_hook(int keycode, t_fractal *fractal, int iterations)
     }
     if (keycode == 65505)
     {
-        color = iterations % 256;
-        get_color(iterations, color);
+        flag = choose_fractal(fractal, fractal->type);
+        fractal->color_mode++;
+        iterations = iterations % 256;
+        fractal->color_mode = get_color(iterations, fractal->color_mode);
+        ft_printf("color: %d\n", fractal->color_mode);
+        mlx_clear_window(fractal->mlx, fractal->win);
+        draw_fractal(fractal, flag);
+        //mlx_clear_window(fractal->mlx, fractal->win);
+        //mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
         ft_printf(" shift key pressed\n");
     }
     return (0);
@@ -149,38 +159,94 @@ int choose_fractal(t_fractal *fractal, char *type)
     return (fractal_flag);
 }
 
+void init_image(t_fractal *fractal, char *type)
+{
+    int fractal_flag;
+
+    fractal_flag = choose_fractal(fractal, type);
+    if (fractal_flag == 1 || fractal_flag == 2 || fractal_flag == 3)
+    {
+        if (!fractal->mlx)
+        {
+            //fractal->mlx = malloc(sizeof(void *));
+            fractal->mlx = mlx_init();
+            fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractal");
+        }
+        if (!fractal->img)
+        {
+            fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
+            fractal->data = (int *)mlx_get_data_addr(fractal->img, \
+                &fractal->bpp, &fractal->size_line, &fractal->endian);
+        }
+    }
+    else
+        display_usage();
+}
+
 int get_color(int iterations, int shift_color)
 {
-        static int color_shift;
-        int color;
-
-        color_shift = shift_color;
-        if (iterations == 0)
-            return (0x000000);
-
-        color_shift = (color_shift + 1) % 6;
+    //static int color_shift;
+    //int color;
+    //double t;
     
-        switch (color_shift) {
-            case 0:
-                color = iterations * 0xFF0000;
-                break;
-            case 1:
-                color = iterations * 0x00FF00;
-                break;
-            case 2:
-                color = iterations * 0x0000FF;
-                break;
-            case 3:
-                color = iterations * 0xFF00FF;
-                break;
-            case 4:
-                color = iterations * 0xFFFF00;
-                break;
-            case 5:
-                color = iterations * 0x00FFFF;
-                break;
-        }
-        return (color);
+    //color_shift = 0;
+    //t = (double)iterations / 100.0;  // Normalizza le iterazioni
+
+    if (iterations == 0)
+        return (0x000000);  // Nero se non ci sono iterazioni
+    if(shift_color == 0)
+        return (iterations << 16) | (iterations << 8) | iterations;  // Scala di grigi
+    else if(shift_color == 1)
+        return (iterations << 16);  // Scala di rossi
+    else if(shift_color == 2)
+        return (iterations << 8);  // Scala di verdi
+    else if(shift_color == 3)
+        return (iterations);  // Scala di blu
+    else if(shift_color == 4)
+        return (iterations << 16) | (iterations << 8);  // Rosso + Verde
+    else if(shift_color == 5)
+        return (iterations << 8) | (iterations);  // Verde + Blu
+    else if(shift_color == 6)
+        return (iterations << 16) | (iterations);  // Rosso + Blu
+    else
+        return (0xFFFFFF);  // Bianco (default)
+    /*
+    // Aggiorna il color_shift
+    color_shift = (color_shift + shift_color) % 6;
+
+    // Calcola il colore in base al color_shift con effetti psichedelici
+    switch (color_shift)
+    {
+        case 0: 
+            color = (int)((sin(t) * 127 + 128)) << 16;  // Rosso dinamico
+            break;
+        case 1: 
+            color = (int)((sin(t + 2) * 127 + 128)) << 8;  // Verde dinamico
+            break;
+        case 2: 
+            color = (int)((sin(t + 4) * 127 + 128));  // Blu dinamico
+            break;
+        case 3: 
+            color = ((int)((sin(t) * 127 + 128)) << 16) | 
+                    ((int)((sin(t + 2) * 127 + 128)) << 8);  // Rosso + Verde
+            break;
+        case 4: 
+            color = ((int)((sin(t + 2) * 127 + 128)) << 8) | 
+                    ((int)((sin(t + 4) * 127 + 128)));  // Verde + Blu
+            break;
+        case 5: 
+            color = ((int)((sin(t) * 127 + 128)) << 16) | 
+                    ((int)((sin(t + 4) * 127 + 128)));  // Rosso + Blu
+            break;
+        default: 
+            color = 0xFFFFFF;  // Bianco (default)
+            break;
+    }
+
+    // Stampa il colore (opzionale, per debug)
+    printf("color: 0x%06X\n", color);
+ */
+    //return (color);
 }
 
 int mouse_hook(int button, int x, int y, void *param, int flag)
@@ -253,27 +319,7 @@ int close_window(t_fractal *fractal)
     return (0);
 }
 
-void init_image(t_fractal *fractal, char *type)
-{
-    int fractal_flag;
 
-    fractal_flag = choose_fractal(fractal, type);
-    if (fractal_flag == 1 || fractal_flag == 2 || fractal_flag == 3)
-    {
-        if (!fractal->mlx)
-        {
-            fractal->mlx = mlx_init();
-            fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, fractal->type);
-        }
-        if (!fractal->img)
-        {
-            fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
-            fractal->data = (int *)mlx_get_data_addr(fractal->img, &fractal->bpp, &fractal->size_line, &fractal->endian);
-        }
-    }
-    else
-        display_usage();
-}
 
 void free_fractal(t_fractal *fractal)
 {
