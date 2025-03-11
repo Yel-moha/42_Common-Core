@@ -38,21 +38,33 @@ int julia(double real, double imag, double julia_re, double julia_im)
     return i;
 }
 
-bool is_in_cantor(double min_re, double max_re, int level)
+#include <stdio.h>
+#include <math.h>
+
+void is_in_cantor(t_fractal *fractal)
 {
-    if (level == MAX_ITER)
-        return true;
+    int segment_size;
+    int level;
+    int i;
+    int y;
 
-    // Divide l'intervallo [0, 1] in tre parti
-    double third = (max_re - min_re) / 3.0;
-
-    // Se il punto è nel terzo centrale, non appartiene all'insieme di Cantor
-    if (min_re >= third && min_re <= 2 * third)
-        return false;
-
-    // Altrimenti, verifica i due segmenti laterali
-    if (min_re < third)
-        return is_in_cantor(min_re * 3, min_re * 3 + third, level + 1);
-    else
-        return is_in_cantor((min_re - 2 * third) * 3, (min_re - 2 * third) * 3 + third, level + 1);
+    level = 0;
+    y = 0;
+    while (level < 5) // Limit the recursion depth
+    {
+        segment_size = WIDTH / pow(3, level);
+        i = 0;
+        while (i < WIDTH)
+        {
+            if ((i / segment_size) % 3 == 1) // Middle third
+            {
+                int j = y + level * 50; // Space between lines
+                if (j < HEIGHT)
+                    fractal->data[j * WIDTH + i] = get_color(0, fractal->color_mode);
+            }
+            i++;
+        }
+        level++;
+    }
+    execute_fractal(fractal);
 }

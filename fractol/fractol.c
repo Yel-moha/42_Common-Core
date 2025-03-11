@@ -19,13 +19,13 @@ void init_fractal(t_fractal *fractal, char *type)
         fractal->min_im = -1.5;
         fractal->max_im = 1.5;
     }
-    else if (ft_strncmp(type, "cantor", 6) == 0)
+ /*    else if (ft_strncmp(type, "cantor", 6) == 0)
     {
         fractal->min_re = 0.0;
         fractal->max_re = 1.0;
         fractal->min_im = 0.0;
         fractal->max_im = 0.0;
-    }
+    } */
     else
     {
         display_usage();
@@ -185,8 +185,8 @@ int choose_fractal(t_fractal *fractal, char *type)
     fractal->type = type;
     if (ft_strncmp(fractal->type, "mandelbrot", 10) == 0)
         fractal_flag = 1;
-    else if (ft_strncmp(fractal->type, "cantor", 6) == 0)
-        fractal_flag = 3;
+  /*   else if (ft_strncmp(fractal->type, "cantor", 6) == 0)
+        fractal_flag = 3; */
     else if (ft_strncmp(fractal->type, "julia", 5) == 0)
         fractal_flag = 2;
     else
@@ -199,7 +199,8 @@ void init_image(t_fractal *fractal, char *type)
     int fractal_flag;
 
     fractal_flag = choose_fractal(fractal, type);
-    if (fractal_flag == 1 || fractal_flag == 2 || fractal_flag == 3)
+    //if (fractal_flag == 1 || fractal_flag == 2 || fractal_flag == 3)
+    if (fractal_flag == 1 || fractal_flag == 2)
     {
         if (!fractal->mlx)
         {
@@ -315,8 +316,13 @@ static int compute_fractal(t_fractal *fractal, int x, int y, int flag)
         return (mandelbrot(real, imag));
     if (flag == 2)
         return (julia(real, imag, fractal->julia_re, fractal->julia_im));
-    if (flag == 3)
-        return (is_in_cantor(fractal->min_re, fractal->max_re  , 0));
+    /* if (flag == 3)
+    {
+       // real = fractal->min_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
+       // imag = fractal->max_re + (double)x / WIDTH * (fractal->max_re - fractal->min_re);
+        //return (is_in_cantor(x, y));
+        ;
+    } */
     return (0);
 }
 /* void draw_fractal(t_fractal *fractal, int flag)
@@ -342,27 +348,22 @@ void draw_fractal(t_fractal *fractal, int flag)
 
     init_image(fractal, fractal->type);
     x = -1;
-    while (++x < WIDTH)
-    {
-        y = -1;
-        while (++y < HEIGHT)
+ /*    if(flag == 3)
+        is_in_cantor(fractal);
+    else
+    { */
+        while (++x < WIDTH)
         {
-            // Calcola il valore del frattale
-            k = compute_fractal(fractal, x, y, flag);
-
-            // Se il numero di iterazioni è 0, colore nero
-        
-                //fractal->data[y * WIDTH + x] = 0x000000;  // Nero
-        
-                // Applica l'effetto psichedelico
-                if (flag == 3 && k == 0)
-                    fractal->data[y * WIDTH + x] = 0x000000;
-               // else if (flag == 3 && k != 0)
-                //fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
+            y = -1;
+            while (++y < HEIGHT)
+            {
+                k = compute_fractal(fractal, x, y, flag);
                 fractal->data[y * WIDTH + x] = get_color(k, fractal->color_mode);
-            
+                
+            }
         }
-    }
+    // }
+
     execute_fractal(fractal);
 }
 void execute_fractal(t_fractal *fractal)

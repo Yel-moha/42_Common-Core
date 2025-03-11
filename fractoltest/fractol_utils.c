@@ -5,7 +5,6 @@ void init_fractal(t_fractal *fractal)
     fractal->min_re = -2.0;
     fractal->max_re = 1.0;
     fractal->min_im = -1.2;
-    //fractal->min_im = -1.3075;
     fractal->max_im = 1.2;
     fractal->mlx = NULL;
     fractal->win = NULL;
@@ -16,9 +15,6 @@ int key_hook(int keycode, t_fractal *fractal)
 {
     if (keycode == 65307) // 65307 è il codice per il tasto ESC su macOS
     {
-        // Chiudi la finestra e esci dal programma
-        //void *mlx = ((void **)param)[0];
-        //void *win = ((void **)param)[1];
         mlx_destroy_image(fractal->mlx, fractal->img);
         mlx_destroy_window(fractal->mlx, fractal->win);
         mlx_destroy_display(fractal->mlx);
@@ -31,26 +27,22 @@ int key_hook(int keycode, t_fractal *fractal)
 
 int mouse_hook(int button, int x, int y, void *param)
 {
-   // t_fractal *fractal = (t_fractal *)param;
-    if (button == 1) // 1 è il codice per il click sinistro del mouse
+   t_fractal *fractal ;
+
+   fractal = (t_fractal *)param;
+    if (button == 5) // 4 è il codice per la rotellina del mouse su
     {
-        // Gestisci l'evento di click sinistro del mouse
-        // Ad esempio, puoi stampare le coordinate del click
-        printf("Mouse click at (%d, %d)\n", x, y);
-    }
-    else if (button == 4) // 4 è il codice per la rotellina del mouse su
-    {
-        //mlx_clear_window(fractal->mlx, fractal->win);
+        mlx_clear_window(fractal->mlx, fractal->win);
         // Chiama la funzione zoom per ingrandire
-       zoom(param, x, y, 1.3); // 1.1 è il fattore di zoom per ingrandire
+       zoom(param, x, y, 2.0); // 1.1 è il fattore di zoom per ingrandire
       // draw_fractal(fractal);
     }
-    else if (button == 5) // 5 è il codice per la rotellina del mouse giù
+    else if (button == 4) // 5 è il codice per la rotellina del mouse giù
     {
-        //mlx_clear_window(fractal->mlx, fractal->win);
+        mlx_clear_window(fractal->mlx, fractal->win);
         
         // Chiama la funzione zoom per ridurre
-      zoom(param, x, y, 0.7); // 0.9 è il fattore di zoom per ridurre
+      zoom(param, x, y, 0.5); // 0.9 è il fattore di zoom per ridurre
       //draw_fractal(fractal);
     }
    /*  else
@@ -121,13 +113,13 @@ void draw_fractal(t_fractal *fractal)
                 // scala grigi
                 //mlx_pixel_put(fractal->mlx, fractal->win, x, y, 3*k * 0x010101);
                 //psyco color
-                int red = (int)(255 * sin(0.1 * k));
+                /* int red = (int)(255 * sin(0.1 * k));
                 int green = (int)(255 * sin(0.1 * k + 2));
                 int blue = (int)(255 * sin(0.1 * k + 4));
-                int color = (red << 16) | (green << 8) | blue;
+                int color = (red << 16) | (green << 8) | blue; */
                 
-                //fractal->data[y * WIDTH + x] = k * 0x010101;
-                fractal->data[y * WIDTH + x] = color;
+                fractal->data[y * WIDTH + x] = k * 0x010101;
+                //fractal->data[y * WIDTH + x] = color;
             }
             y++;
         }

@@ -5,7 +5,7 @@
 #include <complex.h>
 
 #include <stdio.h>
-#include <math.h>
+//#include <math.h>
 #include <stdlib.h>
 
 #define WIDTH 800

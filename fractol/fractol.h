@@ -60,7 +60,7 @@ void free_split(char **arr);
 double parse_julia_value(char *str);
 void free_fractal(t_fractal *fractal);
 int effect_psychedelic(int r, int g, int b);
-bool is_in_cantor(double min_re, double max_re, int level);
+//void is_in_cantor(t_fractal *fractal);
 //int	ft_strcmp(const char *s1, const char *s2);
 /* void	ft_strlcpy(char *dst, const char *src);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
