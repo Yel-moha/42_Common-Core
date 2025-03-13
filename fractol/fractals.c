@@ -40,7 +40,7 @@ int julia(double real, double imag, double julia_re, double julia_im)
 
 #include <stdio.h>
 #include <math.h>
-
+/* 
 void is_in_cantor(t_fractal *fractal)
 {
     int segment_size;
@@ -67,4 +67,4 @@ void is_in_cantor(t_fractal *fractal)
         level++;
     }
     execute_fractal(fractal);
-}
+} */

@@ -17,7 +17,9 @@ int main(int argc, char **argv)
     }
     fractal = (t_fractal *)malloc(sizeof(t_fractal));
     if (!fractal)
-        return 1;
+	{
+		return (1);
+	}	
 	init_fractal(fractal, argv[1]);
 	if(argc == 4)	
 		c_julia(fractal, argv);

@@ -22,13 +22,13 @@ FT_FLAGS = -L$(FT_DIR) -lft
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
+$(NAME): $(OBJS) $(LIBFT) $(MLX) $(FT)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) $(FT_FLAGS) -o $(NAME)
 
 $(FT):
 	$(MAKE) -C $(FT_DIR)
 
-$(LIBFT):
+$(LIBFT): $(FT)
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
