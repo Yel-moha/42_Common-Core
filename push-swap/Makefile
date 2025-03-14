@@ -1,14 +1,13 @@
-################################################
-
 NAME = push_swap
 
-SRCS = push_swap.c main.c
+SRCS = main.c input_utils.c validation_utils.c matrix_utils.c \
+       swap_moves.c push_moves.c rotate_moves.c 
+#moves_bonus.c
+
 OBJS = $(SRCS:.c=.o)
 
 CC = clang
-#CFLAGS = -Wall -Wextra -Werror -g # -g per debug gdb
 CFLAGS = -Wall -Wextra -Werror -g -Ift_printf/libft
-
 
 LIBFT_DIR = ft_printf
 LIBFT = $(LIBFT_DIR)/libftprintf.a
@@ -17,12 +16,6 @@ LIBFT_FLAGS = -L$(LIBFT_DIR) -lftprintf
 FT_DIR = ft_printf/libft
 FT = $(FT_DIR)/libft.a
 FT_FLAGS = -L$(FT_DIR) -lft
-
-#MLX_DIR = minilibx-linux
-#MLX = $(MLX_DIR)/libmlx_linux.a
-#MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
-
-
 
 all: $(NAME)
 
