@@ -23,14 +23,26 @@ static void push(int *src, int *dst, int *size_src, int *size_dst)
     (*size_src)--;
 }
 
+//////////////////
+
 void pa(t_stack *stack)
 {
+    if (stack->size_b == 0)
+        return ;
     push(stack->b, stack->a, &stack->size_b, &stack->size_a);
     ft_printf("pa\n");
+    stack->moves++;
 }
 
 void pb(t_stack *stack)
 {
+    if (stack->size_a == 0)
+        return ;
     push(stack->a, stack->b, &stack->size_a, &stack->size_b);
     ft_printf("pb\n");
+    stack->moves++;
 }
+
+
+//////////////////
+

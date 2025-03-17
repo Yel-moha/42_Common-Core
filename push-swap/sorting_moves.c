@@ -1,119 +1,47 @@
 #include "push_swap.h"
 
-// swap primi 2 elementi dello stack
-static void swap(int *stack, int size)
-{
-    int temp;
-
-    if (size < 2)
-        return ;
-    temp = stack[0];
-    stack[0] = stack[1];
-    stack[1] = temp;
-}
-
-void sa(t_stack *stack)
-{
-    swap(stack->a, stack->size_a);
-    ft_printf("sa\n");
-}
-
-void sb(t_stack *stack)
-{
-    swap(stack->b, stack->size_b);
-}
-
-void ss(t_stack *stack)
-{
-    sa(stack);
-    sb(stack);
-}
-
-// push: sposta il primo elemento da stack src a stack dst
-static void push(int *src, int *dst, int *size_src, int *size_dst)
+int sort_from_matrix(t_stack *stack, int **M)
 {
     int i;
+    int target_pos;
+    int num_moves;
 
-    if (*src == 0)
-        return ;
-    i = ++(*size_dst);
-    while (--i > 0)
-        dst[i] = dst[i - 1];
-    dst[0] = src[0];
     i = 0;
-    while (++i < *size_src)
-        src[i - 1] = src[i];
-    (*size_src)--;
-}
-
-void pa(t_stack *stack)
-{
-    push(stack->b, stack->a, &(stack->size_b), &(stack->size_a));
-}
-
-void pb(t_stack *stack)
-{
-    push(stack->a, stack->b, &(stack->size_a), &(stack->size_b));
-}
-
-// rotate: primo elemento diventa ultimo
-static void rotate(int *stack, int size)
-{
-    int tmp;
-    int i;
-
-    if (size < 2)
-        return ;
-    tmp = stack[0];
-    i = 0;
-    while (++i < size)
-        stack[i - 1] = stack[i];
-    stack[size - 1] = tmp;
-}
-
-void ra(t_stack *stack)
-{
-    rotate(stack->a, stack->size_a);
-}
-
-void rb(t_stack *stack)
-{
-    rotate(stack->b, stack->size_b);
-}
-
-void rr(t_stack *stack)
-{
-    ra(stack);
-    rb(stack);
-}
-
-// reverse rotate: ultimo elemento diventa primo
-static void reverse_rotate(int *stack, int size)
-{
-    int tmp;
-    int i;
-
-    if (size < 2)
-        return ;
-    tmp = stack[size - 1];
-    i = size;
-    while (--i > 0)
-        stack[i] = stack[i - 1];
-    stack[0] = tmp;
-}
-
-void rra(t_stack *stack)
-{
-    reverse_rotate(stack->a, stack->size_a);
-}
-
-void rrb(t_stack *stack)
-{
-    reverse_rotate(stack->b, stack->size_b);
-}
-
-void rrr(t_stack *stack)
-{
-    rra(stack);
-    rrb(stack);
+    num_moves = 0;
+    while (i < stack->size_a)
+    {
+        target_pos = 0;
+        while (target_pos < stack->size_a && M[i][target_pos] != 1)
+            target_pos++;
+        
+        if (target_pos != i)
+        {
+            pb(stack);  // Metto temporaneamente l'elemento su B
+            // Porto elemento in posizione target_pos in cima a A
+            num_moves++;
+            while (target_pos--)
+            {
+                ra(stack);
+                num_moves++;
+            }
+            pa(stack); // Rimetto l'elemento nella posizione giusta
+            num_moves++;
+            // Ripristino ordine iniziale degli elementi sopra
+            while (++target_pos < i)
+            {
+                rra(stack);
+                num_moves++;
+            }
+        }
+        else
+        {
+            ra(stack);  // Elemento già ordinato, passo avanti.
+            num_moves++;
+        }
+            ra(stack);  // Elemento già ordinato, passo avanti.
+            num_moves++;
+        
+        i++;
+    }
+    return (num_moves);
 }

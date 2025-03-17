@@ -1,8 +1,8 @@
 NAME = push_swap
 
 SRCS = main.c input_utils.c validation_utils.c matrix_utils.c \
-       swap_moves.c push_moves.c rotate_moves.c 
-#moves_bonus.c
+    swap_moves.c push_moves.c rotate_moves.c  \
+	math_sort.c #moves_bonus.c sorting_moves.c chunk_sort.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -10,35 +10,39 @@ int check_input(char *argv)
     while (argv[j])
     {
         if (!ft_isdigit(argv[j]))
+        {
+            ft_putstr_fd("Error\n", 1);
             return (0);
+        }
         j++;
     }
     return (1);
 }
 
-int *inputs_array(int argc, char **argv)
+int *inputs_array(int argc, char **argv, t_stack *stack)
 {
-    int *array;
+  //  int *array;
     int i;
     int idx;
 
-    array = malloc(sizeof(int) * (argc - 1));
-    if (!array)
-        return (NULL);
+  //  array = malloc(sizeof(int) * (argc - 1));
+  //stack->sorted = malloc(sizeof(int) * (argc - 1));
+   // if (!stack->sorted)
+    //   return (NULL);
     i = argc - 1;
     idx = 0;
     while (i > 0)
     {
         if (!check_input(argv[i]))
         {
-            free(array);
+            free(stack->sorted);
             return (NULL);
         }
-        array[idx] = ft_atoi(argv[i]);
+        stack->sorted[idx] = ft_atoi(argv[i]);
         i--;
         idx++;
     }
-    return (array);
+    return (stack->sorted);
 }
 
 /* void init_stack(t_stack *stack, int argc)
@@ -58,20 +62,24 @@ int *inputs_array(int argc, char **argv)
 void take_input(int argc, char **argv, t_stack *stack)
 {
     init_stack(stack, argc);
-    stack->a = inputs_array(argc, argv);
+    stack->a = malloc(sizeof(int) * (argc - 1));
     stack->b = malloc(sizeof(int) * (argc - 1));
-    if (!stack->a || !stack->b)
+    stack->sorted = malloc(sizeof(int) * (argc - 1));
+    if (!stack->a || !stack->b || !stack->sorted)
     {
         free(stack->a);
         free(stack->b);
+        free(stack->sorted);
         exit(1);
     }
+    stack->a = inputs_array(argc, argv, stack);
 }
 
 void init_stack(t_stack *stack, int argc)
 {
     stack->size_a = argc - 1;
     stack->size_b = 0;
+    stack->moves = 0;
     stack->a = NULL;
     stack->b = NULL;
 }
