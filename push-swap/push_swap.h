@@ -14,6 +14,8 @@ typedef struct s_stack
     int size_b;
     int size;
     int *sorted;
+    int **M;
+    int cost;
     int moves;
 } t_stack;
 

@@ -8,6 +8,7 @@ static int *create_lookup_table(int *sorted, int size)
 {
     int *lookup;
     int i;
+    int max_value = sorted[size - 1];  // Dato che sorted è ordinato
 
     if (!sorted)
     {
@@ -15,13 +16,13 @@ static int *create_lookup_table(int *sorted, int size)
         exit(1);
     }
 
-    lookup = malloc(sizeof(int) * 1000); // 🔧 Usa un array più grande per mappare numeri grandi
+    lookup = malloc(sizeof(int) * (max_value + 1));
     if (!lookup)
         exit(1);
 
     // Inizializza lookup con valori fuori dai limiti
     i = 0;
-    while (i < 1000)  // 🔧 Settiamo tutto a -1 per evitare errori di accesso
+    while (i <= max_value)  // Fix: include max_value nell'inizializzazione
     {
         lookup[i] = -1;
         i++;
@@ -31,83 +32,71 @@ static int *create_lookup_table(int *sorted, int size)
     i = 0;
     while (i < size)
     {
-        lookup[sorted[i]] = i; // 🔧 Mappa i numeri reali a un intervallo da 0 a size-1
+        lookup[sorted[i]] = i;
         i++;
     }
     return (lookup);
 }
 
-
-
-/* static void write_matrix_ones(int **M, t_stack *stack, int *lookup)
+static void write_matrix_ones(int **M, t_stack *stack, int *lookup)
 {
     int i;
     int index;
 
-    if (!M || !stack || !lookup || stack->size_a <= 0)
+    if (!M || !stack || !lookup)  // Fix: aggiungi controlli null pointer
+    {
+        ft_printf("❌ Errore: puntatori nulli in write_matrix_ones!\n");
         exit(1);
-
-    i = 0;
-    while (i < stack->size_a)
-    {
-        if (stack->a[i] < 0 || stack->a[i] >= stack->size_a)
-            exit(1);
-            
-        index = lookup[stack->a[i]];
-        
-        if (index < 0 || index >= stack->size_a)
-            exit(1);
-        
-        M[i][index] = 1;
-        matrix_operations++;
-        i++;
     }
-}
- */
-
- static void write_matrix_ones(int **M, t_stack *stack, int *lookup)
-{
-    int i;
-    int index;
 
     i = 0;
     while (i < stack->size_a)
     {
-        if (stack->a[i] < 0 || stack->a[i] >= 1000) // 🔧 Controllo input
+        if (stack->a[i] < 0 || stack->a[i] >= 1000)
         {
             ft_printf("❌ Errore: stack->a[%d] = %d fuori dai limiti!\n", i, stack->a[i]);
             exit(1);
         }
 
         index = lookup[stack->a[i]];
-        if (index == -1) // 🔧 Verifica se il numero esiste in `lookup[]`
+        if (index == -1)
         {
             ft_printf("❌ Errore: lookup[%d] non trovato!\n", stack->a[i]);
             exit(1);
         }
 
-        M[i][index] = 1; // 🟢 Ora l'operazione è sicura
+        if (index >= stack->size_a)  // Fix: verifica limiti dell'indice
+        {
+            ft_printf("❌ Errore: index %d fuori dai limiti!\n", index);
+            exit(1);
+        }
+
+        M[i][index] = 1;
+        matrix_operations++;  // Fix: incrementa il contatore
         i++;
     }
 }
 
-
-// Inizializza la matrice e la riempie con le permutazioni
 static void create_matrix(int **M, t_stack *stack, int *lookup)
 {
     int i;
+
+    if (!M || !stack || !lookup)  // Fix: aggiungi controlli null pointer
+    {
+        ft_printf("❌ Errore: puntatori nulli in create_matrix!\n");
+        exit(1);
+    }
 
     i = 0;
     while (i < stack->size_a)
     {
         ft_bzero(M[i], sizeof(int) * stack->size_a);
-        matrix_operations += stack->size_a;  // Conta la pulizia della riga
+        matrix_operations += stack->size_a;
         i++;
     }
     write_matrix_ones(M, stack, lookup);
 }
 
-// Alloca la matrice dinamicamente e la riempie
 int **made_matrix(t_stack *stack)
 {
     int **M;
@@ -145,11 +134,17 @@ int **made_matrix(t_stack *stack)
     free(lookup);
     return (M);
 }
-// Stampa la matrice per debug e il numero di operazioni usate
+
 void print_matrix(int **M, int size)
 {
     int i;
     int j;
+
+    if (!M || size <= 0)  // Fix: aggiungi controlli parametri
+    {
+        ft_printf("❌ Errore: parametri non validi in print_matrix!\n");
+        return;
+    }
 
     i = 0;
     while (i < size)

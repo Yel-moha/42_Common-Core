@@ -107,6 +107,7 @@ int main(int argc, char **argv)
 
     ft_printf("🔍 Inizializzazione stack...\n");
     take_input(argc, argv, &stack);
+   // stack.sorted = temp_order(&stack);
     
     ft_printf("🔍 Costruzione matrice...\n");
     M = made_matrix(&stack);
@@ -126,6 +127,13 @@ int main(int argc, char **argv)
     ft_printf("✅ Ordinamento completato!\n");
 
     free_all(&stack, M);
+    ft_printf("✅ Operazioni totali: %d\n", stack.moves);
+    ft_printf("✅ L'ordine finale è: ");
+    for (int i = 0; i < stack.size_a; i++)
+    {
+        ft_printf("%d ", stack.sorted[i]);
+    }
+    ft_printf("\n");
     return (0);
 }
 

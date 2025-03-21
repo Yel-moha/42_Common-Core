@@ -73,6 +73,8 @@ void take_input(int argc, char **argv, t_stack *stack)
         exit(1);
     }
     stack->a = inputs_array(argc, argv, stack);
+    check_duplicates(stack);
+        //check_int_overflow(stack);
 }
 
 void init_stack(t_stack *stack, int argc)
