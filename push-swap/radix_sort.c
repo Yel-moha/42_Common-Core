@@ -72,4 +72,6 @@ void radix_sort(t_stack *stack)
             pa(stack);
         i++;
     }
+    cycle_sort(stack);
+    ft_printf("Radix sort: %d operazioni\n", stack->moves);
 }

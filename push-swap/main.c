@@ -26,10 +26,10 @@ int main(int argc, char **argv)
     if (argc < 2)
         return (0);
     take_input(argc, argv, &stack);
-    if (stack.size_a <= 5)
+   // if (stack.size_a <= 5)
         cycle_sort(&stack);  // ottimo per ≤ 5 elementi
-    else
-        radix_sort(&stack);  // efficiente per ≥ 6 elementi
+  //  else
+   //     radix_sort(&stack);  // efficiente per ≥ 6 elementi
     free_all(&stack);
     return (0);
 }
