@@ -62,3 +62,16 @@ int *temp_order(t_stack *stack)
     return (temp);
 }
 
+int is_sorted(t_stack *stack)
+{
+    int i;
+
+    i = 0;
+    while (i < stack->size_a - 1)
+    {
+        if (stack->a[i] > stack->a[i + 1])
+            return (0); // ❌ Non ordinato
+        i++;
+    }
+    return (1); // ✅ Ordinato
+}

@@ -31,6 +31,7 @@ void init_stack(t_stack *stack, int argc);
 // Validazioni
 void    check_duplicates(t_stack *stack);
 void    check_int_overflow(t_stack *stack);
+int is_sorted(t_stack *stack);
 
 // Ordinamento e gestione array
 int     *temp_order(t_stack *stack);
@@ -62,4 +63,8 @@ void cycle_sort(t_stack *stack);
 
 
 
+#endif
+
+#ifdef DEBUG
+ft_printf("Operazioni totali: %d\n", stack->moves);
 #endif

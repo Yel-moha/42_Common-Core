@@ -152,6 +152,8 @@ void cycle_sort(t_stack *stack)
 {
     normalize_stack(stack);
     maybe_swap_top(stack);
+    if(is_sorted(stack))
+        return;
     while (stack->size_a > 3)
         pb(stack);
     sort_three(stack);

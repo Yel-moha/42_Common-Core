@@ -29,9 +29,11 @@ int *inputs_array(int argc, char **argv)
     if (!array)
         return (NULL);
 
-    i = argc - 1;
+    //i = argc - 1;
+    i = 1;
     idx = 0;
-    while (i > 0)
+   // while (i > 0)
+   while (i < argc)
     {
         if (!check_input(argv[i]))
         {
@@ -39,7 +41,8 @@ int *inputs_array(int argc, char **argv)
             return (NULL);
         }
         array[idx++] = ft_atoi(argv[i]);
-        i--;
+       // i--;
+       i++;
     }
     return (array);
 }

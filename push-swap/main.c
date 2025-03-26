@@ -27,7 +27,8 @@ int main(int argc, char **argv)
         return (0);
     take_input(argc, argv, &stack);
    // if (stack.size_a <= 5)
-        cycle_sort(&stack);  // ottimo per ≤ 5 elementi
+   //sort_three(&stack);
+    cycle_sort(&stack);  // ottimo per ≤ 5 elementi
   //  else
    //     radix_sort(&stack);  // efficiente per ≥ 6 elementi
     free_all(&stack);
