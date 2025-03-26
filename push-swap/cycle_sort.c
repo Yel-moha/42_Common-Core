@@ -130,8 +130,9 @@ static void smart_insert(t_stack *stack)
     int pos_a;
     int pos_b;
 
+
     pos_a = target_position(stack, stack->b[0]);
-    pos_b = 0;
+    pos_b = find_best_index(stack);
 
     if (pos_a == 0)
     {
