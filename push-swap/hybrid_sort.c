@@ -1,8 +1,11 @@
 #include "push_swap.h"
 
-// Trova la posizione dell'elemento minimo in a
+// Find the position of the minimum element in stack 'a'
 static int find_min_pos(t_stack *stack)
 {
+    if (!stack || stack->size_a <= 0)
+        return (-1);
+
     int i = 1;
     int min = stack->a[0];
     int pos = 0;
@@ -16,12 +19,15 @@ static int find_min_pos(t_stack *stack)
         }
         i++;
     }
-    return (pos);
+    return pos;
 }
 
-// Ordina esattamente 3 elementi in a
+// Sort exactly 3 elements in stack 'a'
 static void sort_three(t_stack *stack)
 {
+    if (!stack || stack->size_a != 3)
+        return;
+
     if (stack->a[0] > stack->a[1] && stack->a[1] < stack->a[2] && stack->a[0] < stack->a[2])
         sa(stack);
     else if (stack->a[0] > stack->a[1] && stack->a[1] > stack->a[2])
@@ -40,12 +46,15 @@ static void sort_three(t_stack *stack)
         rra(stack);
 }
 
-// Trova la posizione migliore per inserire un valore in a
-static int target_position(t_stack *stack, int value)
+// Find the best position to insert a value into stack 'a'
+/* static int target_position(t_stack *stack, int value)
 {
+    if (!stack || stack->size_a <= 0)
+        return -1;
+
     int i = 0;
     int best_pos = -1;
-    int min_diff = 2147483647;
+    int min_diff = INT_MAX;
     int diff;
 
     while (i < stack->size_a)
@@ -62,6 +71,7 @@ static int target_position(t_stack *stack, int value)
     if (best_pos != -1)
         return best_pos;
 
+    // If no valid position is found, return the position after the maximum element
     int max = stack->a[0];
     int max_pos = 0;
     i = 1;
@@ -76,8 +86,42 @@ static int target_position(t_stack *stack, int value)
     }
     return ((max_pos + 1) % stack->size_a);
 }
+ */
 
-// Calcola il costo di rotazione
+ static int target_position(t_stack *stack, int value)
+{
+    int i = 0;
+    int pos = -1;
+    int closest_bigger = INT_MAX;
+
+    while (i < stack->size_a)
+    {
+        if (stack->a[i] > value && stack->a[i] < closest_bigger)
+        {
+            closest_bigger = stack->a[i];
+            pos = i;
+        }
+        i++;
+    }
+
+    if (pos != -1)
+        return pos;
+
+    // Se nessuno è più grande, trova la posizione del numero più piccolo per inserire prima di esso
+    int smallest = INT_MAX;
+    int smallest_pos = 0;
+    for (i = 0; i < stack->size_a; i++)
+    {
+        if (stack->a[i] < smallest)
+        {
+            smallest = stack->a[i];
+            smallest_pos = i;
+        }
+    }
+    return smallest_pos;
+}
+
+// Calculate the rotation cost
 static int get_cost(int size, int pos)
 {
     if (pos <= size / 2)
@@ -86,12 +130,15 @@ static int get_cost(int size, int pos)
         return (size - pos);
 }
 
-// Trova l'elemento ottimale in b da spostare in a
+// Find the optimal element in stack 'b' to move to stack 'a'
 static int find_best_index(t_stack *stack)
 {
+    if (!stack || stack->size_b <= 0)
+        return -1;
+
     int i = 0;
     int best_index = 0;
-    int min_cost = 2147483647;
+    int min_cost = INT_MAX;
     int cost_a, cost_b, pos_a;
 
     while (i < stack->size_b)
@@ -108,12 +155,15 @@ static int find_best_index(t_stack *stack)
         }
         i++;
     }
-    return (best_index);
+    return best_index;
 }
 
-// Porta un elemento in cima allo stack selezionato
+// Bring an element to the top of the selected stack
 static void bring_to_top(t_stack *stack, int pos, char stack_id)
 {
+    if (!stack || pos < 0)
+        return;
+
     int count;
 
     if (stack_id == 'a')
@@ -142,9 +192,12 @@ static void bring_to_top(t_stack *stack, int pos, char stack_id)
     }
 }
 
-// Inserisce intelligentemente l'elemento migliore da b ad a
+// Smartly insert the best element from stack 'b' into stack 'a'
 static void smart_insert(t_stack *stack)
 {
+    if (!stack || stack->size_b <= 0)
+        return;
+
     int best_b = find_best_index(stack);
     int pos_a = target_position(stack, stack->b[best_b]);
 
@@ -153,9 +206,12 @@ static void smart_insert(t_stack *stack)
     pa(stack);
 }
 
-// Ruota a fino alla posizione target
+// Rotate stack 'a' to the target position
 static void rotate_to_target(t_stack *stack, int pos)
 {
+    if (!stack || pos < 0)
+        return;
+
     if (pos <= stack->size_a / 2)
         while (pos-- > 0)
             ra(stack);
@@ -167,9 +223,12 @@ static void rotate_to_target(t_stack *stack, int pos)
     }
 }
 
-// Ordina lo stack a usando stack b come supporto
+// Sort stack 'a' using stack 'b' as support
 void cycle_sort(t_stack *stack)
 {
+    if (!stack)
+        return;
+
     normalize_stack(stack);
 
     if (is_sorted(stack))
