@@ -147,7 +147,6 @@ static void bring_to_top(t_stack *stack, int pos, char stack_id)
 }
 
 // Inserisce in modo intelligente il miglior elemento da B ad A
-// Inserisce in modo intelligente il miglior elemento da B ad A
 static void smart_insert(t_stack *stack)
 {
     if (!stack || stack->size_b <= 0)
@@ -158,33 +157,23 @@ static void smart_insert(t_stack *stack)
 
     bring_to_top(stack, best_b, 'b');
 
-    // Se l'elemento da pushare è il successore dell'ultimo in A,
-    // conviene ruotare prima di inserirlo, così va subito dietro al suo predecessore
-    if (stack->size_a > 0)
+    // Controlla se l'ultimo elemento di A è il predecessore del primo
+    if (stack->size_a >= 1)
     {
         int first = stack->a[0];
         int last = stack->a[stack->size_a - 1];
-        int val = stack->b[best_b];
-
-        if ((last + 1 == val) || (last == stack->max && val == stack->min)) // wrap-around
-        {
-            ra(stack);
-            pos_a = target_position(stack, val); // aggiorna la posizione se necessario
-        }
+        if (last + 1 == first || (last == stack->max && first == stack->min)) // opzionale wrap-around
+            ra(stack); // metti il successore dopo il suo predecessore
     }
 
     bring_to_top(stack, pos_a, 'a');
     pa(stack);
 
-    // Se dopo il push il nuovo elemento non è al posto giusto, considera swap
-    if (stack->size_a >= 2 && stack->a[0] > stack->a[1])
-    {
-        int next_pos = (target_position(stack, stack->a[0]) + 1) % stack->size_a;
-        if (next_pos != 1)
-            sa(stack);
-    }
+    // Se l’elemento inserito è maggiore di quello successivo, potrebbe servire uno swap
+    int next_pos = (target_position(stack, stack->a[0]) + 1) % stack->size_a;
+    if (stack->size_a >= 2 && stack->a[0] > stack->a[1] && next_pos != 1)
+        sa(stack);
 }
-
 
 // Ruota A per mettere il minimo in cima
 static void rotate_to_target(t_stack *stack, int pos)

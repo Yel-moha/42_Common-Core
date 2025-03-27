@@ -61,6 +61,15 @@ static int target_position(t_stack *stack, int value)
 	closest_bigger = INT_MAX;
 	while (i < stack->size_a)
 	{
+		if((stack->a[i] == value + 1) && (stack->size_b == 1))
+			return (i);		
+		//pos = i;
+			//if(stack->a[i] == value - 1)
+				//pos = i;
+		
+	}
+	while (i < stack->size_a)
+	{
 		if (stack->a[i] > value && stack->a[i] < closest_bigger)
 		{
 			closest_bigger = stack->a[i];
@@ -97,34 +106,34 @@ static int get_cost(int size, int pos)
 // Trova l'indice del miglior elemento in 'b' da inserire in 'a'
 static int find_best_index(t_stack *stack)
 {
-	int i;
-	int best_index;
-	int min_cost;
-	int cost_a;
-	int cost_b;
-	int pos_a;
+	int i;                  // Contatore per iterare attraverso lo stack b
+	int best_index;         // Indice del miglior elemento trovato
+	int min_cost;          // Costo minimo totale trovato finora
+	int cost_a;            // Costo per portare l'elemento nella posizione corretta in a
+	int cost_b;            // Costo per portare l'elemento in cima allo stack b
+	int pos_a;             // Posizione target nello stack a
 
-	if (!stack || stack->size_b <= 0)
+	if (!stack || stack->size_b <= 0)  // Controllo validità dello stack
 		return (-1);
-	i = 0;
-	best_index = 0;
-	min_cost = INT_MAX;
-	while (i < stack->size_b)
+	i = 0;                             // Inizializzazione del contatore
+	best_index = 0;                    // Inizializzazione dell'indice migliore
+	min_cost = INT_MAX;                // Inizializzazione del costo minimo al massimo valore possibile
+	while (i < stack->size_b)          // Itera attraverso tutti gli elementi dello stack b
 	{
-		pos_a = target_position(stack, stack->b[i]);
-		cost_a = get_cost(stack->size_a, pos_a);
-		cost_b = get_cost(stack->size_b, i);
-		if ((cost_a + cost_b < min_cost) ||
-			(cost_a + cost_b == min_cost && cost_b < get_cost(stack->size_b, best_index)))
+		pos_a = target_position(stack, stack->b[i]);  // Trova la posizione target in a
+		cost_a = get_cost(stack->size_a, pos_a);      // Calcola il costo per stack a
+		cost_b = get_cost(stack->size_b, i);          // Calcola il costo per stack b
+		// Se il costo totale è minore del minimo trovato
+		if ((cost_a + cost_b < min_cost) || \
+		(cost_a + cost_b == min_cost && cost_b < get_cost(stack->size_b, best_index)))  // O se è uguale ma con costo b minore
 		{
-			min_cost = cost_a + cost_b;
-			best_index = i;
+			min_cost = cost_a + cost_b;               // Aggiorna il costo minimo
+			best_index = i;                           // Aggiorna l'indice migliore
 		}
-		i++;
+		i++;                                          // Incrementa il contatore
 	}
-	return (best_index);
+	return (best_index);                             // Ritorna l'indice del miglior elemento trovato
 }
-
 // Porta l'elemento alla cima dello stack selezionato
 static void bring_to_top(t_stack *stack, int pos, char stack_id)
 {
