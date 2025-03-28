@@ -23,6 +23,15 @@ typedef struct s_stack
     int index;
 } t_stack;
 
+typedef struct s_move
+{
+	int index_b;     // Indice dell'elemento in B
+	int cost_a;      // Costo (con segno) per portare A nella posizione giusta
+	int cost_b;      // Costo (con segno) per portare B in cima
+	int total_cost;  // Costo totale (massimizzato o sommato)
+}	t_move;
+
+
 // Input Handling
 void    take_input(int argc, char **argv, t_stack *stack);
 //int     *inputs_array(int argc, char **argv);
