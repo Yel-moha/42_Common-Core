@@ -6,6 +6,21 @@ static int ft_max(int a, int b)
 	return (a > b) ? a : b;
 }
 
+int max_a(t_stack *stack)
+{
+	int i;
+	int max;
+
+	i = 0;
+	max = stack->a[0];
+	while(i < stack->size_a)
+	{
+		if (stack->a[i] > max)
+			max = stack->a[i];
+		i++;
+	}
+	return max;
+}
 
 // Trova la posizione del valore minimo nello stack A
 static int find_min_pos(t_stack *stack)
@@ -66,15 +81,15 @@ int get_target_cost_a(t_stack *stack, int value)
 {
 	int i;
 	int pos = -1;
-	int min_diff = INT_MAX;
+	//int min_diff = INT_MAX;
 
 	// Cerca il primo numero maggiore di value
 	for (i = 0; i < stack->size_a; i++)
 	{
-		int diff = stack->a[i] - value;
-		if (diff > 0 && diff < min_diff)
+	//	int diff = stack->a[i] - value;
+		if (stack->a[i] == value + 1)
 		{
-			min_diff = diff;
+			//min_diff = diff;
 			pos = i;
 		}
 	}
@@ -84,19 +99,17 @@ int get_target_cost_a(t_stack *stack, int value)
 		return get_cost_signed(stack->size_a, pos);
 
 	// Altrimenti, value è il massimo → va dopo il minimo
-	int min = INT_MAX;
+	//int min = INT_MAX;
 	for (i = 0; i < stack->size_a; i++)
 	{
-		if (stack->a[i] < min)
-		{
-			min = stack->a[i];
-			pos = i;
-		}
+		if (stack->a[i] == value - 1)
+			pos = i - 1;
 	}
+
 	if (pos == -1)
 	{
-		ft_printf("⚠️ Errore: target_position fallita per value = %d\n", value);
-		return 0;
+		//ft_printf("⚠️ Errore: target_position fallita per value = %d\n", value);
+		return (INT_MAX);
 	}
 	return get_cost_signed(stack->size_a, pos);
 }
@@ -111,7 +124,9 @@ static int find_best_index(t_stack *stack)
 	for (i = 0; i < stack->size_b; i++)
 	{
 		int cost_a = get_target_cost_a(stack, stack->b[i]);
+		//ft_printf("cost_a: %d\n", cost_a);
 		int cost_b = get_cost_signed(stack->size_b, i);
+	//	ft_printf("cost_b: %d\n", cost_b);
 		int total_cost;
 
 		// Se possono essere combinati (stessa direzione), il costo è max
