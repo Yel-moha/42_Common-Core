@@ -21,6 +21,8 @@ typedef struct s_stack
     int cost;
     int moves;
     int index;
+    int min;
+    int max;
 } t_stack;
 
 typedef struct s_move

@@ -1,15 +1,16 @@
 #include "push_swap.h"
 
-// Trova la posizione dell'elemento minimo nello stack A
 static int find_min_pos(t_stack *stack)
 {
+    int i;
+    int min;
+    int pos;
+
     if (!stack || stack->size_a <= 0)
-        return -1;
-
-    int i = 1;
-    int min = stack->a[0];
-    int pos = 0;
-
+        return (-1);
+    i = 1;
+    min = stack->a[0];
+    pos = 0;
     while (i < stack->size_a)
     {
         if (stack->a[i] < min)
@@ -19,195 +20,197 @@ static int find_min_pos(t_stack *stack)
         }
         i++;
     }
-    return pos;
+    return (pos);
 }
 
-// Ordina esattamente 3 elementi nello stack A
 static void sort_three(t_stack *stack)
 {
-    if (!stack || stack->size_a != 3)
-        return;
+    int a;
+    int b;
+    int c;
 
-    if (stack->a[0] > stack->a[1] && stack->a[1] < stack->a[2] && stack->a[0] < stack->a[2])
+    if (!stack || stack->size_a != 3)
+        return ;
+    a = stack->a[0];
+    b = stack->a[1];
+    c = stack->a[2];
+    if (a > b && b < c && a < c)
         sa(stack);
-    else if (stack->a[0] > stack->a[1] && stack->a[1] > stack->a[2])
+    else if (a > b && b > c)
     {
         sa(stack);
         rra(stack);
     }
-    else if (stack->a[0] > stack->a[1] && stack->a[1] < stack->a[2])
+    else if (a > b && b < c)
         ra(stack);
-    else if (stack->a[0] < stack->a[1] && stack->a[1] > stack->a[2] && stack->a[0] < stack->a[2])
+    else if (a < b && b > c && a < c)
     {
         sa(stack);
         ra(stack);
     }
-    else if (stack->a[0] < stack->a[1] && stack->a[1] > stack->a[2])
+    else if (a < b && b > c)
         rra(stack);
 }
 
-// Trova la posizione ideale per inserire un valore in A
+static int binary_search(int *arr, int size, int value)
+{
+    int left;
+    int right;
+    int mid;
+
+    left = 0;
+    right = size - 1;
+    while (left <= right)
+    {
+        mid = left + (right - left) / 2;
+        if (arr[mid] == value)
+            return (mid);
+        if (arr[mid] < value)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return (left);
+}
+
 static int target_position(t_stack *stack, int value)
 {
-    int i = 0;
-    int pos = -1;
-    int closest_bigger = INT_MAX;
-
-    // Cerca il valore immediatamente più grande di `value`
-    while (i < stack->size_a)
-    {
-        if (stack->a[i] > value && stack->a[i] < closest_bigger)
-        {
-            closest_bigger = stack->a[i];
-            pos = i;
-        }
-        i++;
-    }
-
-    if (pos != -1)
-        return pos;
-
-    // Se il valore è il massimo, va dopo il più grande in A
-    int largest = INT_MIN;
-    int largest_pos = 0;
-    for (i = 0; i < stack->size_a; i++)
-    {
-        if (stack->a[i] > largest)
-        {
-            largest = stack->a[i];
-            largest_pos = i;
-        }
-    }
-
-    return (largest_pos + 1) % stack->size_a;
+    if (value < stack->sorted[0])
+        return (0);
+    if (value > stack->sorted[stack->size_a - 1])
+        return (0);
+    return (binary_search(stack->sorted, stack->size_a, value));
 }
 
-// Calcola il costo della rotazione
 static int get_cost(int size, int pos)
 {
     if (pos <= size / 2)
-        return pos;
+        return (pos);
     return (size - pos);
 }
 
-// Trova il miglior indice in B da pushare in A
 static int find_best_index(t_stack *stack)
 {
-    int i = 0;
-    int best_index = 0;
-    int min_cost = INT_MAX;
-    int cost_a, cost_b, pos_a;
+    int i;
+    int best_index;
+    int min_cost;
+    int current_cost;
 
+    i = 0;
+    best_index = 0;
+    min_cost = INT_MAX;
     while (i < stack->size_b)
     {
-        pos_a = target_position(stack, stack->b[i]);
-        cost_a = get_cost(stack->size_a, pos_a);
-        cost_b = get_cost(stack->size_b, i);
-
-        if ((cost_a + cost_b < min_cost) ||
-            (cost_a + cost_b == min_cost && cost_b < get_cost(stack->size_b, best_index)))
+        current_cost = get_cost(stack->size_a, target_position(stack, stack->b[i])) 
+                     + get_cost(stack->size_b, i);
+        if (current_cost < min_cost)
         {
-            min_cost = cost_a + cost_b;
+            min_cost = current_cost;
             best_index = i;
         }
         i++;
     }
-    return best_index;
+    return (best_index);
 }
 
-// Porta un elemento in cima allo stack selezionato
-static void bring_to_top(t_stack *stack, int pos, char stack_id)
+static void rotate_both(t_stack *stack, int *pos_a, int *pos_b)
 {
-    int count;
-
-    if (stack_id == 'a')
+    while (*pos_a > 0 && *pos_b > 0 && *pos_a <= stack->size_a / 2 && *pos_b <= stack->size_b / 2)
     {
-        if (pos <= stack->size_a / 2)
-            while (pos-- > 0)
-                ra(stack);
-        else
-        {
-            count = stack->size_a - pos;
-            while (count-- > 0)
-                rra(stack);
-        }
-    }
-    else if (stack_id == 'b')
-    {
-        if (pos <= stack->size_b / 2)
-            while (pos-- > 0)
-                rb(stack);
-        else
-        {
-            count = stack->size_b - pos;
-            while (count-- > 0)
-                rrb(stack);
-        }
+        rr(stack);
+        (*pos_a)--;
+        (*pos_b)--;
     }
 }
 
-// Inserisce in modo intelligente il miglior elemento da B ad A
+static void reverse_rotate_both(t_stack *stack, int *pos_a, int *pos_b)
+{
+    while (*pos_a > stack->size_a / 2 && *pos_b > stack->size_b / 2 
+           && *pos_a < stack->size_a && *pos_b < stack->size_b)
+    {
+        rrr(stack);
+        (*pos_a)++;
+        (*pos_b)++;
+    }
+}
+
+static void bring_to_top_optimized(t_stack *stack, int pos_a, int pos_b)
+{
+    rotate_both(stack, &pos_a, &pos_b);
+    reverse_rotate_both(stack, &pos_a, &pos_b);
+    while (pos_a > 0 && pos_a <= stack->size_a / 2)
+    {
+        ra(stack);
+        pos_a--;
+    }
+    while (pos_b > 0 && pos_b <= stack->size_b / 2)
+    {
+        rb(stack);
+        pos_b--;
+    }
+    while (pos_a > stack->size_a / 2 && pos_a < stack->size_a)
+    {
+        rra(stack);
+        pos_a++;
+    }
+    while (pos_b > stack->size_b / 2 && pos_b < stack->size_b)
+    {
+        rrb(stack);
+        pos_b++;
+    }
+}
+
 static void smart_insert(t_stack *stack)
 {
+    int best_b;
+    int pos_a;
+
     if (!stack || stack->size_b <= 0)
-        return;
-
-    int best_b = find_best_index(stack);
-    int pos_a = target_position(stack, stack->b[best_b]);
-
-    bring_to_top(stack, best_b, 'b');
-
-    // Controlla se l'ultimo elemento di A è il predecessore del primo
-    if (stack->size_a >= 1)
-    {
-        int first = stack->a[0];
-        int last = stack->a[stack->size_a - 1];
-        if (last + 1 == first || (last == stack->max && first == stack->min)) // opzionale wrap-around
-            ra(stack); // metti il successore dopo il suo predecessore
-    }
-
-    bring_to_top(stack, pos_a, 'a');
+        return ;
+    best_b = find_best_index(stack);
+    pos_a = target_position(stack, stack->b[best_b]);
+    bring_to_top_optimized(stack, pos_a, best_b);
     pa(stack);
-
-    // Se l’elemento inserito è maggiore di quello successivo, potrebbe servire uno swap
-    int next_pos = (target_position(stack, stack->a[0]) + 1) % stack->size_a;
-    if (stack->size_a >= 2 && stack->a[0] > stack->a[1] && next_pos != 1)
+    if (stack->size_a >= 2 && stack->a[0] > stack->a[1])
         sa(stack);
 }
 
-// Ruota A per mettere il minimo in cima
-static void rotate_to_target(t_stack *stack, int pos)
+static void rotate_to_target(t_stack *stack)
 {
-    if (pos <= stack->size_a / 2)
-        while (pos-- > 0)
-            ra(stack);
+    int min_pos;
+    int cost;
+
+    min_pos = find_min_pos(stack);
+    if (min_pos == 0)
+        return ;
+    cost = get_cost(stack->size_a, min_pos);
+    if (cost > stack->size_a / 2)
+    {
+        cost = stack->size_a - cost;
+        while (cost-- > 0)
+            rra(stack);
+    }
     else
     {
-        pos = stack->size_a - pos;
-        while (pos-- > 0)
-            rra(stack);
+        while (cost-- > 0)
+            ra(stack);
     }
 }
 
-// Algoritmo principale: cycle sort con ottimizzazioni
 void cycle_sort(t_stack *stack)
 {
-    if (!stack)
-        return;
-
-    normalize_stack(stack);
-
-    if (is_sorted(stack))
-        return;
-
+    if (!stack || is_sorted(stack))
+        return ;
     while (stack->size_a > 3)
-        pb(stack);
-
+    {
+        if (stack->a[0] != stack->max && stack->a[0] != stack->min)
+            pb(stack);
+        else
+            ra(stack);
+    }
     if (stack->size_a == 3)
         sort_three(stack);
-
     while (stack->size_b > 0)
         smart_insert(stack);
-
-    rotate_to_target(stack, find_min_pos(stack));
+    rotate_to_target(stack);
 }

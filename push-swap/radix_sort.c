@@ -1,19 +1,5 @@
 #include "push_swap.h"
 
-// Trova il numero di bit massimi necessari
-static int max_bits(t_stack *stack)
-{
-    int max;
-    int bits;
-
-    max = stack->size_a - 1;
-    bits = 0;
-    while ((max >> bits) != 0)
-        bits++;
-    return (bits);
-}
-
-// Normalizza i valori in stack->a: ogni numero diventa il suo indice nell'ordinamento
 void normalize_stack(t_stack *stack)
 {
     int *temp;
@@ -45,33 +31,65 @@ void normalize_stack(t_stack *stack)
     free(temp);
 }
 
-// Radix sort usando bitwise (solo stack a e b)
-void radix_sort(t_stack *stack)
+// Calcola il numero massimo di bit
+static int max_bits(t_stack *stack)
 {
-    int i;
-    int j;
+    int max;
     int bits;
+
+    max = stack->size_a - 1;
+    bits = 0;
+    while (max > 0)
+    {
+        bits++;
+        max >>= 1;
+    }
+    return (bits);
+}
+
+// Esegue un ciclo del radix_sort (una sola cifra binaria)
+/* static void radix_pass(t_stack *stack, int bit)
+{
+    int j;
     int size;
 
-    normalize_stack(stack);
-    bits = max_bits(stack);
-    i = 0;
-    while (i < bits)
+    j = 0;
+    size = stack->size_a;
+    while (j < size)
     {
-        j = 0;
-        size = stack->size_a;
-        while (j < size)
-        {
-            if (((stack->a[0] >> i) & 1) == 0)
-                pb(stack);
-            else
-                ra(stack);
-            j++;
-        }
-        while (stack->size_b > 0)
-            pa(stack);
-        i++;
+        if (((stack->a[0] >> bit) & 1) == 0)
+            pb(stack);
+        else
+            ra(stack);
+        j++;
     }
-    cycle_sort(stack);
-    ft_printf("Radix sort: %d operazioni\n", stack->moves);
+    while (stack->size_b > 0)
+        pa(stack);
+} */
+
+void radix_sort(t_stack *stack)
+{
+    int bit;
+    int count;
+    int bits_max;
+    int num;
+
+    normalize_stack(stack);
+    bits_max = max_bits(stack);
+    bit = 0;
+    while (bit < bits_max)
+    {
+        count = stack->size_a;
+        while (count--)
+        {
+            num = stack->a[0];
+            if (((num >> bit) & 1) == 1)
+                ra(stack);
+            else
+                pb(stack);
+        }
+        while (stack->size_b)
+            pa(stack);
+        bit++;
+    }
 }

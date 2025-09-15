@@ -1,72 +1,73 @@
 #include "push_swap.h"
 
-static void rotate(t_stack *stack, int *stack_a_and_b)
+static void rotate(int *stack_array, int size)
 {
     int tmp;
     int i;
 
-    if (stack->size_a < 2)
-        return ;
-    tmp = stack_a_and_b[0];
+    if (size < 2)
+        return;
+    tmp = stack_array[0];
     i = 0;
-    while (++i < stack->size_a)
-        stack_a_and_b[i - 1] = stack_a_and_b[i];
-    stack_a_and_b[stack->size_a - 1] = tmp;
+    while (++i < size)
+        stack_array[i - 1] = stack_array[i];
+    stack_array[size - 1] = tmp;
 }
+
 void ra(t_stack *stack)
 {
-    rotate(stack, stack->a);
+    rotate(stack->a, stack->size_a);
     stack->moves++;
     ft_printf("ra\n");
 }
 
 void rb(t_stack *stack)
 {
-    rotate(stack, stack->b);
+    rotate(stack->b, stack->size_b); // correzione qui!
     stack->moves++;
     ft_printf("rb\n");
 }
 
 void rr(t_stack *stack)
 {
-    ra(stack);
-    rb(stack);
+    rotate(stack->a, stack->size_a);
+    rotate(stack->b, stack->size_b); // correzione anche qui!
     stack->moves++;
     ft_printf("rr\n");
 }
 
-static void reverse_rotate(t_stack *stack, int *stack_a_and_b)
+static void reverse_rotate(int *stack_array, int size)
 {
     int tmp;
     int i;
 
-    if (stack->size_a < 2)
-        return ;
-    tmp = stack_a_and_b[stack->size_a - 1];
-    i = stack->size_a;
+    if (size < 2)
+        return;
+    tmp = stack_array[size - 1];
+    i = size;
     while (--i > 0)
-        stack_a_and_b[i] = stack_a_and_b[i - 1];
-    stack_a_and_b[0] = tmp;
+        stack_array[i] = stack_array[i - 1];
+    stack_array[0] = tmp;
 }
 
 void rra(t_stack *stack)
 {
-    reverse_rotate(stack, stack->a);
+    reverse_rotate(stack->a, stack->size_a);
     stack->moves++;
     ft_printf("rra\n");
 }
 
 void rrb(t_stack *stack)
 {
-    reverse_rotate(stack, stack->b);
+    reverse_rotate(stack->b, stack->size_b); // correzione qui!
     stack->moves++;
     ft_printf("rrb\n");
 }
+
 void rrr(t_stack *stack)
 {
-    rra(stack);
-    rrb(stack);
+    reverse_rotate(stack->a, stack->size_a);
+    reverse_rotate(stack->b, stack->size_b); // correzione qui!
     stack->moves++;
     ft_printf("rrr\n");
 }
-

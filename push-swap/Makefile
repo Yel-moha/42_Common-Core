@@ -2,7 +2,7 @@ NAME = push_swap
 
 SRCS = main.c input_utils.c validation_utils.c \
     swap_moves.c push_moves.c rotate_moves.c  \
-	radix_sort.c hybrid_sort.c #cycle_sort.c
+	radix_sort.c cycle_sort.c #hybrid_sort.c #
 
 OBJS = $(SRCS:.c=.o)
 
