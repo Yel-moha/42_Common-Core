@@ -1,0 +1,10 @@
+già norminettate:
+1 -  validation_utils.
+2 -  swap_moves
+3 - push_moves
+4 - input_utils
+5 - sort_three
+6 - rotate_moves
+7 - reverse_rotate
+8 - find_min_pos
+9 - cycle_sort
