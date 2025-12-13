@@ -61,6 +61,7 @@ If the input is already sorted or invalid, the program produces no output.
 
 - Stack data structure
 - Sorting algorithms
+- Radix sort
 - Greedy algorithms
 - Time and space complexity
 
@@ -68,6 +69,7 @@ If the input is already sorted or invalid, the program produces no output.
 
 - https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
 - https://en.wikipedia.org/wiki/Sorting_algorithm
+- https://en.wikipedia.org/wiki/Radix_sort
 
 ---
 
@@ -81,39 +83,11 @@ All algorithmic decisions, implementations, and final code validation were perfo
 
 ## Project Structure
 
-### Source Files
-
-| File | Description |
-|------|-------------|
-| `main.c` | Program entry point |
-| `input_utils.c` | Input parsing (`take_input`, `inputs_array`, `check_input`, `init_stack`) |
-| `validation_utils.c` | Input validation (`check_duplicates`, `check_int_overflow`, `is_sorted`) |
-| `swap_moves.c` | Swap operations (`sa`, `sb`, `ss`) |
-| `push_moves.c` | Push operations (`pa`, `pb`) |
-| `rotate_moves.c` | Rotate operations (`ra`, `rb`, `rr`) |
-| `reverse_rotate.c` | Reverse rotate operations (`rra`, `rrb`, `rrr`) |
-| `cycle_sort.c` | Main sorting algorithm (`cycle_sort`, `normalize_stack`) |
-| `insert_utils.c` | Insertion helpers (`find_best_index`, `get_cost`, `target_position`) |
-| `insert_helpers.c` | Additional helpers (`find_closest_bigger`, `fill_normalized`, `rotate_count`) |
-| `find_min_pos.c` | Position utilities (`find_min_pos`, `find_min_pos_index`) |
-| `sort_three.c` | Small stack sorting (`sort_three`, `bring_to_top`) |
-| `push_swap.h` | Header file with struct definitions and prototypes |
-
-### Data Structures
-
-```c
-t_stack  // Main stack structure containing arrays a/b, sizes, and metadata
-t_move   // Move cost calculation for optimization
-```
-
-### Operations
-
-| Operation | Description |
-|-----------|-------------|
-| `sa/sb/ss` | Swap first two elements of stack A/B/both |
-| `pa/pb` | Push top element from B to A / A to B |
-| `ra/rb/rr` | Rotate stack A/B/both (first becomes last) |
-| `rra/rrb/rrr` | Reverse rotate stack A/B/both (last becomes first) |
+- `main.c` – Program entry point
+- `input_utils.c` – Input parsing and validation
+- `swap_moves.c`, `push_moves.c`, `rotate_moves.c`, `reverse_rotate.c` – Stack operations
+- `cycle_sort.c`, `insert_utils.c` – Sorting logic
+- `push_swap.h` – Project header file
 
 ---
 
