@@ -26,22 +26,8 @@ typedef struct s_stack
 	int	*b;
 	int	size_a;
 	int	size_b;
-	int	size;
-	int	*sorted;
-	int	cost;
 	int	moves;
-	int	index;
-	int	min;
-	int	max;
 }	t_stack;
-
-typedef struct s_move
-{
-	int	index_b;
-	int	cost_a;
-	int	cost_b;
-	int	total_cost;
-}	t_move;
 
 /* Input handling */
 void	take_input(int argc, char **argv, t_stack *stack);
@@ -51,13 +37,8 @@ void	init_stack(t_stack *stack, int argc);
 
 /* Validations */
 void	check_duplicates(t_stack *stack);
-void	check_int_overflow(t_stack *stack);
 int		is_sorted(t_stack *stack);
-
-/* Sorting and array management */
-int		*temp_order(t_stack *stack);
-int		order_them(int *array, int size, int j, int i);
-void	sort_array(int *a, int size, int *sorted);
+void	error_exit(t_stack *stack);
 
 /* Memory management */
 void	free_all(t_stack *stack);

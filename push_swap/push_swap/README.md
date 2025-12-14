@@ -87,7 +87,7 @@ All algorithmic decisions, implementations, and final code validation were perfo
 |------|-------------|
 | `main.c` | Program entry point |
 | `input_utils.c` | Input parsing (`take_input`, `inputs_array`, `check_input`, `init_stack`) |
-| `validation_utils.c` | Input validation (`check_duplicates`, `check_int_overflow`, `is_sorted`) |
+| `validation_utils.c` | Input validation (`check_duplicates`, `is_sorted`) |
 | `swap_moves.c` | Swap operations (`sa`, `sb`, `ss`) |
 | `push_moves.c` | Push operations (`pa`, `pb`) |
 | `rotate_moves.c` | Rotate operations (`ra`, `rb`, `rr`) |
@@ -103,7 +103,6 @@ All algorithmic decisions, implementations, and final code validation were perfo
 
 ```c
 t_stack  // Main stack structure containing arrays a/b, sizes, and metadata
-t_move   // Move cost calculation for optimization
 ```
 
 ### Operations
@@ -114,6 +113,53 @@ t_move   // Move cost calculation for optimization
 | `pa/pb` | Push top element from B to A / A to B |
 | `ra/rb/rr` | Rotate stack A/B/both (first becomes last) |
 | `rra/rrb/rrr` | Reverse rotate stack A/B/both (last becomes first) |
+
+---
+
+## Program Flow
+
+```
+🔹 Entry point
+main
+ └── take_input
+ └── cycle_sort
+ └── free_all
+
+🔹 Main sorting flow
+cycle_sort
+ ├── is_sorted ?
+ │    └── (if yes) return
+ │
+ ├── normalize_stack
+ │    └── fill_normalized
+ │
+ ├── sort_three (if size_a == 3)
+ │
+ ├── push elements from A to B
+ │    └── pb
+ │
+ ├── while (stack B not empty)
+ │    ├── find_best_index
+ │    │    ├── target_position
+ │    │    │    ├── find_closest_bigger
+ │    │    │    └── find_min_pos_index
+ │    │    ├── get_cost
+ │    │    └── get_cost
+ │    │
+ │    ├── bring_to_top (A)
+ │    │    └── rotate_count
+ │    │         └── ra / rra
+ │    │
+ │    ├── bring_to_top (B)
+ │    │    └── rotate_count
+ │    │         └── rb / rrb
+ │    │
+ │    └── pa
+ │
+ └── final alignment
+      ├── find_min_pos
+      └── ra / rra
+```
 
 ---
 

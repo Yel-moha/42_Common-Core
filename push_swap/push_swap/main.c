@@ -24,11 +24,6 @@ void	free_all(t_stack *stack)
 		free(stack->b);
 		stack->b = NULL;
 	}
-	if (stack->sorted)
-	{
-		free(stack->sorted);
-		stack->sorted = NULL;
-	}
 }
 
 int	main(int argc, char **argv)

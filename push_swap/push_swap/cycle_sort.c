@@ -30,7 +30,7 @@ static void	smart_insert(t_stack *stack)
 	{
 		first = stack->a[0];
 		last = stack->a[stack->size_a - 1];
-		if (last + 1 == first || (last == stack->max && first == stack->min))
+		if (last + 1 == first)
 			ra(stack);
 	}
 }
@@ -46,27 +46,6 @@ static void	rotate_to_target(t_stack *stack, int pos)
 		while (pos-- > 0)
 			rra(stack);
 	}
-}
-
-void	print_stacks(t_stack *stack)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("STACK A: ");
-	while (i < stack->size_a)
-	{
-		ft_printf("%d ", stack->a[i]);
-		i++;
-	}
-	ft_printf("\nSTACK B: ");
-	i = 0;
-	while (i < stack->size_b)
-	{
-		ft_printf("%d ", stack->b[i]);
-		i++;
-	}
-	ft_printf("\n---\n");
 }
 
 void	cycle_sort(t_stack *stack)

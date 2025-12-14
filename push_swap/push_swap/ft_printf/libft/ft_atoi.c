@@ -21,8 +21,8 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	i = 0;
 	num = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || \
-			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
@@ -37,28 +37,3 @@ int	ft_atoi(const char *str)
 	}
 	return (num * sign);
 }
-/* 
-#include <stdio.h>
-
-
-int main(void)
-{
-	const char *tests[20] = {
-		"123", "-123", "+123", "   123", "0", 
-		"999999", "   -999999", "   +999999", 
-		"abc123", "123abc", "   +abc", "   -abc", 
-		"   +0", "   -0", "   +1", "   -1", 
-		"   +2147483647", "   -2147483648", 
-		"2147483648", "-2147483649", "++++---12456h64"
-	};
-	int i;
-	for (i = 0; i < 20; i++)
-	{
-		int my_res = ft_atoi(tests[i]);
-		int original_res = atoi(tests[i]);
-		printf("Test %d: Input: '%s' | My atoi: %d | Original atoi: %d\n", 
-			i + 1, tests[i], my_res, original_res);
-	}
-	return (0);
-}
- */

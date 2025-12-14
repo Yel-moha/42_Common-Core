@@ -60,15 +60,12 @@ void	take_input(int argc, char **argv, t_stack *stack)
 	init_stack(stack, argc);
 	stack->a = inputs_array(argc, argv);
 	stack->b = malloc(sizeof(int) * (argc - 1));
-	stack->sorted = malloc(sizeof(int) * (argc - 1));
-	if (!stack->a || !stack->b || !stack->sorted)
+	if (!stack->a || !stack->b)
 	{
 		free(stack->a);
 		free(stack->b);
-		free(stack->sorted);
 		exit(1);
 	}
-	ft_memcpy(stack->sorted, stack->a, sizeof(int) * (argc - 1));
 	check_duplicates(stack);
 }
 

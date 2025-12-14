@@ -26,7 +26,7 @@ void	check_duplicates(t_stack *stack)
 			if (stack->a[i] == stack->a[j])
 			{
 				ft_putstr_fd("Error\n", 1);
-				exit(1);
+				error_exit(stack);
 			}
 			j++;
 		}
@@ -34,44 +34,11 @@ void	check_duplicates(t_stack *stack)
 	}
 }
 
-int	order_them(int *array, int size, int j, int i)
+void	error_exit(t_stack *stack)
 {
-	int	temp;
-
-	while (j < size)
-	{
-		if (array[j] > array[i])
-		{
-			temp = array[j];
-			array[j] = array[i];
-			array[i] = temp;
-		}
-		j++;
-	}
-	return (array[i]);
-}
-
-int	*temp_order(t_stack *stack)
-{
-	int	*temp;
-	int	i;
-	int	j;
-	int	size;
-
-	size = stack->size_a;
-	temp = malloc(sizeof(int) * size);
-	if (!temp)
-		exit(1);
-	i = -1;
-	while (++i < size)
-		temp[i] = stack->a[i];
-	i = -1;
-	while (++i < size)
-	{
-		j = i + 1;
-		temp[i] = order_them(temp, size, j, i);
-	}
-	return (temp);
+	ft_putstr_fd("Error\n", 2);
+	free_all(stack);
+	exit(1);
 }
 
 int	is_sorted(t_stack *stack)
