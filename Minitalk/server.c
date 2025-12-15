@@ -1,23 +1,12 @@
 #include "minitalk.h"
 
-/*
- * Una singola variabile globale (come consentito dal subject).
- * g_state[0] = accumulatore del carattere
- * g_state[1] = numero di bit ricevuti
- */
-volatile sig_atomic_t g_state[2] = {0, 0};
+volatile sig_atomic_t	g_state[2] = {0, 0};
 
-/*
- * write_pid:
- * stampa il PID del server usando solo write()
- * conversione manuale → conforme al subject
- */
 static void	write_pid(void)
 {
 	char	buf[32];
 	pid_t	pid;
 	int		i;
-	int		len;
 
 	pid = getpid();
 	i = 0;
@@ -28,18 +17,11 @@ static void	write_pid(void)
 		buf[i++] = (pid % 10) + '0';
 		pid /= 10;
 	}
-	len = 0;
-	while (i > 0)
-		buf[len++] = buf[--i];
-	buf[len++] = '\n';
-	write(1, buf, len);
+	while (i-- > 0)
+		write(1, &buf[i], 1);
+	write(1, "\n", 1);
 }
 
-/*
- * signal_handler:
- * ricostruisce un carattere bit per bit
- * SIGUSR1 = 0, SIGUSR2 = 1
- */
 static void	signal_handler(int signo)
 {
 	char	c;
@@ -58,10 +40,6 @@ static void	signal_handler(int signo)
 	}
 }
 
-/*
- * main:
- * imposta gli handler e resta in ascolto dei segnali
- */
 int	main(void)
 {
 	struct sigaction	sa;

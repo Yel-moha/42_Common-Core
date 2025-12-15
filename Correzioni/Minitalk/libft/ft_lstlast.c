@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 20:56:18 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 17:39:26 by yel-moha         ###   ########.fr       */
+/*   Created: 2024/12/02 23:51:22 by yel-moha          #+#    #+#             */
+/*   Updated: 2024/12/02 23:56:50 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	i;
-	int	num;
-	int	sign;
-
-	sign = 1;
-	i = 0;
-	num = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (!lst)
+		return (NULL);
+	while (lst->next)
 	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
+		lst = lst->next;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		num = ((str[i] - 48) + (num * 10));
-		i++;
-	}
-	return (num * sign);
+	return (lst);
 }

@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 20:56:18 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 17:39:26 by yel-moha         ###   ########.fr       */
+/*   Created: 2024/12/02 20:34:40 by yel-moha          #+#    #+#             */
+/*   Updated: 2024/12/04 20:21:02 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+t_list	*ft_lstnew(void *content)
 {
-	int	i;
-	int	num;
-	int	sign;
+	t_list	*new_node;
 
-	sign = 1;
-	i = 0;
-	num = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		num = ((str[i] - 48) + (num * 10));
-		i++;
-	}
-	return (num * sign);
+	new_node = (t_list *)ft_calloc(1, sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
 }
+/* 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}		t_list; */

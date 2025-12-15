@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 20:56:18 by yel-moha          #+#    #+#             */
-/*   Updated: 2024/12/01 17:39:26 by yel-moha         ###   ########.fr       */
+/*   Created: 2024/12/01 23:17:57 by yel-moha          #+#    #+#             */
+/*   Updated: 2024/12/04 20:38:39 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_putendl_fd(char *s, int fd)
 {
-	int	i;
-	int	num;
-	int	sign;
+	size_t	len;
+	size_t	i;
 
-	sign = 1;
 	i = 0;
-	num = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (!s)
+		return ;
+	len = ft_strlen(s);
+	while (i < len)
 	{
-		if (str[i] == '-')
-			sign = -1;
+		write(fd, &s[i], 1);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		num = ((str[i] - 48) + (num * 10));
-		i++;
-	}
-	return (num * sign);
+	write(fd, "\n", 1);
 }
+
+/* int main(void)
+{	
+	// Apri un file in scrittura
+	int fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644); 
+	if (fd == -1) // Controlla errori
+		return 1;
+
+	ft_putstr_fd("Baracca", fd); // Scrive 'B' nel file "output.txt"
+	close(fd); // Chiudi il file
+	return 0;
+} */
