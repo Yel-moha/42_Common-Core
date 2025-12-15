@@ -24,10 +24,7 @@ void	check_duplicates(t_stack *stack)
 		while (j < stack->size_a)
 		{
 			if (stack->a[i] == stack->a[j])
-			{
-				ft_putstr_fd("Error\n", 1);
 				error_exit(stack);
-			}
 			j++;
 		}
 		i++;
