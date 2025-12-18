@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "chrono": "c",
+        "random": "c",
+        "limits": "c"
+    },
+    "makefile.configureOnOpen": false
+}
