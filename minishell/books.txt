@@ -1,0 +1,367 @@
+1️⃣ Cos’è davvero una shell (in parole povere)
+
+Una shell fa sempre lo stesso ciclo:
+
+mostra prompt
+↓
+legge una linea (stringa)
+↓
+la interpreta (parsing)
+↓
+esegue i comandi
+↓
+torna al prompt
+
+
+Esempio:
+
+ls -l | grep minishell > out.txt
+
+
+Per te NON è una stringa.
+Per te è una struttura dati tipo:
+
+PIPE
+ ├── CMD: ls -l
+ └── CMD: grep minishell
+        └── redirection: > out.txt
+
+
+👉 Il parsing serve solo a trasformare una stringa in una struttura dati eseguibile.
+
+2️⃣ Architettura consigliata (semplice e da 42)
+
+Ti consiglio 4 livelli chiari:
+
+readline()
+   ↓
+LEXER      → spezza la stringa in token
+   ↓
+PARSER     → costruisce comandi strutturati
+   ↓
+EXECUTOR   → fork, pipe, redirection, execve
+
+
+Non saltare il lexer, è l’errore n°1.
+
+3️⃣ Parsing: come NON impazzire
+🔹 FASE 1 — LEXER (tokenizzazione)
+
+Input:
+
+echo "ciao $USER" | cat >> file.txt
+
+
+Output (lista di token):
+
+WORD("echo")
+WORD("ciao $USER")
+PIPE("|")
+WORD("cat")
+REDIR_APPEND(">>")
+WORD("file.txt")
+
+
+⚠️ Il lexer NON interpreta nulla, riconosce solo:
+
+parole
+
+|
+
+<
+
+>
+
+>>
+
+<<
+
+quote aperte/chiuse
+
+👉 Regola d’oro:
+
+Nel lexer NON esistono comandi, solo token
+
+Stati fondamentali del lexer
+NORMAL
+IN_SINGLE_QUOTE
+IN_DOUBLE_QUOTE
+
+
+Esempio logica:
+
+if (c == '\'' && state == NORMAL)
+    state = IN_SINGLE_QUOTE;
+else if (c == '\'' && state == IN_SINGLE_QUOTE)
+    state = NORMAL;
+
+
+Se arrivi a fine stringa con quote aperte → errore.
+
+🔹 FASE 2 — EXPANDER (variabili)
+
+Solo DOPO il lexer:
+
+$VAR
+
+$?
+
+solo fuori dalle single quote
+
+Esempio:
+
+'$USER'   → "$USER" (non espanso)
+"$USER"   → "youssef"
+
+
+👉 L’expander lavora sui token WORD, non sulla stringa originale.
+
+🔹 FASE 3 — PARSER (costruzione comandi)
+
+Qui passi da token → strutture
+
+Struttura tipica:
+
+typedef struct s_cmd
+{
+    char    **argv;
+    int     infile;
+    int     outfile;
+    struct s_cmd *next; // pipe
+}   t_cmd;
+
+
+Pipeline:
+
+a | b | c
+
+
+Diventa:
+
+cmd1 -> cmd2 -> cmd3
+
+
+Parsing logico:
+
+leggi WORD → argv
+
+se trovi < > >> << → redirection
+
+se trovi | → nuovo comando
+
+4️⃣ Executor (non ora, ma per capire il parsing)
+
+Ogni t_cmd:
+
+se builtin → esegui senza fork (solo se non in pipe)
+
+se esterno:
+
+fork
+
+dup2 infile / outfile
+
+execve
+
+Pipe = collegamento tra outfile e infile dei comandi.
+
+5️⃣ Ordine GIUSTO di implementazione (importantissimo)
+
+❌ NON partire da fork
+❌ NON partire da pipe
+
+✅ Ordine corretto:
+
+Prompt + readline + history
+
+Lexer (senza quote)
+
+Quote handling
+
+Token list
+
+Parser base (un solo comando)
+
+Redirections
+
+Pipe
+
+Builtin
+
+Signals
+
+Edge cases
+
+6️⃣ Prossimo passo concreto (ti guido io)
+
+Se vuoi, al prossimo messaggio possiamo fare una cosa sola, bene:
+
+👉 Scriviamo insieme il lexer minimale
+
+enum token
+
+gestione quote
+
+output stampabile per debug
+
+Oppure:
+
+ti spiego pipe + fork con disegnino
+
+oppure come strutturare i file del progetto
+
+oppure parsing di << heredoc
+
+
+___________________________________________________________________________________________________________________
+
+📘 1️⃣ “The Linux Programming Interface” – Michael Kerrisk
+
+🔹 Usalo a piccole dosi
+
+Perché è utile
+
+È LA bibbia su:
+
+processi
+
+fork / exec
+
+file descriptor
+
+pipe
+
+segnali
+
+È esattamente quello che stai usando in minishell
+
+MA
+
+È molto lungo
+
+Non leggerlo tutto
+
+👉 Capitoli utili per minishell
+
+Processi (fork, execve)
+
+File descriptors (dup, dup2)
+
+Pipe
+
+Signals
+
+📌 Come leggerlo
+
+apri l’indice
+
+scegli un concetto
+
+leggi 10–15 pagine max
+
+prova subito sul codice
+
+📗 2️⃣ “Advanced Programming in the UNIX Environment (APUE)” – Stevens
+
+🔹 Perfetto per capire, non per memorizzare
+
+Perché è ottimo
+
+Spiega perché le cose funzionano così
+
+Molto più leggibile di quanto sembri
+
+Pieno di esempi reali
+
+👉 Capitoli fondamentali:
+
+Process Control
+
+File I/O
+
+Signals
+
+📌 È più chiaro di Kerrisk, ma meno completo.
+
+📕 3️⃣ “Operating Systems: Three Easy Pieces” (OSTEP) — GRATIS
+
+🔹 Il migliore per capire i concetti
+
+👉 Link ufficiale (gratuito):
+https://pages.cs.wisc.edu/~remzi/OSTEP/
+
+Perché è perfetto
+
+Linguaggio semplice
+
+Spiega:
+
+processi
+
+scheduling
+
+syscall
+
+ZERO fuffa
+
+📌 Per minishell:
+
+capitoli su processi
+
+syscall
+
+I/O
+
+📙 4️⃣ “Write Yourself a Shell” (tutorial)
+
+🔹 Leggero, pratico, diretto
+
+Non è un libro ma è oro puro per mentalità.
+
+Cerca:
+
+“Write Your Own Shell in C”
+
+Perché aiuta
+
+Ti fa vedere l’ordine giusto
+
+Ti fa capire cosa è parsing vs exec
+
+Ti rassicura: “ok, non è magia”
+
+⚠️ Non copiare codice, usa solo il flusso logico.
+
+❌ Cosa NON consiglio
+
+❌ Manuali su Bash scripting
+❌ GNU Bash source code
+❌ Libri su compilatori (troppo pesanti ora)
+❌ StackOverflow a raffica senza capire
+
+🧠 Strategia di lettura GIUSTA (importante)
+
+Non leggere per “sapere”.
+Leggi per rispondere a una domanda concreta.
+
+Esempi:
+
+“Perché devo fare fork prima di exec?”
+
+“Cosa succede ai file descriptor in una pipe?”
+
+“Perché ctrl-C uccide solo il figlio?”
+
+👉 Se un libro risponde a UNA di queste domande, è quello giusto.
+
+🟢 Consiglio finale (onesto)
+
+Se devi sceglierne UNO solo:
+
+👉 OSTEP per capire
+👉 APUE per programmare meglio
+
+Kerrisk tienilo come enciclopedia, non come lettura serale.
+
+
+_____________________________________________________________________________________________________________
