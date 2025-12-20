@@ -11,7 +11,7 @@ void	prompt_loop(void)
 		if (!line)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		if (*line)
 			add_history(line);

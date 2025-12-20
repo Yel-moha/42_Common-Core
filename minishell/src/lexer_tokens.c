@@ -40,7 +40,7 @@ void	add_word(t_token **tokens, char *line, int start, int end)
 
 void	handle_word_end(t_token **tokens, char *line, int *start, int i)
 {
-    if (*start != -1)
-        add_word(tokens, line, *start, i);
-    *start = -1;
+	if (*start != -1)
+		add_word(tokens, line, *start, i);
+	*start = -1;
 }

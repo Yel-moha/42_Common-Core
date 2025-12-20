@@ -31,9 +31,11 @@ $(LIBFT):
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C src/libft clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C src/libft fclean
 
 re: fclean all
 
