@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_fractal.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/23 16:13:28 by yel-moha          #+#    #+#             */
+/*   Updated: 2025/03/23 16:16:59 by yel-moha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 static void	init_fractal_1(t_fractal *fractal, char *type)
@@ -6,7 +18,7 @@ static void	init_fractal_1(t_fractal *fractal, char *type)
 	fractal->julia_re = -0.7;
 	fractal->julia_im = 0.27015;
 	fractal->color_mode = 0;
-    fractal->flag = 0;
+	fractal->flag = 0;
 	fractal->mlx = NULL;
 	fractal->win = NULL;
 	fractal->img = NULL;

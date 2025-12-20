@@ -5,53 +5,40 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/13 21:56:14 by yel-moha          #+#    #+#              #
-#    Updated: 2024/12/13 22:14:19 by yel-moha         ###   ########.fr        #
+#    Created: 2024/11/29 11:40:04 by cstate            #+#    #+#              #
+#    Updated: 2025/01/12 18:18:01 by yel-moha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Nome della libreria finale
 NAME = libftprintf.a
-
-CC = clang
-CFLAGS = -Wall -Wextra -Werror -I libft
-
-# Sorgenti e oggetti
-SRCS = ft_printf.c handle_char.c handle_hex.c handle_integer.c handle_pointer.c handle_string.c handle_unsigned.c
-OBJS = $(SRCS:.c=.o)
-
-# Comandi
-AR = ar -rcs
-RM = rm -f
-
-# Directory della libreria libft
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+INC_DIR = .
+SRC = ft_printf.c handle_char.c handle_hex.c handle_integer.c handle_pointer.c handle_string.c handle_unsigned.c
+OBJS := $(SRC:%.c=%.o)
 LIBFT_DIR = libft
-LIBFT_LIB = $(LIBFT_DIR)/libft.a
+LIBFT = $(LIBFT_DIR)/libft.a
 
-# Regola principale
-all: $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR) -I$(LIBFT_DIR)
 
-# Costruisce la libreria principale
-$(NAME): $(OBJS) $(LIBFT_LIB)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
+	cp $(LIBFT) $(NAME)
+	ar rcs $(NAME) $(OBJS)
 
-# Compila libft
-$(LIBFT_LIB):
+$(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-# Regola per compilare i file oggetto
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+all: $(NAME)
 
-# Pulisce gli oggetti della libreria locale
 clean:
-	$(RM) $(OBJS)
+	rm -f $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
-# Rimuove anche le librerie
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	
-# Ricostruisce tutto
+
 re: fclean all
+
+.PHONY: all clean fclean re

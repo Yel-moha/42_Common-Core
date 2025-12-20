@@ -1,7 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/23 16:12:38 by yel-moha          #+#    #+#             */
+/*   Updated: 2025/03/23 16:12:38 by yel-moha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
-#include "ft_printf/ft_printf.h"
-#include "ft_printf/libft/libft.h"
-#include <math.h>
 
 double	parse_julia_value(char *str)
 {

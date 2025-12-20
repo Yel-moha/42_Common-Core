@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yel-moha <yel-moha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/23 16:13:03 by yel-moha          #+#    #+#             */
+/*   Updated: 2025/03/23 16:13:03 by yel-moha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -22,7 +34,7 @@ typedef struct s_fractal
 	double	julia_re;
 	double	julia_im;
 	int		color_mode;
-    int     flag;
+	int		flag;
 	void	*mlx;
 	void	*win;
 	void	*img;
