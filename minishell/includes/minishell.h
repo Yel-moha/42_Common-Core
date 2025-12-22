@@ -47,6 +47,12 @@ typedef enum e_state
 	STATE_IN_DOUBLE_QUOTE
 }	t_state;
 
+typedef struct s_cmd
+{
+	char			**argv;
+	struct s_cmd	*next;
+}	t_cmd;
+
 /* ************************************************************************** */
 /*                               PROTOTYPES                                   */
 /* ************************************************************************** */
@@ -57,7 +63,6 @@ void	init_signals(void);
 
 /* lexer */
 t_token	*lexer(char *line);
-void	print_tokens(t_token *tokens);
 
 /* lexer utils */
 void	free_tokens(t_token *tokens);
@@ -75,4 +80,17 @@ void	add_word(t_token **tokens, char *line, int start, int end);
 
 /* signal handling */
 void	init_signals(void);
+
+/* parser */
+t_cmd	*parse_tokens(t_token *tokens);
+
+/* parser utils */
+//t_cmd	*new_cmd(void);
+void	add_cmd(t_cmd **cmds, t_cmd *new);
+char	**tokens_to_argv(t_token *start);
+
+/* debug */
+void	print_cmds(t_cmd *cmds);
+void	print_tokens(t_token *tokens);
+
 #endif

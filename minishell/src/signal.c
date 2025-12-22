@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	handle_sigint(int sig)
+static void	sigint_handler(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
@@ -11,6 +11,11 @@ static void	handle_sigint(int sig)
 
 void	init_signals(void)
 {
-	signal(SIGINT, handle_sigint);
+	struct sigaction	sa;
+
+	sa.sa_handler = sigint_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }

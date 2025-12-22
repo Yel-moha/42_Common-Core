@@ -11,6 +11,9 @@ SRCS = \
 	src/lexer_utils.c \
 	src/lexer_state.c \
 	src/lexer_tokens.c \
+	src/parser.c \
+	src/parser_utils.c \
+	src/debug.c
 
 OBJS = $(SRCS:.c=.o)
 

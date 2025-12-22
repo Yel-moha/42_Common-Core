@@ -4,6 +4,7 @@ void	prompt_loop(void)
 {
 	char	*line;
 	t_token	*tokens;
+	t_cmd *cmd;
 
 	while (1)
 	{
@@ -16,6 +17,7 @@ void	prompt_loop(void)
 		if (*line)
 			add_history(line);
 		tokens = lexer(line);
+		cmd = parse_tokens(tokens);
 		if (!tokens)
 		{
 			printf("minishell: unclosed quotes\n");
@@ -23,6 +25,7 @@ void	prompt_loop(void)
 			continue ;
 		}
 		print_tokens(tokens);
+		print_cmds(cmd);
 		free_tokens(tokens);
 		free(line);
 	}

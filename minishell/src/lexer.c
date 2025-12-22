@@ -33,14 +33,3 @@ t_token	*lexer(char *line)
 	handle_word_end(&tokens, line, &start, i);
 	return (tokens);
 }
-
-void	print_tokens(t_token *tokens)
-{
-	while (tokens)
-	{
-		printf("TOKEN type=%d value=%s\n",
-			tokens->type,
-			tokens->value);
-		tokens = tokens->next;
-	}
-}
