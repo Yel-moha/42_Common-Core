@@ -16,7 +16,6 @@ void	prompt_loop(char **envp)
 		}
 		if (*line)
 			add_history(line);
-
 		tokens = lexer(line);
 		if (!tokens)
 		{
@@ -24,14 +23,10 @@ void	prompt_loop(char **envp)
 			free(line);
 			continue ;
 		}
-
 		cmd = parse_tokens(tokens);
-
-		print_tokens(tokens);   // debug
-		print_cmds(cmd);        // debug
-
+		// print_tokens(tokens);   // debug
+		// print_cmds(cmd);        // debug
 		execute_single_cmd(cmd, envp);
-
 		free_cmds(cmd);
 		free_tokens(tokens);
 		free(line);

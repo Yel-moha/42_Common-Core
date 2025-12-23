@@ -53,18 +53,22 @@ EXECUTOR ❌
 
 minishell/
 ├── Makefile
-├── README.md
 ├── includes/
-│ └── minishell.h
+│   └── minishell.h
 ├── src/
-│ ├── main.c # Entry point del programma
-│ ├── prompt.c # Loop principale + readline
-│ ├── signal.c # Gestione dei segnali (Ctrl-C, Ctrl-)
-│ ├── lexer.c # Core del lexer
-│ ├── lexer_state.c # Gestione dello stato (quote)
-│ ├── lexer_tokens.c # Creazione e gestione dei token
-│ └── lexer_utils.c # Utility del lexer (free, helpers)
+│   ├── main.c
+│   ├── prompt.c
+│   ├── signal.c
+│   ├── lexer.c
+│   ├── lexer_utils.c
+│   ├── lexer_state.c
+│   ├── lexer_tokens.c
+│   ├── parser.c
+│   ├── parser_utils.c
+│   ├── executor.c
+│   └── executor_utils.c
 └── libft/
+
 
 
 > La suddivisione in più file è necessaria per rispettare la **norminette**

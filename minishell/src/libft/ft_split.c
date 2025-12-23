@@ -31,7 +31,7 @@ static int	count_words(const char *s, char c)
 	return (count);
 }
 
-static char	**free_split(char **split)
+char	**free_split(char **split)
 {
 	int	i;
 

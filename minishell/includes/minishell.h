@@ -95,8 +95,14 @@ void	free_cmds(t_cmd *cmds);
 /* executor */
 void	execute_single_cmd(t_cmd *cmd, char **envp);
 
-/* debug */
+/* executor utils*/
+char	*get_env_value(char **envp, char *name);
+char	*find_command_path(char *cmd, char **envp);
+
+/* debug
 void	print_cmds(t_cmd *cmds);
 void	print_tokens(t_token *tokens);
-
+*/
+/* libft */
+void	free_split(char **arr); // ripescata da ft_split
 #endif

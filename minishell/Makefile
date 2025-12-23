@@ -14,7 +14,8 @@ SRCS = \
 	src/parser.c \
 	src/parser_utils.c \
 	src/debug.c \
-	src/executor.c
+	src/executor.c \
+	src/executor_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
