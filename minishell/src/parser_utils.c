@@ -32,3 +32,31 @@ char **tokens_to_argv(t_token *tokens)
     argv[i] = NULL;
     return (argv);
 }
+
+static void free_argv(char **argv)
+{
+    int i;
+
+    if(!argv)
+        return ;
+    i = 0;
+    while(argv[i])
+    {
+        free(argv[i]);
+        i++;
+    }
+    free(argv);
+}
+
+void	free_cmds(t_cmd *cmds)
+{
+    t_cmd *next;
+
+    while(cmds)
+    {
+        next = cmds->next;
+        free_argv(cmds->argv);
+        free(cmds);
+        cmds = next;
+    }
+}

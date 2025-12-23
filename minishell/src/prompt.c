@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-void	prompt_loop(void)
+void	prompt_loop(char **envp)
 {
 	char	*line;
 	t_token	*tokens;
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	while (1)
 	{
@@ -16,16 +16,23 @@ void	prompt_loop(void)
 		}
 		if (*line)
 			add_history(line);
+
 		tokens = lexer(line);
-		cmd = parse_tokens(tokens);
 		if (!tokens)
 		{
 			printf("minishell: unclosed quotes\n");
 			free(line);
 			continue ;
 		}
-		print_tokens(tokens);
-		print_cmds(cmd);
+
+		cmd = parse_tokens(tokens);
+
+		print_tokens(tokens);   // debug
+		print_cmds(cmd);        // debug
+
+		execute_single_cmd(cmd, envp);
+
+		free_cmds(cmd);
 		free_tokens(tokens);
 		free(line);
 	}

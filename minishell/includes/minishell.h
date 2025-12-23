@@ -12,6 +12,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../src/libft/libft.h"
+#include <sys/wait.h>
+
 
 /* ************************************************************************** */
 /*                                   GLOBALS                                  */
@@ -58,7 +60,7 @@ typedef struct s_cmd
 /* ************************************************************************** */
 
 /* main / prompt */
-void	prompt_loop(void);
+void	prompt_loop(char **envp);
 void	init_signals(void);
 
 /* lexer */
@@ -88,6 +90,10 @@ t_cmd	*parse_tokens(t_token *tokens);
 //t_cmd	*new_cmd(void);
 void	add_cmd(t_cmd **cmds, t_cmd *new);
 char	**tokens_to_argv(t_token *start);
+void	free_cmds(t_cmd *cmds);
+
+/* executor */
+void	execute_single_cmd(t_cmd *cmd, char **envp);
 
 /* debug */
 void	print_cmds(t_cmd *cmds);
