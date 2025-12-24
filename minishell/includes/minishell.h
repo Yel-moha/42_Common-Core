@@ -11,7 +11,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../src/libft/libft.h"
+# include "../libft/libft.h"
 #include <sys/wait.h>
 
 
@@ -104,5 +104,5 @@ void	print_cmds(t_cmd *cmds);
 void	print_tokens(t_token *tokens);
 */
 /* libft */
-void	free_split(char **arr); // ripescata da ft_split
+void	free_split(char **arr); // ripescata da libft/ft_split
 #endif

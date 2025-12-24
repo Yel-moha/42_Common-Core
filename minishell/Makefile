@@ -21,7 +21,7 @@ OBJS = $(SRCS:.c=.o)
 
 INCLUDES = -Iincludes -Ilibft
 
-LIBFT = src/libft/libft.a
+LIBFT = libft/libft.a
 
 all: $(NAME)
 
@@ -29,18 +29,18 @@ $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 
 $(LIBFT):
-	$(MAKE) -C src/libft
+	$(MAKE) -C libft
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
-	$(MAKE) -C src/libft clean
+	$(MAKE) -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C src/libft fclean
+	$(MAKE) -C libft fclean
 
 re: fclean all
 
