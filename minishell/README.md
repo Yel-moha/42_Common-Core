@@ -11,7 +11,7 @@ L’obiettivo del progetto è comprendere a fondo:
 
 ---
 
-## 📌 Stato attuale del progetto
+## Stato attuale del progetto
 
 Al momento il progetto è nelle **fasi iniziali**, con particolare attenzione a:
 - struttura del progetto
@@ -23,7 +23,7 @@ Lo sviluppo segue uno schema preciso e incrementale.
 
 ---
 
-## 🧠 Schema logico della shell
+## Schema logico della shell
 
 La shell è progettata secondo il seguente flusso:
 
@@ -37,19 +37,9 @@ PARSER
 ↓
 EXECUTOR
 
-
-### Stato attuale nello schema
-
-readline() ✅
-LEXER 🟡 (in corso)
-EXPANDER ❌
-PARSER ❌
-EXECUTOR ❌
-
-
 ---
 
-## 🗂️ Struttura del progetto
+## Struttura del progetto
 
 minishell/
 ├── Makefile
@@ -76,7 +66,7 @@ minishell/
 
 ---
 
-## 🔍 Lexer (tokenizzazione)
+## Lexer (tokenizzazione)
 
 Il lexer è responsabile di trasformare la stringa letta da `readline()` in una
 lista di **token**.

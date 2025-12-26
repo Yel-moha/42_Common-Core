@@ -1,6 +1,7 @@
 #include "minishell.h"
 
 int	g_signal = 0;
+int	g_exit_status = 0;
 
 int	main(int ac, char **av, char **envp)
 {

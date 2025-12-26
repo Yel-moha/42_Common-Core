@@ -26,6 +26,8 @@ char    *find_command_path(char *cmd, char **envp)
 
     if(ft_strchr(cmd, '/'))
         return(ft_strdup(cmd));
+    if (!get_env_value(envp, "PATH"))
+        return (NULL);
     paths = ft_split(get_env_value(envp, "PATH"), ':');
     i = 0;
     while(paths && paths[i])
@@ -40,4 +42,39 @@ char    *find_command_path(char *cmd, char **envp)
     }
     free_split(paths);
     return(NULL);
+}
+#include "minishell.h"
+
+void execve_or_builtin(t_cmd *cmd, char **envp)
+{
+    char    *path;
+
+    if (!cmd || !cmd->argv || !cmd->argv[0])
+        exit(1);
+
+    if (is_builtin(cmd->argv[0]))
+        exit(run_builtin(cmd, envp));
+
+    path = find_command_path(cmd->argv[0], envp);
+    if (!path)
+    {
+        write(2, "minishell: ", 11);
+        write(2, cmd->argv[0], ft_strlen(cmd->argv[0]));
+        write(2, ": command not found\n", 20);
+        exit(127);
+    }
+    execve(path, cmd->argv, envp);
+    perror("minishell");
+    free(path);
+    exit(126);
+}
+
+void execute_cmds(t_cmd *cmds, char **envp)
+{
+    if (!cmds)
+        return ;
+    if (cmds->next)
+        execute_pipeline(cmds, envp);
+    else
+        execute_single_cmd(cmds, envp);
 }

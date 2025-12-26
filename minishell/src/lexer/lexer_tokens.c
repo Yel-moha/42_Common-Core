@@ -31,12 +31,24 @@ void	add_token(t_token **head, t_token *new)
 void	add_word(t_token **tokens, char *line, int start, int end)
 {
 	char	*word;
+	int		i;
 
 	if (end <= start)
 		return ;
 	word = ft_substr(line, start, end - start);
+	if (!word)
+		return ;
+	i = 0;
+	while (word[i] && is_space(word[i]))
+		i++;
+	if (word[i] == '\0')
+	{
+		free(word);
+		return ;
+	}
 	add_token(tokens, new_token(T_WORD, word));
 }
+
 
 void	handle_word_end(t_token **tokens, char *line, int *start, int i)
 {

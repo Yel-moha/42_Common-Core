@@ -7,15 +7,22 @@ SRCS = \
 	src/main.c \
 	src/prompt.c \
 	src/signal.c \
-	src/lexer.c \
-	src/lexer_utils.c \
-	src/lexer_state.c \
-	src/lexer_tokens.c \
-	src/parser.c \
-	src/parser_utils.c \
+	src/lexer/lexer.c \
+	src/lexer/lexer_utils.c \
+	src/lexer/lexer_state.c \
+	src/lexer/lexer_tokens.c \
+	src/parser/parser.c \
+	src/parser/parser_utils.c \
 	src/debug.c \
-	src/executor.c \
-	src/executor_utils.c
+	src/executor/executor.c \
+	src/executor/executor_utils.c \
+	src/builtin/builtin.c \
+	src/builtin/builtin_pwd.c \
+	src/builtin/builtin_echo.c \
+	src/expander/expander_utils.c \
+	src/expander/expander.c \
+	src/expander/heredoc_utils.c \
+	src/expander/heredoc.c \
 
 OBJS = $(SRCS:.c=.o)
 
