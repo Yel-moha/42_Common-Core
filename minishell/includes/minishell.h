@@ -11,9 +11,9 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../libft/libft.h"
+# include <fcntl.h>
 # include <sys/wait.h>
-
+# include "../libft/libft.h"
 
 /* ************************************************************************** */
 /*                                   GLOBALS                                  */
@@ -33,18 +33,8 @@ typedef enum e_token_type
 	T_REDIR_IN,
 	T_REDIR_OUT,
 	T_REDIR_APPEND,
-	T_HEREDOC,
-	T_VARIABILE,
-	T_EXIT_CODE
-}	t_token_type;
-
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-	int				expand;
-}	t_token;
+	T_HEREDOC
+}t_token_type;
 
 typedef enum e_state
 {
@@ -52,13 +42,29 @@ typedef enum e_state
 	STATE_IN_SINGLE_QUOTE,
 	STATE_IN_DOUBLE_QUOTE,
 	STATE_IN_VAR_EXPANSION
-}	t_state;
+}t_state;
+
+typedef struct s_redir
+{
+	t_token_type	type;
+	char			*target;
+	struct s_redir	*next;
+}t_redir;
 
 typedef struct s_cmd
 {
-	char			**argv;
+	char		**argv;
+	t_redir		*redirs;
 	struct s_cmd	*next;
-}	t_cmd;
+}t_cmd;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+	int				expand;
+}t_token;
 
 /* ************************************************************************** */
 /*                               PROTOTYPES                                   */
@@ -70,10 +76,14 @@ void	init_signals(void);
 
 /* lexer */
 t_token	*lexer(char *line);
+void	handle_redir(t_token **tokens, char *line, int *i);
 
 /* lexer utils */
 void	free_tokens(t_token *tokens);
 int		is_space(char c);
+int		is_redir(char c);
+int		is_operator(char c);
+int		is_double_redir(char *line, int i);
 
 /* lexer state */
 void	handle_char(char *line, int i, t_state *state);
@@ -81,51 +91,45 @@ t_state	update_state(char c, t_state state);
 
 /* lexer tokens */
 t_token	*new_token(t_token_type type, char *value);
-void	add_token(t_token **head, t_token *new);
+void	add_token(t_token **head, t_token *new_token);
 void	handle_word_end(t_token **tokens, char *line, int *start, int i);
 void	add_word(t_token **tokens, char *line, int start, int end);
 
-/* signal handling */
-void	init_signals(void);
-
 /* parser */
 t_cmd	*parse_tokens(t_token *tokens);
+t_cmd	*parse_single_cmd(t_token **tokens);
 
 /* parser utils */
-//t_cmd	*new_cmd(void);
-void	add_cmd(t_cmd **cmds, t_cmd *new);
 char	**tokens_to_argv(t_token *start);
 void	free_cmds(t_cmd *cmds);
+t_redir	*new_redir(t_token_type type, char *target);
+void	add_redir(t_redir **lst, t_redir *new_redir);
+t_token	*parse_redir(t_cmd *cmd, t_token *tok);
+int		is_redir_token(t_token_type type);
 
 /* executor */
 void	execute_single_cmd(t_cmd *cmd, char **envp);
 void	execute_pipeline(t_cmd *cmds, char **envp);
 void	execve_or_builtin(t_cmd *cmd, char **envp);
 void	execute_cmds(t_cmd *cmds, char **envp);
+int		apply_redirections(t_redir *redirs, char **envp);
+void	execve_or_die(t_cmd *cmd, char **envp);
+int		apply_heredoc(char *delimiter, char **envp);
 
-/* executor utils*/
+/* executor utils */
 char	*get_env_value(char **envp, char *name);
 char	*find_command_path(char *cmd, char **envp);
 
-/* built */
-int     is_builtin(char *cmd);
-int     run_builtin(t_cmd *cmd, char **envp);
-
-void    builtin_pwd(void);
-void    builtin_echo(char **argv);
+/* builtins */
+int		is_builtin(char *cmd);
+int		run_builtin(t_cmd *cmd, char **envp);
+void	builtin_pwd(void);
+void	builtin_echo(char **argv);
 int		ft_strcmp(const char *s1, const char *s2);
-/*
-void    builtin_echo(char **argv);
-void    builtin_env(char **envp);
-void    builtin_cd(char **argv, char **envp);
-void    builtin_exit(char **argv);
-*/
 
-
-/* debug
+/* debug */
 void	print_cmds(t_cmd *cmds);
 void	print_tokens(t_token *tokens);
-*/
 
 /* expander */
 void	expand_cmds(t_cmd *cmds, char **envp);
@@ -137,5 +141,6 @@ char	*strip_quotes(char *s);
 void	read_heredoc(char *delimiter, char **envp, int fd);
 
 /* libft */
-void	free_split(char **arr); // ripescata da libft/ft_split
+void	free_split(char **arr);
+
 #endif

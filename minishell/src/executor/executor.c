@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 static void    exec_error(char *cmd, char *path)
 {
     if (!path)
@@ -17,7 +17,8 @@ static void    exec_error(char *cmd, char *path)
         exit(126);
     }
 }
-
+*/
+/*
 void    execute_single_cmd(t_cmd *cmd, char **envp)
 {
     pid_t  pid;
@@ -55,6 +56,43 @@ void    execute_single_cmd(t_cmd *cmd, char **envp)
 
     free(path);
 }
+*/
+
+void execute_single_cmd(t_cmd *cmd, char **envp)
+{
+    pid_t pid;
+    int saved_stdin;
+    int saved_stdout;
+
+    if (!cmd || !cmd->argv || !cmd->argv[0])
+        return;
+
+    saved_stdin = dup(STDIN_FILENO);
+    saved_stdout = dup(STDOUT_FILENO);
+
+    if (apply_redirections(cmd->redirs, envp) < 0)
+        return;
+
+    if (is_builtin(cmd->argv[0]))
+    {
+        run_builtin(cmd, envp);
+    }
+    else
+    {
+        pid = fork();
+        if (pid == 0)
+        {
+            execve_or_die(cmd, envp);
+        }
+        waitpid(pid, NULL, 0);
+    }
+
+    dup2(saved_stdin, STDIN_FILENO);
+    dup2(saved_stdout, STDOUT_FILENO);
+    close(saved_stdin);
+    close(saved_stdout);
+}
+
 
 void execute_pipeline(t_cmd *cmds, char **envp)
 {

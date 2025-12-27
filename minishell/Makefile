@@ -7,6 +7,7 @@ SRCS = \
 	src/main.c \
 	src/prompt.c \
 	src/signal.c \
+	src/lexer/lexer_helper.c \
 	src/lexer/lexer.c \
 	src/lexer/lexer_utils.c \
 	src/lexer/lexer_state.c \
@@ -16,13 +17,14 @@ SRCS = \
 	src/debug.c \
 	src/executor/executor.c \
 	src/executor/executor_utils.c \
+	src/executor/executor_heredoc.c \
 	src/builtin/builtin.c \
 	src/builtin/builtin_pwd.c \
 	src/builtin/builtin_echo.c \
 	src/expander/expander_utils.c \
 	src/expander/expander.c \
 	src/expander/heredoc_utils.c \
-	src/expander/heredoc.c \
+	src/expander/heredoc.c
 
 OBJS = $(SRCS:.c=.o)
 

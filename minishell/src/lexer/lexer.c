@@ -20,6 +20,14 @@ t_token	*lexer(char *line)
 		{
 			handle_word_end(&tokens, line, &start, i);
 			add_token(&tokens, new_token(T_PIPE, ft_strdup("|")));
+			i++;
+			continue;
+		}
+		else if (is_redir(line[i]) && state == STATE_NORMAL)
+		{
+			handle_word_end(&tokens, line, &start, i);
+			handle_redir(&tokens, line, &i);
+			continue;
 		}
 		else if (start == -1)
 			start = i;

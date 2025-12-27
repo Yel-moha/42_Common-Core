@@ -78,3 +78,60 @@ void execute_cmds(t_cmd *cmds, char **envp)
     else
         execute_single_cmd(cmds, envp);
 }
+
+int apply_redirections(t_redir *redirs, char **envp)
+{
+    int fd;
+
+    while (redirs)
+    {
+        if (redirs->type == T_REDIR_IN)
+        {
+            fd = open(redirs->target, O_RDONLY);
+            if (fd < 0)
+                return (perror(redirs->target), -1);
+            dup2(fd, STDIN_FILENO);
+            close(fd);
+        }
+        else if (redirs->type == T_REDIR_OUT)
+        {
+            fd = open(redirs->target,
+                O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (fd < 0)
+                return (perror(redirs->target), -1);
+            dup2(fd, STDOUT_FILENO);
+            close(fd);
+        }
+        else if (redirs->type == T_REDIR_APPEND)
+        {
+            fd = open(redirs->target,
+                O_WRONLY | O_CREAT | O_APPEND, 0644);
+            if (fd < 0)
+                return (perror(redirs->target), -1);
+            dup2(fd, STDOUT_FILENO);
+            close(fd);
+        }
+        else if (redirs->type == T_HEREDOC)
+        {
+            if (apply_heredoc(redirs->target, envp) < 0)
+                return (-1);
+        }
+        redirs = redirs->next;
+    }
+    return (0);
+}
+
+void execve_or_die(t_cmd *cmd, char **envp)
+{
+    char *path;
+
+    path = find_command_path(cmd->argv[0], envp);
+    if (!path)
+    {
+        write(2, "minishell: command not found\n", 29);
+        exit(127);
+    }
+    execve(path, cmd->argv, envp);
+    perror("execve");
+    exit(1);
+}

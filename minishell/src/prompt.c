@@ -24,8 +24,8 @@ void	prompt_loop(char **envp)
 			continue ;
 		}
 		cmd = parse_tokens(tokens);
-		// print_tokens(tokens);   // debug
-		// print_cmds(cmd);        // debug
+		print_tokens(tokens);   // debug
+		print_cmds(cmd);        // debug
 		expand_cmds(cmd, envp);
 		execute_cmds(cmd, envp);
 		free_cmds(cmd);
