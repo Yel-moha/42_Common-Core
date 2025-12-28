@@ -63,6 +63,7 @@ void execute_single_cmd(t_cmd *cmd, char **envp)
     pid_t pid;
     int saved_stdin;
     int saved_stdout;
+    int status;
 
     if (!cmd || !cmd->argv || !cmd->argv[0])
         return;
@@ -76,6 +77,7 @@ void execute_single_cmd(t_cmd *cmd, char **envp)
     if (is_builtin(cmd->argv[0]))
     {
         run_builtin(cmd, envp);
+        g_exit_status = 0;
     }
     else
     {
@@ -84,7 +86,21 @@ void execute_single_cmd(t_cmd *cmd, char **envp)
         {
             execve_or_die(cmd, envp);
         }
-        waitpid(pid, NULL, 0);
+        //waitpid(pid, NULL, 0);
+        else
+        {
+            pid = fork();
+            if (pid == 0)
+            {
+                execve_or_die(cmd, envp);
+            }
+            waitpid(pid, &status, 0);
+            if (WIFEXITED(status))
+                g_exit_status = WEXITSTATUS(status);
+            else if (WIFSIGNALED(status))
+                g_exit_status = 128 + WTERMSIG(status);
+        }
+
     }
 
     dup2(saved_stdin, STDIN_FILENO);
@@ -99,7 +115,7 @@ void execute_pipeline(t_cmd *cmds, char **envp)
     int     fd[2];
     int     prev_fd;
     pid_t   pid;
-    //pid_t   last_pid;
+    pid_t   last_pid;
     int     status;
 
     prev_fd = -1;
@@ -133,10 +149,11 @@ void execute_pipeline(t_cmd *cmds, char **envp)
             close(fd[1]);
             prev_fd = fd[0];
         }
-        //last_pid = pid;
+        last_pid = pid;
         cmds = cmds->next;
     }
-    while (wait(&status) > 0)
+    waitpid(last_pid, &status, 0);
+    while (wait(NULL) > 0)
         ;
     if (WIFEXITED(status))
         g_exit_status = WEXITSTATUS(status);

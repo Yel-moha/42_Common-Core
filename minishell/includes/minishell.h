@@ -127,10 +127,6 @@ void	builtin_pwd(void);
 void	builtin_echo(char **argv);
 int		ft_strcmp(const char *s1, const char *s2);
 
-/* debug */
-void	print_cmds(t_cmd *cmds);
-void	print_tokens(t_token *tokens);
-
 /* expander */
 void	expand_cmds(t_cmd *cmds, char **envp);
 char	*expand_word(char *word, char **envp);
@@ -143,4 +139,8 @@ void	read_heredoc(char *delimiter, char **envp, int fd);
 /* libft */
 void	free_split(char **arr);
 
+
+/* debug */
+//void	print_cmds(t_cmd *cmds);
+//void	print_tokens(t_token *tokens);
 #endif
