@@ -126,6 +126,7 @@ int		run_builtin(t_cmd *cmd, char **envp);
 void	builtin_pwd(void);
 void	builtin_echo(char **argv);
 int		ft_strcmp(const char *s1, const char *s2);
+int	builtin_cd(char **env);
 
 /* expander */
 void	expand_cmds(t_cmd *cmds, char **envp);

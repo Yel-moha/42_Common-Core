@@ -18,7 +18,6 @@ int is_builtin(char *cmd)
         || !ft_strcmp(cmd, "pwd")
         || !ft_strcmp(cmd, "export")
         || !ft_strcmp(cmd, "unset")
-        || !ft_strcmp(cmd, "unset")
         || !ft_strcmp(cmd, "env")
         || !ft_strcmp(cmd, "exit"));
 }
@@ -38,16 +37,14 @@ int run_builtin(t_cmd *cmd, char **envp)
         builtin_echo(cmd->argv);
         return (0);
     }
+    else if (!ft_strcmp(cmd->argv[0], "cd"))
+    {
+        return (builtin_cd(cmd->argv));
+    }
     /*
     else if (!ft_strcmp(cmd->argv[0], "env"))
     {
         builtin_env(envp);
-        return (0);
-    }
-    else if (!ft_strcmp(cmd->argv[0], "cd"))
-    {
-        if (builtin_cd(cmd->argv, envp) == -1)
-            return (1);
         return (0);
     }
     else if (!ft_strcmp(cmd->argv[0], "exit"))

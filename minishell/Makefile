@@ -21,6 +21,7 @@ SRCS = \
 	src/builtin/builtin.c \
 	src/builtin/builtin_pwd.c \
 	src/builtin/builtin_echo.c \
+	src/builtin/builtin_cd.c \
 	src/expander/expander_utils.c \
 	src/expander/expander.c \
 	src/expander/heredoc_utils.c \

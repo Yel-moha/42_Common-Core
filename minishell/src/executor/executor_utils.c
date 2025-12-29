@@ -120,17 +120,36 @@ int apply_redirections(t_redir *redirs, char **envp)
     }
     return (0);
 }
-
+static void    exec_error(char *cmd, char *path)
+{
+    if (!path)
+    {
+        write(2, "minishell: ", 11);
+        write(2, cmd, ft_strlen(cmd));
+        write(2, ": command not found\n", 20);
+        exit(127);
+    }
+    if (access(path, X_OK) != 0)
+    {
+        write(2, "minishell: ", 11);
+        write(2, cmd, ft_strlen(cmd));
+        write(2, ": permission denied\n", 20);
+        exit(126);
+    }
+}
 void execve_or_die(t_cmd *cmd, char **envp)
 {
     char *path;
 
     path = find_command_path(cmd->argv[0], envp);
+    /*
     if (!path)
     {
         write(2, "minishell: command not found\n", 29);
         exit(127);
     }
+    */
+    exec_error(cmd->argv[0], path);
     execve(path, cmd->argv, envp);
     perror("execve");
     exit(1);

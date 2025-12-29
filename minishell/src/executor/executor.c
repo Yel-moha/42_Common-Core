@@ -1,23 +1,5 @@
 #include "minishell.h"
-/*
-static void    exec_error(char *cmd, char *path)
-{
-    if (!path)
-    {
-        write(2, "minishell: ", 11);
-        write(2, cmd, ft_strlen(cmd));
-        write(2, ": command not found\n", 20);
-        exit(127);
-    }
-    if (access(path, X_OK) != 0)
-    {
-        write(2, "minishell: ", 11);
-        write(2, cmd, ft_strlen(cmd));
-        write(2, ": permission denied\n", 20);
-        exit(126);
-    }
-}
-*/
+
 /*
 void    execute_single_cmd(t_cmd *cmd, char **envp)
 {
@@ -75,25 +57,13 @@ void execute_single_cmd(t_cmd *cmd, char **envp)
         return;
 
     if (is_builtin(cmd->argv[0]))
-    {
-        run_builtin(cmd, envp);
-        g_exit_status = 0;
-    }
+        g_exit_status = run_builtin(cmd, envp);
     else
     {
-        pid = fork();
-        if (pid == 0)
-        {
-            execve_or_die(cmd, envp);
-        }
-        //waitpid(pid, NULL, 0);
-        else
-        {
+         {
             pid = fork();
             if (pid == 0)
-            {
                 execve_or_die(cmd, envp);
-            }
             waitpid(pid, &status, 0);
             if (WIFEXITED(status))
                 g_exit_status = WEXITSTATUS(status);
