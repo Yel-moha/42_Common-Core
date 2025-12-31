@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int apply_heredoc(char *delimiter, char **envp)
+int apply_heredoc(char *delimiter, t_shell *shell)
 {
     int fd[2];
     pid_t pid;
@@ -11,7 +11,7 @@ int apply_heredoc(char *delimiter, char **envp)
     if (pid == 0)
     {
         close(fd[0]);
-        read_heredoc(delimiter, envp, fd[1]);
+        read_heredoc(delimiter, shell, fd[1]);
         close(fd[1]);
         exit(0);
     }

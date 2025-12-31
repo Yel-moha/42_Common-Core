@@ -33,7 +33,7 @@ static char	*extract_var_name(char *str, int *i)
 	return (ft_substr(str, start, *i - start));
 }
 
-char	*expand_variable(char *res, char *word, int *i, char **envp)
+char	*expand_variable(char *res, char *word, int *i, t_shell *shell)
 {
 	char	*name;
 	char	*value;
@@ -41,13 +41,13 @@ char	*expand_variable(char *res, char *word, int *i, char **envp)
 	(*i)++;
 	if (word[*i] == '?')
 	{
-		value = ft_itoa(g_exit_status);
+		value = ft_itoa(shell->exit_code);
 		(*i)++;
 	}
 	else
 	{
 		name = extract_var_name(word, i);
-		value = get_env_value(envp, name);
+		value = get_env_value(shell->envp_copy, name);
 		free(name);
 	}
 	if (value)

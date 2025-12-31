@@ -7,6 +7,7 @@ SRCS = \
 	src/main.c \
 	src/prompt.c \
 	src/signal.c \
+	src/env_utils.c \
 	src/lexer/lexer_helper.c \
 	src/lexer/lexer.c \
 	src/lexer/lexer_utils.c \

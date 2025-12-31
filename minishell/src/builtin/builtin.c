@@ -22,10 +22,10 @@ int is_builtin(char *cmd)
         || !ft_strcmp(cmd, "exit"));
 }
 
-int run_builtin(t_cmd *cmd, char **envp)
+int run_builtin(t_cmd *cmd, t_shell *shell)
 {
-    (void)envp;
-
+    //(void)envp;
+    (void)(shell);
     if (!ft_strcmp(cmd->argv[0], "pwd"))
     {
         builtin_pwd();
@@ -44,11 +44,24 @@ int run_builtin(t_cmd *cmd, char **envp)
     /*
     else if (!ft_strcmp(cmd->argv[0], "env"))
     {
-        builtin_env(envp);
+        builtin_env(shell->envp_copy);
         return (0);
     }
-    else if (!ft_strcmp(cmd->argv[0], "exit"))
-        builtin_exit(cmd->argv);
+    else if (!ft_strcmp(cmd->argv[0], "export"))
+    {
+        builtin_export(cmd->argv, &shell->envp_copy);
+        return (0);
+    }
+        else if(!ft_strcmp(cmd->argv[0], "unset"))
+    {
+        builtin_unset(cmd->argv, &shell->envp_copy);
+        return (0);
+    }
+    else if(!ft_strcmp(cmd->argv[0], "exit"))
+    {
+        builtin_exit(cmd->argv, shell);
+        return (shell->exit_code);  // Potrebbe aver cambiato exit_code
+    }
     */
     return (1);
 }

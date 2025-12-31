@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	prompt_loop(char **envp)
+void	prompt_loop(t_shell *shell)
 {
 	char	*line;
 	t_token	*tokens;
@@ -26,8 +26,8 @@ void	prompt_loop(char **envp)
 		cmd = parse_tokens(tokens);
 		//print_tokens(tokens);   // debug
 		//print_cmds(cmd);        // debug
-		expand_cmds(cmd, envp);
-		execute_cmds(cmd, envp);
+		expand_cmds(cmd, shell);
+		execute_cmds(cmd, shell);
 		free_cmds(cmd);
 		free_tokens(tokens);
 		free(line);

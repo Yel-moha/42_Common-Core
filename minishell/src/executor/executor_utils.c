@@ -17,7 +17,7 @@ char    *get_env_value(char **envp, char *name)
     return (NULL);
 }
 
-char    *find_command_path(char *cmd, char **envp)
+char    *find_command_path(char *cmd, t_shell *shell)
 {
     char    **paths;
     char    *path;
@@ -26,9 +26,9 @@ char    *find_command_path(char *cmd, char **envp)
 
     if(ft_strchr(cmd, '/'))
         return(ft_strdup(cmd));
-    if (!get_env_value(envp, "PATH"))
+    if (!get_env_value(shell->envp_copy, "PATH"))
         return (NULL);
-    paths = ft_split(get_env_value(envp, "PATH"), ':');
+    paths = ft_split(get_env_value(shell->envp_copy, "PATH"), ':');
     i = 0;
     while(paths && paths[i])
     {
@@ -43,9 +43,8 @@ char    *find_command_path(char *cmd, char **envp)
     free_split(paths);
     return(NULL);
 }
-#include "minishell.h"
 
-void execve_or_builtin(t_cmd *cmd, char **envp)
+void execve_or_builtin(t_cmd *cmd, t_shell *shell)
 {
     char    *path;
 
@@ -53,9 +52,9 @@ void execve_or_builtin(t_cmd *cmd, char **envp)
         exit(1);
 
     if (is_builtin(cmd->argv[0]))
-        exit(run_builtin(cmd, envp));
+        exit(run_builtin(cmd, shell));
 
-    path = find_command_path(cmd->argv[0], envp);
+    path = find_command_path(cmd->argv[0], shell);
     if (!path)
     {
         write(2, "minishell: ", 11);
@@ -63,23 +62,23 @@ void execve_or_builtin(t_cmd *cmd, char **envp)
         write(2, ": command not found\n", 20);
         exit(127);
     }
-    execve(path, cmd->argv, envp);
+    execve(path, cmd->argv, shell->envp_copy);
     perror("minishell");
     free(path);
     exit(126);
 }
 
-void execute_cmds(t_cmd *cmds, char **envp)
+void execute_cmds(t_cmd *cmds, t_shell *shell)
 {
     if (!cmds)
         return ;
     if (cmds->next)
-        execute_pipeline(cmds, envp);
+        execute_pipeline(cmds, shell);
     else
-        execute_single_cmd(cmds, envp);
+        execute_single_cmd(cmds, shell);
 }
 
-int apply_redirections(t_redir *redirs, char **envp)
+int apply_redirections(t_redir *redirs, t_shell *shell)
 {
     int fd;
 
@@ -113,7 +112,7 @@ int apply_redirections(t_redir *redirs, char **envp)
         }
         else if (redirs->type == T_HEREDOC)
         {
-            if (apply_heredoc(redirs->target, envp) < 0)
+            if (apply_heredoc(redirs->target, shell) < 0)
                 return (-1);
         }
         redirs = redirs->next;
@@ -137,11 +136,11 @@ static void    exec_error(char *cmd, char *path)
         exit(126);
     }
 }
-void execve_or_die(t_cmd *cmd, char **envp)
+void execve_or_die(t_cmd *cmd, t_shell *shell)
 {
     char *path;
 
-    path = find_command_path(cmd->argv[0], envp);
+    path = find_command_path(cmd->argv[0], shell);
     /*
     if (!path)
     {
@@ -150,7 +149,7 @@ void execve_or_die(t_cmd *cmd, char **envp)
     }
     */
     exec_error(cmd->argv[0], path);
-    execve(path, cmd->argv, envp);
+    execve(path, cmd->argv, shell->envp_copy);
     perror("execve");
     exit(1);
 }

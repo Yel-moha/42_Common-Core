@@ -20,7 +20,7 @@
 /* ************************************************************************** */
 
 extern int	g_signal;
-extern int	g_exit_status;
+//extern int	g_exit_status;
 
 /* ************************************************************************** */
 /*                                   TYPES                                    */
@@ -66,12 +66,19 @@ typedef struct s_token
 	int				expand;
 }t_token;
 
+typedef struct s_shell
+{
+	char	**envp_copy;	// LA TUA COPIA MODIFICABILE
+	int		exit_code;
+}	t_shell;
+
+
 /* ************************************************************************** */
 /*                               PROTOTYPES                                   */
 /* ************************************************************************** */
 
 /* main / prompt */
-void	prompt_loop(char **envp);
+void	prompt_loop(t_shell *shell);
 void	init_signals(void);
 
 /* lexer */
@@ -108,38 +115,42 @@ t_token	*parse_redir(t_cmd *cmd, t_token *tok);
 int		is_redir_token(t_token_type type);
 
 /* executor */
-void	execute_single_cmd(t_cmd *cmd, char **envp);
-void	execute_pipeline(t_cmd *cmds, char **envp);
-void	execve_or_builtin(t_cmd *cmd, char **envp);
-void	execute_cmds(t_cmd *cmds, char **envp);
-int		apply_redirections(t_redir *redirs, char **envp);
-void	execve_or_die(t_cmd *cmd, char **envp);
-int		apply_heredoc(char *delimiter, char **envp);
+void	execute_single_cmd(t_cmd *cmd, t_shell *shell);
+void	execute_pipeline(t_cmd *cmds, t_shell *shell);
+void	execve_or_builtin(t_cmd *cmd, t_shell *shell);
+void	execute_cmds(t_cmd *cmds, t_shell *shell);
+int		apply_redirections(t_redir *redirs, t_shell *shell);
+void	execve_or_die(t_cmd *cmd, t_shell *shell);
+int		apply_heredoc(char *delimiter, t_shell *shell);
 
 /* executor utils */
 char	*get_env_value(char **envp, char *name);
-char	*find_command_path(char *cmd, char **envp);
+char	*find_command_path(char *cmd, t_shell *shell);
 
 /* builtins */
 int		is_builtin(char *cmd);
-int		run_builtin(t_cmd *cmd, char **envp);
+int		run_builtin(t_cmd *cmd, t_shell *shell);
 void	builtin_pwd(void);
 void	builtin_echo(char **argv);
 int		ft_strcmp(const char *s1, const char *s2);
 int	builtin_cd(char **env);
 
 /* expander */
-void	expand_cmds(t_cmd *cmds, char **envp);
-char	*expand_word(char *word, char **envp);
-char	*expand_variable(char *res, char *word, int *i, char **envp);
+void	expand_cmds(t_cmd *cmds, t_shell *shell);
+char	*expand_word(char *word, t_shell *shell);
+char	*expand_variable(char *res, char *word, int *i, t_shell *shell);
 char	*append_char(char *s, char c);
 int		heredoc_should_expand(char *delimiter);
 char	*strip_quotes(char *s);
-void	read_heredoc(char *delimiter, char **envp, int fd);
+void	read_heredoc(char *delimiter, t_shell *shell, int fd);
 
 /* libft */
 void	free_split(char **arr);
 
+/* env utils */
+char	**copy_envp(char **envp);
+void	free_envp(char **envp);
+char	*env_get_value(char **envp, char *name);
 
 /* debug */
 //void	print_cmds(t_cmd *cmds);
