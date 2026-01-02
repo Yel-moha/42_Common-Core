@@ -135,7 +135,9 @@ void	builtin_echo(char **argv);
 int		ft_strcmp(const char *s1, const char *s2);
 int		builtin_cd(char **env);
 void    builtin_env(t_shell *shell);
-int builtin_export(t_shell *shell, char **argv);
+int 	builtin_export(t_shell *shell, char **argv);
+void 	env_remove_at_index(t_shell *shell, int index);
+int 	builtin_unset(char **argv, t_shell *shell);
 
 /* expot helpers */
 int is_valid_identifier(char *s);

@@ -47,11 +47,11 @@ int run_builtin(t_cmd *cmd, t_shell *shell)
     {
         return builtin_export(shell, cmd->argv);
     }
-    /*
     else if (!ft_strcmp(cmd->argv[0], "unset"))
     {
-        return builtin_unset(shell, cmd->argv);
+        return builtin_unset(cmd->argv, shell);
     }
+        /*
     else if (!ft_strcmp(cmd->argv[0], "exit"))
     {
         builtin_exit(shell, cmd->argv);
