@@ -133,7 +133,30 @@ int		run_builtin(t_cmd *cmd, t_shell *shell);
 void	builtin_pwd(void);
 void	builtin_echo(char **argv);
 int		ft_strcmp(const char *s1, const char *s2);
-int	builtin_cd(char **env);
+int		builtin_cd(char **env);
+void    builtin_env(t_shell *shell);
+int builtin_export(t_shell *shell, char **argv);
+
+/* expot helpers */
+int is_valid_identifier(char *s);
+char *get_key(char *arg);
+int find_env_index(char **envp, char *key);
+void env_add(t_shell *shell, char *new_var);
+char	*env_get_value(char **envp, char *name);
+int has_equal(char *s);
+void env_replace(char **envp, int index, char *new_var);
+
+/*export utils*/
+char **env_dup(char **envp);
+void env_sort(char **env);
+void print_export_env(t_shell *shell);
+void export_var(t_shell *shell, char *arg);
+
+/*
+builtin_export_no_args(t_shell *shell);
+sort_env(char **env);
+print_export_entry(char *env);
+*/
 
 /* expander */
 void	expand_cmds(t_cmd *cmds, t_shell *shell);
@@ -150,7 +173,6 @@ void	free_split(char **arr);
 /* env utils */
 char	**copy_envp(char **envp);
 void	free_envp(char **envp);
-char	*env_get_value(char **envp, char *name);
 
 /* debug */
 //void	print_cmds(t_cmd *cmds);

@@ -24,14 +24,11 @@ int is_builtin(char *cmd)
 
 int run_builtin(t_cmd *cmd, t_shell *shell)
 {
-    //(void)envp;
-    (void)(shell);
     if (!ft_strcmp(cmd->argv[0], "pwd"))
     {
         builtin_pwd();
         return (0);
     }
-    
     else if (!ft_strcmp(cmd->argv[0], "echo"))
     {
         builtin_echo(cmd->argv);
@@ -39,30 +36,27 @@ int run_builtin(t_cmd *cmd, t_shell *shell)
     }
     else if (!ft_strcmp(cmd->argv[0], "cd"))
     {
-        return (builtin_cd(cmd->argv));
+        return builtin_cd(cmd->argv);
     }
-    /*
     else if (!ft_strcmp(cmd->argv[0], "env"))
     {
-        builtin_env(shell->envp_copy);
-        return (0);
+        builtin_env(shell);
+        return 0;
     }
     else if (!ft_strcmp(cmd->argv[0], "export"))
     {
-        builtin_export(cmd->argv, &shell->envp_copy);
-        return (0);
+        return builtin_export(shell, cmd->argv);
     }
-        else if(!ft_strcmp(cmd->argv[0], "unset"))
+    /*
+    else if (!ft_strcmp(cmd->argv[0], "unset"))
     {
-        builtin_unset(cmd->argv, &shell->envp_copy);
-        return (0);
+        return builtin_unset(shell, cmd->argv);
     }
-    else if(!ft_strcmp(cmd->argv[0], "exit"))
+    else if (!ft_strcmp(cmd->argv[0], "exit"))
     {
-        builtin_exit(cmd->argv, shell);
-        return (shell->exit_code);  // Potrebbe aver cambiato exit_code
+        builtin_exit(shell, cmd->argv);
+        return shell->exit_code;
     }
-    */
-    return (1);
+        */
+    return 1; // non è un builtin
 }
-

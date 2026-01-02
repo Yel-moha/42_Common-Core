@@ -23,6 +23,10 @@ SRCS = \
 	src/builtin/builtin_pwd.c \
 	src/builtin/builtin_echo.c \
 	src/builtin/builtin_cd.c \
+	src/builtin/builtin_env.c \
+	src/builtin/builtin_export.c \
+	src/builtin/export_helpers.c \
+	src/builtin/export_utils.c \
 	src/expander/expander_utils.c \
 	src/expander/expander.c \
 	src/expander/heredoc_utils.c \
