@@ -138,6 +138,10 @@ void    builtin_env(t_shell *shell);
 int 	builtin_export(t_shell *shell, char **argv);
 void 	env_remove_at_index(t_shell *shell, int index);
 int 	builtin_unset(char **argv, t_shell *shell);
+int 	get_sign(const char **s);
+int 	add_digit(long *val, int digit, int neg);
+int 	ft_atol_safe(const char *s, long *res);
+int 	builtin_exit(char **argv, t_shell *shell);
 
 /* expot helpers */
 int is_valid_identifier(char *s);

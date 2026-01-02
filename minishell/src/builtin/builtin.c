@@ -21,7 +21,7 @@ int is_builtin(char *cmd)
         || !ft_strcmp(cmd, "env")
         || !ft_strcmp(cmd, "exit"));
 }
-
+/*
 int run_builtin(t_cmd *cmd, t_shell *shell)
 {
     if (!ft_strcmp(cmd->argv[0], "pwd"))
@@ -51,12 +51,41 @@ int run_builtin(t_cmd *cmd, t_shell *shell)
     {
         return builtin_unset(cmd->argv, shell);
     }
-        /*
     else if (!ft_strcmp(cmd->argv[0], "exit"))
     {
-        builtin_exit(shell, cmd->argv);
+        builtin_exit(cmd->argv, shell);
         return shell->exit_code;
     }
-        */
-    return 1; // non è un builtin
+    return 1;
+}
+*/
+int run_builtin(t_cmd *cmd, t_shell *shell)
+{
+    if (!ft_strcmp(cmd->argv[0], "pwd"))
+    {
+        builtin_pwd();
+        return (0);
+    }
+    if (!ft_strcmp(cmd->argv[0], "echo"))
+    {
+        builtin_echo(cmd->argv);
+        return (0);
+    }
+    if (!ft_strcmp(cmd->argv[0], "cd"))
+        return (builtin_cd(cmd->argv));
+    if (!ft_strcmp(cmd->argv[0], "env"))
+    {
+        builtin_env(shell);
+        return (0);
+    }
+    if (!ft_strcmp(cmd->argv[0], "export"))
+        return (builtin_export(shell, cmd->argv));
+    if (!ft_strcmp(cmd->argv[0], "unset"))
+        return (builtin_unset(cmd->argv, shell));
+    if (!ft_strcmp(cmd->argv[0], "exit"))
+    {
+        builtin_exit(cmd->argv, shell);
+        return (shell->exit_code);
+    }
+    return (1);
 }

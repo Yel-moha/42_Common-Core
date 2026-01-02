@@ -28,6 +28,7 @@ SRCS = \
 	src/builtin/export_helpers.c \
 	src/builtin/export_utils.c \
 	src/builtin/builtin_unset.c \
+	src/builtin/builtin_exit.c \
 	src/expander/expander_utils.c \
 	src/expander/expander.c \
 	src/expander/heredoc_utils.c \
