@@ -82,7 +82,7 @@ int builtin_exit(char **argv, t_shell *shell)
     {
         write(2, "minishell: exit: ", 17);
         write(2, argv[1], ft_strlen(argv[1]));
-        write(2, ": numeric argument required\n", 27);
+        write(2, ": numeric argument required\n", 28);
         exit(255);
     }
     if (argv[2])
@@ -91,10 +91,14 @@ int builtin_exit(char **argv, t_shell *shell)
         shell->exit_code = 1;
         return (1);
     }
+
+    res = ((res % 256) + 256) % 256;
+    /*
     if (res < 0)
         res = res % 256 + 256;
     else
         res = res % 256;
+        */
     exit(res);
 }
 
