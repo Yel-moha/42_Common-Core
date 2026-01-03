@@ -83,6 +83,7 @@ t_redir	*new_redir(t_token_type type, char *target)
 		return (NULL);
 	r->type = type;
 	r->target = ft_strdup(target);
+    r->heredoc_fd = -1;  // <-- AGGIUNGI QUESTA
 	r->next = NULL;
 	return (r);
 }

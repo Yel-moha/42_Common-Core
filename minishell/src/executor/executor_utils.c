@@ -81,7 +81,7 @@ void execute_cmds(t_cmd *cmds, t_shell *shell)
 int apply_redirections(t_redir *redirs, t_shell *shell)
 {
     int fd;
-
+    (void)shell;
     while (redirs)
     {
         if (redirs->type == T_REDIR_IN)
@@ -112,8 +112,8 @@ int apply_redirections(t_redir *redirs, t_shell *shell)
         }
         else if (redirs->type == T_HEREDOC)
         {
-            if (apply_heredoc(redirs->target, shell) < 0)
-                return (-1);
+            dup2(redirs->heredoc_fd, STDIN_FILENO);
+            close(redirs->heredoc_fd);
         }
         redirs = redirs->next;
     }

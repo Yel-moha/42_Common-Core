@@ -48,6 +48,7 @@ typedef struct s_redir
 {
 	t_token_type	type;
 	char			*target;
+	int				heredoc_fd;
 	struct s_redir	*next;
 }t_redir;
 
@@ -122,6 +123,7 @@ void	execute_cmds(t_cmd *cmds, t_shell *shell);
 int		apply_redirections(t_redir *redirs, t_shell *shell);
 void	execve_or_die(t_cmd *cmd, t_shell *shell);
 int		apply_heredoc(char *delimiter, t_shell *shell);
+void	process_heredocs(t_cmd *cmds, t_shell *shell);
 
 /* executor utils */
 char	*get_env_value(char **envp, char *name);
