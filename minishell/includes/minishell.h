@@ -135,7 +135,8 @@ int		run_builtin(t_cmd *cmd, t_shell *shell);
 void	builtin_pwd(void);
 void	builtin_echo(char **argv);
 int		ft_strcmp(const char *s1, const char *s2);
-int		builtin_cd(char **env);
+int		builtin_cd(char **argv, t_shell *shell);
+void	update_env_var(t_shell *shell, char *name, char *value);
 void    builtin_env(t_shell *shell);
 int 	builtin_export(t_shell *shell, char **argv);
 void 	env_remove_at_index(t_shell *shell, int index);
@@ -174,6 +175,7 @@ char	*append_char(char *s, char c);
 int		heredoc_should_expand(char *delimiter);
 char	*strip_quotes(char *s);
 void	read_heredoc(char *delimiter, t_shell *shell, int fd);
+void	add_arg_to_cmd(t_cmd *cmd, char *arg);
 
 /* libft */
 void	free_split(char **arr);

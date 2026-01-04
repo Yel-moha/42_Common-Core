@@ -72,7 +72,7 @@ int run_builtin(t_cmd *cmd, t_shell *shell)
         return (0);
     }
     if (!ft_strcmp(cmd->argv[0], "cd"))
-        return (builtin_cd(cmd->argv));
+        shell->exit_code = builtin_cd(cmd->argv, shell);
     if (!ft_strcmp(cmd->argv[0], "env"))
     {
         builtin_env(shell);
