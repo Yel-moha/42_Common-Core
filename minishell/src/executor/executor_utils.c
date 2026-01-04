@@ -62,6 +62,7 @@ void execve_or_builtin(t_cmd *cmd, t_shell *shell)
         write(2, ": command not found\n", 20);
         exit(127);
     }
+    reset_signals_in_child();
     execve(path, cmd->argv, shell->envp_copy);
     perror("minishell");
     free(path);
@@ -128,6 +129,13 @@ static void    exec_error(char *cmd, char *path)
         write(2, ": command not found\n", 20);
         exit(127);
     }
+    if (access(path, F_OK) != 0)
+    {
+        write(2, "minishell: ", 11);
+        write(2, cmd, ft_strlen(cmd));
+        write(2, ": No such file or directory\n", 28);
+        exit(127);
+    }
     if (access(path, X_OK) != 0)
     {
         write(2, "minishell: ", 11);
@@ -136,6 +144,7 @@ static void    exec_error(char *cmd, char *path)
         exit(126);
     }
 }
+
 void execve_or_die(t_cmd *cmd, t_shell *shell)
 {
     char *path;
@@ -149,6 +158,7 @@ void execve_or_die(t_cmd *cmd, t_shell *shell)
     }
     */
     exec_error(cmd->argv[0], path);
+    reset_signals_in_child();
     execve(path, cmd->argv, shell->envp_copy);
     perror("execve");
     exit(1);

@@ -6,7 +6,11 @@ int	builtin_cd(char **argv, t_shell *shell)
 	char	cwd[4096];
     char    *target;
 	
-	// 1. Ottieni directory target
+	if (argv[1] && argv[2])
+    {
+        write(2, "minishell: cd: too many arguments\n", 34);
+        return (1);
+    }
 	if (!argv[1])
 	{
 		target = env_get_value(shell->envp_copy, "HOME");

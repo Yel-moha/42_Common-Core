@@ -81,6 +81,7 @@ typedef struct s_shell
 /* main / prompt */
 void	prompt_loop(t_shell *shell);
 void	init_signals(void);
+void	reset_signals_in_child(void);
 
 /* lexer */
 t_token	*lexer(char *line);
@@ -146,7 +147,7 @@ int 	add_digit(long *val, int digit, int neg);
 int 	ft_atol_safe(const char *s, long *res);
 int 	builtin_exit(char **argv, t_shell *shell);
 
-/* expot helpers */
+/* export helpers */
 int is_valid_identifier(char *s);
 char *get_key(char *arg);
 int find_env_index(char **envp, char *key);
