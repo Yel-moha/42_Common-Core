@@ -14,6 +14,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
+# include <dirent.h>  //aggiunta per la variabile DIR nella funzione static exit_error
 
 /* ************************************************************************** */
 /*                                   GLOBALS                                  */

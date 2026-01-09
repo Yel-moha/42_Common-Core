@@ -48,7 +48,7 @@ void execve_or_builtin(t_cmd *cmd, t_shell *shell)
 {
     char    *path;
 
-    if (!cmd || !cmd->argv || !cmd->argv[0])
+    if (!cmd || !cmd->argv || !cmd->argv[0] || !*cmd->argv[0])
         exit(1);
 
     if (is_builtin(cmd->argv[0]))
@@ -87,6 +87,7 @@ int apply_redirections(t_redir *redirs, t_shell *shell)
     {
         if (redirs->type == T_REDIR_IN)
         {
+            //printf("DEBUG: opening file: [%s]\n", redirs->target);
             fd = open(redirs->target, O_RDONLY);
             if (fd < 0)
                 return (perror(redirs->target), -1);
@@ -120,6 +121,7 @@ int apply_redirections(t_redir *redirs, t_shell *shell)
     }
     return (0);
 }
+/*
 static void    exec_error(char *cmd, char *path)
 {
     if (!path)
@@ -135,6 +137,44 @@ static void    exec_error(char *cmd, char *path)
         write(2, cmd, ft_strlen(cmd));
         write(2, ": No such file or directory\n", 28);
         exit(127);
+    }
+    if (access(path, X_OK) != 0)
+    {
+        write(2, "minishell: ", 11);
+        write(2, cmd, ft_strlen(cmd));
+        write(2, ": permission denied\n", 20);
+        exit(126);
+    }
+}
+*/
+
+static void    exec_error(char *cmd, char *path)
+{
+    DIR *dir;
+
+    if (!path || !*path)
+    {
+        write(2, "minishell: ", 11);
+        write(2, cmd, ft_strlen(cmd));
+        write(2, ": command not found\n", 20);
+        exit(127);
+    }
+    if (access(path, F_OK) != 0)
+    {
+        write(2, "minishell: ", 11);
+        write(2, cmd, ft_strlen(cmd));
+        write(2, ": No such file or directory\n", 28);
+        exit(127);
+    }
+    // Controlla se è directory
+    dir = opendir(path);
+    if (dir)
+    {
+        closedir(dir);
+        write(2, "minishell: ", 11);
+        write(2, cmd, ft_strlen(cmd));
+        write(2, ": Is a directory\n", 18);
+        exit(126);
     }
     if (access(path, X_OK) != 0)
     {

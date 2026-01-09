@@ -7,7 +7,8 @@ void execute_single_cmd(t_cmd *cmd, t_shell *shell)
     int saved_stdout;
     int status;
 
-    if (!cmd || !cmd->argv || !cmd->argv[0])
+    if (!cmd || !cmd->argv || !cmd->argv[0] || !*cmd->argv[0]
+    )
         return;
 
     if (g_signal == SIGINT)
@@ -116,7 +117,9 @@ void execute_pipeline(t_cmd *cmds, t_shell *shell)
                 close(fd[0]);
                 close(fd[1]);
             }
-            apply_redirections(current->redirs, shell);
+            if (apply_redirections(current->redirs, shell) < 0)
+                exit(1);
+            //apply_redirections(current->redirs, shell);
             execve_or_builtin(current, shell);
             exit(1);
         }

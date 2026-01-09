@@ -44,6 +44,11 @@ char	*expand_variable(char *res, char *word, int *i, t_shell *shell)
 		value = ft_itoa(shell->exit_code);
 		(*i)++;
 	}
+	else if (ft_isdigit(word[*i]))  // $1, $2, $3... non sono variabili valide
+	{
+		(*i)++;  // Salta il numero
+		return (res);  // Non espandere (o potresti aggiungere $ + numero?)
+	}
 	else
 	{
 		name = extract_var_name(word, i);
