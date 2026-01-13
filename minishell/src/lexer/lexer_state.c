@@ -15,5 +15,7 @@ t_state	update_state(char c, t_state state)
 
 void	handle_char(char *line, int i, t_state *state)
 {
+	if (!line || !state)
+		return ;
 	*state = update_state(line[i], *state);
 }

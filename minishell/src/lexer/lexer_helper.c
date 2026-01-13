@@ -2,6 +2,8 @@
 
 void	handle_redir(t_token **tokens, char *line, int *i)
 {
+	if (!tokens || !line || !i)
+		return ;
 	if (is_double_redir(line, *i))
 	{
 		if (line[*i] == '<')

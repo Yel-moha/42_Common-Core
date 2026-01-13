@@ -3,7 +3,6 @@
 t_token	*new_token(t_token_type type, char *value)
 {
 	t_token	*tok;
-
 	tok = malloc(sizeof(t_token));
 	if (!tok)
 		return (NULL);
@@ -16,7 +15,6 @@ t_token	*new_token(t_token_type type, char *value)
 void	add_token(t_token **head, t_token *new)
 {
 	t_token	*tmp;
-
 	if (!*head)
 	{
 		*head = new;
@@ -31,8 +29,7 @@ void	add_token(t_token **head, t_token *new)
 void	add_word(t_token **tokens, char *line, int start, int end)
 {
 	char	*word;
-	int		i;
-
+	int	i;
 	if (end <= start)
 		return ;
 	word = ft_substr(line, start, end - start);
@@ -48,7 +45,6 @@ void	add_word(t_token **tokens, char *line, int start, int end)
 	}
 	add_token(tokens, new_token(T_WORD, word));
 }
-
 
 void	handle_word_end(t_token **tokens, char *line, int *start, int i)
 {

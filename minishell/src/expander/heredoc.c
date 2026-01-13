@@ -3,10 +3,10 @@
 void	read_heredoc(char *delimiter, t_shell *shell, int fd)
 {
 	char	*line;
-	int		expand;
-
+	int	expand;
+	if (!delimiter || !shell)
+		return ;
 	expand = heredoc_should_expand(delimiter);
-	delimiter = strip_quotes(delimiter);
 	while (1)
 	{
 		line = readline("> ");
@@ -18,5 +18,4 @@ void	read_heredoc(char *delimiter, t_shell *shell, int fd)
 		write(fd, "\n", 1);
 		free(line);
 	}
-	free(delimiter);
 }

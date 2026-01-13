@@ -3,7 +3,6 @@
 static int	only_spaces(char *str)
 {
 	int	i;
-
 	i = 0;
 	while (str[i])
 	{
@@ -13,13 +12,27 @@ static int	only_spaces(char *str)
 	}
 	return (1);
 }
+
+static void	process_input(char *line, t_shell *shell)
+{
+	t_token	*tokens;
+	t_cmd	*cmd;
+	tokens = lexer(line);
+	if (!tokens)
+	{
+		printf("minishell: unclosed quotes\n");
+		return ;
+	}
+	cmd = parse_tokens(tokens);
+	expand_cmds(cmd, shell);
+	execute_cmds(cmd, shell);
+	free_cmds(cmd);
+	free_tokens(tokens);
+}
+
 void	prompt_loop(t_shell *shell)
 {
 	char	*line;
-	t_token	*tokens;
-	t_cmd	*cmd;
-
-	//rl_bind_key('\t', rl_insert); volendo disabilitare tab nella compilazione minishell
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -28,30 +41,13 @@ void	prompt_loop(t_shell *shell)
 			printf("exit\n");
 			break ;
 		}
-		
-		// Se line vuota o solo spazi: salta
 		if (*line == '\0' || only_spaces(line))
 		{
 			free(line);
 			continue;
 		}
-		
-		// Altrimenti aggiungi a history e processa
 		add_history(line);
-		tokens = lexer(line);
-		if (!tokens)
-		{
-			printf("minishell: unclosed quotes\n");
-			free(line);
-			continue ;
-		}
-		cmd = parse_tokens(tokens);
-		//print_tokens(tokens);   // debug
-		//print_cmds(cmd);        // debug
-		expand_cmds(cmd, shell);
-		execute_cmds(cmd, shell);
-		free_cmds(cmd);
-		free_tokens(tokens);
+		process_input(line, shell);
 		free(line);
 	}
 }
