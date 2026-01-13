@@ -131,7 +131,7 @@ static void	handle_pipeline_signal(int status, t_shell *shell)
 		shell->exit_code = 128 + WTERMSIG(status);
 }
 
-static void	spawn_pipeline_child(int *fd, int prev_fd, t_cmd *current,
+static pid_t	spawn_pipeline_child(int *fd, int prev_fd, t_cmd *current,
 	t_shell	*shell, t_cmd *cmds)
 {
 	pid_t	pid;
@@ -146,6 +146,7 @@ static void	spawn_pipeline_child(int *fd, int prev_fd, t_cmd *current,
 		execve_or_builtin(current, shell);
 		exit(1);
 	}
+	return (pid);
 }
 
 static void	wait_all_and_set_exit(pid_t last_pid, t_shell *shell)
@@ -163,6 +164,7 @@ void	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	int	prev_fd;
 	pid_t	last_pid;
 	t_cmd	*current;
+	
 	process_all_heredocs(cmds, shell);
 	prev_fd = -1;
 	current = cmds;
@@ -170,17 +172,8 @@ void	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	{
 		if (current->next)
 			pipe(fd);
-		spawn_pipeline_child(fd, prev_fd, current, shell, cmds);
+		last_pid = spawn_pipeline_child(fd, prev_fd, current, shell, cmds);
 		close_parent_pipes(&prev_fd, fd, current);
-		if (current != cmds)
-			last_pid = last_pid;
-		else
-			last_pid = 0;
-		if (!current->next)
-		{
-			if (current == cmds)
-				last_pid = 1;
-		}
 		current = current->next;
 	}
 	close_heredoc_fds(cmds);

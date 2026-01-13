@@ -24,7 +24,10 @@ static char	*process_word_char(char *res, char *word, int *i,
 	t_state	*state, t_shell *shell)
 {
 	if ((word[*i] == '\'' || word[*i] == '"'))
+	{
 		handle_quotes(word[*i], state);
+		(*i)++;
+	}
 	else if (word[*i] == '$' && *state != STATE_IN_SINGLE_QUOTE)
 		res = handle_expansion(res, word, i, shell);
 	else

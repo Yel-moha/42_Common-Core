@@ -24,6 +24,11 @@ static void	process_input(char *line, t_shell *shell)
 		return ;
 	}
 	cmd = parse_tokens(tokens);
+	if (!cmd)
+	{
+		free_tokens(tokens);
+		return ;
+	}
 	expand_cmds(cmd, shell);
 	execute_cmds(cmd, shell);
 	free_cmds(cmd);
@@ -35,6 +40,7 @@ void	prompt_loop(t_shell *shell)
 	char	*line;
 	while (1)
 	{
+		g_signal = 0;
 		line = readline("minishell$ ");
 		if (!line)
 		{
