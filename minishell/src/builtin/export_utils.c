@@ -82,20 +82,36 @@ static void	print_export_error(char *arg, t_shell *shell)
 	shell->exit_code = 1;
 }
 
+static void	export_new_var(t_shell *shell, char *arg)
+{
+	char	*var;
+
+	var = ft_strjoin(arg, "=");
+	if (var)
+	{
+		env_add(shell, var);
+		free(var);
+	}
+}
+
 void	export_var(t_shell *shell, char *arg)
 {
 	char	*key;
 	int	index;
+
 	if (!is_valid_identifier(arg))
 		return (print_export_error(arg, shell));
-	if (!has_equal(arg))
-		return ;
 	key = get_key(arg);
 	index = find_env_index(shell->envp_copy, key);
-	if (index >= 0)
-		env_replace(shell->envp_copy, index, arg);
-	else
-		env_add(shell, arg);
+	if (has_equal(arg))
+	{
+		if (index >= 0)
+			env_replace(shell->envp_copy, index, arg);
+		else
+			env_add(shell, arg);
+	}
+	else if (index < 0)
+		export_new_var(shell, arg);
 	free(key);
 	shell->exit_code = 0;
 }

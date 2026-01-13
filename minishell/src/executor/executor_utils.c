@@ -5,6 +5,7 @@ char	*get_env_value(char **envp, char *name)
 	int	i;
 	int	len;
 	i = 0;
+
 	len = ft_strlen(name);
 	while (envp[i])
 	{
@@ -21,6 +22,7 @@ static char	*check_paths(char **paths, char *cmd)
 	char	*path;
 	char	*tmp;
 	int	i;
+
 	i = 0;
 	while (paths && paths[i])
 	{
@@ -39,6 +41,7 @@ char	*find_command_path(char *cmd, t_shell *shell)
 {
 	char	**paths;
 	char	*result;
+
 	if (ft_strchr(cmd, '/'))
 		return (ft_strdup(cmd));
 	if (!get_env_value(shell->envp_copy, "PATH"))
@@ -52,6 +55,7 @@ char	*find_command_path(char *cmd, t_shell *shell)
 void	execve_or_builtin(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;
+
 	if (!cmd || !cmd->argv || !cmd->argv[0] || !*cmd->argv[0])
 		exit(1);
 	if (is_builtin(cmd->argv[0]))
@@ -84,6 +88,7 @@ void	execute_cmds(t_cmd *cmds, t_shell *shell)
 static int	apply_file_redir(int type, char *target)
 {
 	int	fd;
+
 	if (type == T_REDIR_IN)
 		fd = open(target, O_RDONLY);
 	else if (type == T_REDIR_OUT)
@@ -120,32 +125,6 @@ int	apply_redirections(t_redir *redirs, t_shell *shell)
 	}
 	return (0);
 }
-/*
-static void	exec_error(char *cmd, char *path)
-{
-	if (!path)
-	{
-		write(2, "minishell: ", 11);
-		write(2, cmd, ft_strlen(cmd));
-		write(2, ": command not found\n", 20);
-		exit(127);
-	}
-	if (access(path, F_OK) != 0)
-	{
-		write(2, "minishell: ", 11);
-		write(2, cmd, ft_strlen(cmd));
-		write(2, ": No such file or directory\n", 28);
-		exit(127);
-	}
-	if (access(path, X_OK) != 0)
-	{
-		write(2, "minishell: ", 11);
-		write(2, cmd, ft_strlen(cmd));
-		write(2, ": permission denied\n", 20);
-		exit(126);
-	}
-}
-*/
 
 static void	print_cmd_error(char *cmd, char *msg)
 {
@@ -159,6 +138,7 @@ static void	print_cmd_error(char *cmd, char *msg)
 static void	exec_error(char *cmd, char *path)
 {
 	DIR *dir;
+
 	if (!path || !*path)
 		return (print_cmd_error(cmd, "command not found"), exit(127));
 	if (access(path, F_OK) != 0)
@@ -177,14 +157,8 @@ static void	exec_error(char *cmd, char *path)
 void	execve_or_die(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;
+
 	path = find_command_path(cmd->argv[0], shell);
-	/*
-	if (!path)
-	{
-		write(2, "minishell: command not found\n", 29);
-		exit(127);
-	}
-	*/
 	exec_error(cmd->argv[0], path);
 	reset_signals_in_child();
 	execve(path, cmd->argv, shell->envp_copy);

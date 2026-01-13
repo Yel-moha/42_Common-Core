@@ -5,6 +5,7 @@ void	close_heredoc_fds(t_cmd *cmds)
 	t_cmd	*cmd;
 	t_redir	*redir;
 	cmd = cmds;
+	
 	while (cmd)
 	{
 		redir = cmd->redirs;
@@ -26,6 +27,7 @@ void	close_all_heredoc_fds_except_current(t_cmd *cmds, t_cmd *current)
 	t_cmd	*cmd;
 	t_redir	*redir;
 	cmd = cmds;
+
 	while (cmd)
 	{
 		redir = cmd->redirs;
@@ -70,6 +72,7 @@ int	apply_heredoc(char *delimiter, t_shell *shell)
 	int	fd[2];
 	pid_t	pid;
 	int	saved_stdin;
+
 	if (pipe(fd) < 0)
 		return (-1);
 	saved_stdin = dup(STDIN_FILENO);
@@ -86,6 +89,7 @@ static void	setup_heredoc_redir(t_redir *redir, t_shell *shell)
 	int	pipefd[2];
 	int	saved_stdin;
 	char	*delimiter;
+
 	if (pipe(pipefd) < 0)
 		return ;
 	saved_stdin = dup(STDIN_FILENO);
@@ -103,6 +107,7 @@ void	process_heredocs(t_cmd *cmds, t_shell *shell)
 	t_cmd	*cmd;
 	t_redir	*redir;
 	cmd = cmds;
+
 	while (cmd)
 	{
 		redir = cmd->redirs;

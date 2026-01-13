@@ -23,7 +23,12 @@ static char	*handle_expansion(char *res, char *word, int *i, t_shell *shell)
 static char	*process_word_char(char *res, char *word, int *i,
 	t_state	*state, t_shell *shell)
 {
-	if ((word[*i] == '\'' || word[*i] == '"'))
+	if (word[*i] == '\'' && *state != STATE_IN_DOUBLE_QUOTE)
+	{
+		handle_quotes(word[*i], state);
+		(*i)++;
+	}
+	else if (word[*i] == '"' && *state != STATE_IN_SINGLE_QUOTE)
 	{
 		handle_quotes(word[*i], state);
 		(*i)++;
