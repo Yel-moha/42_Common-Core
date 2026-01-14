@@ -127,6 +127,7 @@ static void	split_argv_if_needed(t_cmd *cmds)
 			while (splitted[i])
 			{
 				add_arg_to_cmd(cmds, splitted[i]);
+				free(splitted[i]);
 				i++;
 			}
 			free(splitted);
