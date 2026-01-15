@@ -1,0 +1,37 @@
+rm -f src/main.o src/prompt.o src/signal.o src/env_utils.o src/lexer/lexer_helper.o src/lexer/lexer.o src/lexer/lexer_utils.o src/lexer/lexer_state.o src/lexer/lexer_tokens.o src/parser/parser.o src/parser/parser_utils.o src/debug.o src/executor/executor.o src/executor/executor_utils.o src/executor/executor_heredoc.o src/builtin/builtin.o src/builtin/builtin_pwd.o src/builtin/builtin_echo.o src/builtin/builtin_cd.o src/builtin/builtin_env.o src/builtin/builtin_export.o src/builtin/export_helpers.o src/builtin/export_utils.o src/builtin/builtin_unset.o src/builtin/builtin_exit.o src/expander/expander_utils.o src/expander/expander.o src/expander/heredoc_utils.o src/expander/heredoc.o
+make -C libft clean
+make[1]: ingresso nella directory «/home/youssef/github/42_Commoncore/minishell/libft»
+rm -f ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o ft_strlen.o ft_memset.o ft_bzero.o ft_memcpy.o ft_memmove.o ft_strlcpy.o ft_strlcat.o ft_toupper.o ft_tolower.o ft_strchr.o ft_strrchr.o ft_strncmp.o ft_memchr.o ft_memcmp.o ft_strnstr.o ft_atoi.o ft_substr.o ft_strjoin.o ft_strtrim.o ft_split.o ft_calloc.o ft_strdup.o ft_itoa.o ft_strmapi.o ft_striteri.o ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_lstnew.o ft_lstadd_front.o ft_lstsize.o ft_lstlast.o ft_lstadd_back.o ft_lstadd_back.o ft_lstdelone.o
+make[1]: uscita dalla directory «/home/youssef/github/42_Commoncore/minishell/libft»
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/main.c -o src/main.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/prompt.c -o src/prompt.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/signal.c -o src/signal.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/env_utils.c -o src/env_utils.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/lexer/lexer_helper.c -o src/lexer/lexer_helper.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/lexer/lexer.c -o src/lexer/lexer.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/lexer/lexer_utils.c -o src/lexer/lexer_utils.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/lexer/lexer_state.c -o src/lexer/lexer_state.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/lexer/lexer_tokens.c -o src/lexer/lexer_tokens.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/parser/parser.c -o src/parser/parser.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/parser/parser_utils.c -o src/parser/parser_utils.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/debug.c -o src/debug.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/executor/executor.c -o src/executor/executor.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/executor/executor_utils.c -o src/executor/executor_utils.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/executor/executor_heredoc.c -o src/executor/executor_heredoc.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin.c -o src/builtin/builtin.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin_pwd.c -o src/builtin/builtin_pwd.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin_echo.c -o src/builtin/builtin_echo.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin_cd.c -o src/builtin/builtin_cd.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin_env.c -o src/builtin/builtin_env.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin_export.c -o src/builtin/builtin_export.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/export_helpers.c -o src/builtin/export_helpers.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/export_utils.c -o src/builtin/export_utils.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin_unset.c -o src/builtin/builtin_unset.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/builtin/builtin_exit.c -o src/builtin/builtin_exit.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/expander/expander_utils.c -o src/expander/expander_utils.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/expander/expander.c -o src/expander/expander.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/expander/heredoc_utils.c -o src/expander/heredoc_utils.o
+cc -Wall -Wextra -Werror -Iincludes -Ilibft -c src/expander/heredoc.c -o src/expander/heredoc.o
+cc -Wall -Wextra -Werror src/main.o src/prompt.o src/signal.o src/env_utils.o src/lexer/lexer_helper.o src/lexer/lexer.o src/lexer/lexer_utils.o src/lexer/lexer_state.o src/lexer/lexer_tokens.o src/parser/parser.o src/parser/parser_utils.o src/debug.o src/executor/executor.o src/executor/executor_utils.o src/executor/executor_heredoc.o src/builtin/builtin.o src/builtin/builtin_pwd.o src/builtin/builtin_echo.o src/builtin/builtin_cd.o src/builtin/builtin_env.o src/builtin/builtin_export.o src/builtin/export_helpers.o src/builtin/export_utils.o src/builtin/builtin_unset.o src/builtin/builtin_exit.o src/expander/expander_utils.o src/expander/expander.o src/expander/heredoc_utils.o src/expander/heredoc.o libft/libft.a -lreadline -o minishell
+=== Build Complete ===
+-rwxrwxr-x 1 youssef youssef 49096 gen 15 01:45 minishell

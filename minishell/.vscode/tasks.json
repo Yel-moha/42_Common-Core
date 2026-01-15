@@ -1,0 +1,40 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Minishell",
+			"type": "shell",
+			"command": "cd /home/youssef/github/42_Commoncore/minishell && make clean && make"
+		},
+		{
+			"label": "Test Pipe Validation",
+			"type": "shell",
+			"command": "bash /tmp/final_test.sh"
+		},
+		{
+			"label": "Test Double Pipe",
+			"type": "shell",
+			"command": "cd /home/youssef/github/42_Commoncore/minishell && echo 'cat | | ciao' | ./minishell 2>&1 | head -2"
+		},
+		{
+			"label": "Test Pipe at End",
+			"type": "shell",
+			"command": "cd /home/youssef/github/42_Commoncore/minishell && echo 'echo hello |' | ./minishell 2>&1 | head -2"
+		},
+		{
+			"label": "Test Pipe at Start",
+			"type": "shell",
+			"command": "cd /home/youssef/github/42_Commoncore/minishell && echo '| echo hello' | ./minishell 2>&1 | head -2"
+		},
+		{
+			"label": "Test Just Pipe",
+			"type": "shell",
+			"command": "cd /home/youssef/github/42_Commoncore/minishell && echo '|' | ./minishell 2>&1 | head -2"
+		},
+		{
+			"label": "Valgrind Check Pipes",
+			"type": "shell",
+			"command": "cd /home/youssef/github/42_Commoncore/minishell && echo 'cat | | ciao' | valgrind --leak-check=full --suppressions=minishell.supp ./minishell 2>&1 | grep -E '(definitely|indirectly|possibly|still reachable)'"
+		}
+	]
+}
