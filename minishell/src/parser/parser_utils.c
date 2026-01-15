@@ -140,15 +140,20 @@ static int	count_argv_tokens(t_token *tok)
 		if (tok->type == T_WORD)
 			count++;
 		else if (is_redir_token(tok->type))
+		{
 			tok = tok->next;
+			if (!tok)
+				break ;
+		}
 		tok = tok->next;
 	}
 	return (count);
 }
 
-static void	fill_argv_and_redirs(t_token *tok, t_cmd *cmd, char **argv)
+static int	fill_argv_and_redirs(t_token *tok, t_cmd *cmd, char **argv)
 {
 	int	argc;
+	int	i;
 	argc = 0;
 	while (tok && tok->type != T_PIPE)
 	{
@@ -158,16 +163,22 @@ static void	fill_argv_and_redirs(t_token *tok, t_cmd *cmd, char **argv)
 		{
 			if (!tok->next || tok->next->type != T_WORD)
 			{
-				printf("minishell: syntax error\n");
-				return ;
+				printf("minishell: syntax error near unexpected token `newline'\n");
+				i = 0;
+				while (i < argc)
+					free(argv[i++]);
+				return (-1);
 			}
 			add_redir(&cmd->redirs,
 				new_redir(tok->type, tok->next->value));
 			tok = tok->next;
+			if (!tok)
+				break ;
 		}
 		tok = tok->next;
 	}
 	argv[argc] = NULL;
+	return (0);
 }
 
 t_cmd	*parse_single_cmd(t_token **tokens)
@@ -180,7 +191,12 @@ t_cmd	*parse_single_cmd(t_token **tokens)
 	argv = malloc(sizeof(char *) * (argc + 1));
 	if (!argv)
 		return (NULL);
-	fill_argv_and_redirs(*tokens, cmd, argv);
+	if (fill_argv_and_redirs(*tokens, cmd, argv) < 0)
+	{
+		free(argv);
+		free_cmds(cmd);
+		return (NULL);
+	}
 	cmd->argv = argv;
 	while (*tokens && (*tokens)->type != T_PIPE)
 		(*tokens) = (*tokens)->next;

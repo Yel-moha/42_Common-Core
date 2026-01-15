@@ -1,0 +1,406 @@
+[0;32mStarting Minishell Evaluation Tests[0m
+Make sure minishell is compiled!
+
+[1;33m=== 1. Simple Command & Global Variables ===[0m
+Testing: /bin/ls
+minishell$ /bin/ls
+ciao
+debug_conditional_jumps.sh
+DEVELOPMENT.md
+en.subject.pdf
+errori.txt
+file
+includes
+libft
+lol.c
+Makefile
+minishell
+minishell_evalsheet.pdf
+minishell.supp
+README.md
+src
+test_comprehensive_valgrind.sh
+test_echo.sh
+test_evaluation.sh
+test_export.sh
+test_fd_leaks.sh
+test_fd_manual.sh
+test_fd_quick.sh
+test_quotes.sh
+test_uninit_memory.sh
+test_uninit_targeted.sh
+test_valgrind_fd.sh
+minishell$ exit
+exit
+
+Testing: Empty command
+minishell$ 
+minishell$ exit
+exit
+
+Testing: Only spaces
+minishell$    
+minishell$ exit
+exit
+
+Testing: Only tabs
+minishell$ 
+DEVELOPMENT.md                  minishell_evalsheet.pdf
+Makefile                        src/
+README.md                       test_comprehensive_valgrind.sh
+ciao                            test_echo.sh
+debug_conditional_jumps.sh      test_evaluation.sh
+en.subject.pdf                  test_export.sh
+errori.txt                      test_fd_leaks.sh
+evaluation_results.txt          test_fd_manual.sh
+file                            test_fd_quick.sh
+includes/                       test_quotes.sh
+libft/                          test_uninit_memory.sh
+lol.c                           test_uninit_targeted.sh
+minishell                       test_valgrind_fd.sh
+minishell.supp                  
+minishell$ 
+minishell$ exit
+exit
+
+[1;33m=== 2. Arguments ===[0m
+minishell$ /bin/ls -l
+totale 2084
+-rw-rw-r-- 1 youssef youssef       0 gen 15 01:08 ciao
+-rwxrwxr-x 1 youssef youssef    5302 gen 13 23:51 debug_conditional_jumps.sh
+-rw-rw-r-- 1 youssef youssef   16897 gen 13 23:28 DEVELOPMENT.md
+-rw-rw-r-- 1 youssef youssef 1582893 dic 19 12:21 en.subject.pdf
+-rw-rw-r-- 1 youssef youssef   97060 gen 15 00:26 errori.txt
+-rw-rw-r-- 1 youssef youssef    1501 gen 15 01:23 evaluation_results.txt
+-rw-rw-r-- 1 youssef youssef       8 gen 15 00:26 file
+drwxrwxr-x 2 youssef youssef    4096 gen  2 12:43 includes
+drwxrwxr-x 2 youssef youssef    4096 gen 15 01:19 libft
+-rw-rw-r-- 1 youssef youssef       0 gen 15 00:26 lol.c
+-rw-rw-r-- 1 youssef youssef    1237 gen  2 23:10 Makefile
+-rwxrwxr-x 1 youssef youssef   49056 gen 15 01:19 minishell
+-rw-rw-r-- 1 youssef youssef  281617 dic 31 17:48 minishell_evalsheet.pdf
+-rw-rw-r-- 1 youssef youssef     413 gen  4 22:33 minishell.supp
+-rw-rw-r-- 1 youssef youssef    1920 dic 25 14:12 README.md
+drwxrwxr-x 7 youssef youssef    4096 gen 15 01:19 src
+-rwxrwxr-x 1 youssef youssef    4124 gen 13 23:50 test_comprehensive_valgrind.sh
+-rw-rw-r-- 1 youssef youssef     211 gen 13 22:46 test_echo.sh
+-rwxrwxr-x 1 youssef youssef    4605 gen 15 01:23 test_evaluation.sh
+-rwxrwxr-x 1 youssef youssef      92 gen 13 23:20 test_export.sh
+-rwxrwxr-x 1 youssef youssef    1648 gen 13 23:44 test_fd_leaks.sh
+-rwxrwxr-x 1 youssef youssef    4562 gen 13 23:44 test_fd_manual.sh
+-rwxrwxr-x 1 youssef youssef    1140 gen 13 23:45 test_fd_quick.sh
+-rwxrwxr-x 1 youssef youssef      64 gen 13 23:17 test_quotes.sh
+-rwxrwxr-x 1 youssef youssef    3804 gen 13 23:49 test_uninit_memory.sh
+-rwxrwxr-x 1 youssef youssef    2267 gen 13 23:49 test_uninit_targeted.sh
+-rw-rw-r-- 1 youssef youssef     696 gen 13 23:45 test_valgrind_fd.sh
+minishell$ exit
+exit
+minishell$ /bin/echo hello world
+hello world
+minishell$ exit
+exit
+minishell$ /bin/cat /etc/hostname
+youssef-HP-250-15-6-inch-G9-Notebook-PC
+minishell$ exit
+exit
+
+[1;33m=== 3. echo ===[0m
+minishell$ echo
+
+minishell$ exit
+exit
+minishell$ echo hello
+hello
+minishell$ exit
+exit
+minishell$ echo hello world
+hello world
+minishell$ exit
+exit
+minishell$ echo -n hello
+hellominishell$ exit
+exit
+minishell$ echo -n -n -n hello
+hellominishell$ exit
+exit
+minishell$ echo -nnnn hello
+hellominishell$ exit
+exit
+
+[1;33m=== 4. exit ===[0m
+minishell$ exit
+exit
+minishell$ exit 0
+exit
+minishell$ exit 42
+exit
+minishell$ exit 1 2 3
+exit
+minishell: exit: too many arguments
+minishell$ 
+minishell$ exit
+
+[1;33m=== 5. Return value of a process ===[0m
+minishell$ /bin/ls
+ciao
+debug_conditional_jumps.sh
+DEVELOPMENT.md
+en.subject.pdf
+errori.txt
+evaluation_results.txt
+file
+includes
+libft
+lol.c
+Makefile
+minishell
+minishell_evalsheet.pdf
+minishell.supp
+README.md
+src
+test_comprehensive_valgrind.sh
+test_echo.sh
+test_evaluation.sh
+test_export.sh
+test_fd_leaks.sh
+test_fd_manual.sh
+test_fd_quick.sh
+test_quotes.sh
+test_uninit_memory.sh
+test_uninit_targeted.sh
+test_valgrind_fd.sh
+minishell$ echo $?
+0
+minishell$ exit
+exit
+minishell$ /bin/ls filethatdoesntexist
+/bin/ls: impossibile accedere a 'filethatdoesntexist': File o directory non esistente
+minishell$ echo $?
+2
+minishell$ exit
+exit
+minishell$ /bin/false
+minishell$ echo $?
+1
+minishell$ exit
+exit
+minishell$ /bin/true
+minishell$ echo $?
+0
+minishell$ exit
+exit
+
+[1;33m=== 7. Double Quotes ===[0m
+minishell$ echo "hello world"
+hello world
+minishell$ exit
+exit
+minishell$ echo "hello   world"
+hello   world
+minishell$ exit
+exit
+minishell$ echo "cat lol.c | cat > lol.c"
+cat lol.c | cat > lol.c
+minishell$ exit
+exit
+minishell$ echo "test \$USER test"
+test \youssef test
+minishell$ exit
+exit
+
+[1;33m=== 8. Single Quotes ===[0m
+minishell$ echo 'hello world'
+hello world
+minishell$ exit
+exit
+minishell$ echo '$USER'
+$USER
+minishell$ exit
+exit
+minishell$ echo 'cat | grep | >'
+cat | grep | >
+minishell$ exit
+exit
+minishell$ echo ''
+
+minishell$ exit
+exit
+
+[1;33m=== 9. env ===[0m
+minishell$ env
+SHELL=/bin/bash
+SESSION_MANAGER=local/youssef-HP-250-15-6-inch-G9-Notebook-PC:@/tmp/.ICE-unix/2721,unix/youssef-HP-250-15-6-inch-G9-Notebook-PC:/tmp/.ICE-unix/2721
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+HISTCONTROL=ignorespace
+XDG_MENU_PREFIX=gnome-
+TERM_PROGRAM_VERSION=1.108.0
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+
+[1;33m=== 10. export ===[0m
+minishell$ export TEST=hello
+minishell$ env | grep TEST
+TEST=hello
+minishell$ exit
+exit
+minishell$ export TEST=hello
+minishell$ echo $TEST
+hello
+minishell$ exit
+exit
+minishell$ export TEST
+minishell$ export | grep TEST
+declare -x TEST
+minishell$ exit
+exit
+
+[1;33m=== 11. unset ===[0m
+minishell$ export TEST=hello
+minishell$ echo $TEST
+hello
+minishell$ unset TEST
+minishell$ echo $TEST
+
+minishell$ exit
+exit
+minishell$ unset PATH
+minishell$ echo $PATH
+
+minishell$ exit
+exit
+
+[1;33m=== 12. cd ===[0m
+minishell$ cd /tmp
+minishell$ pwd
+/tmp
+minishell$ exit
+exit
+minishell$ cd ..
+minishell$ pwd
+/home/youssef/github/42_Commoncore
+minishell$ exit
+exit
+minishell$ cd .
+minishell$ pwd
+/home/youssef/github/42_Commoncore/minishell
+minishell$ exit
+exit
+minishell$ cd
+minishell$ pwd
+/home/youssef
+minishell$ exit
+exit
+minishell$ cd /nonexistent
+minishell: cd: /nonexistent: No such file or directory
+minishell$ exit
+exit
+
+[1;33m=== 13. pwd ===[0m
+minishell$ pwd
+/home/youssef/github/42_Commoncore/minishell
+minishell$ exit
+exit
+minishell$ cd /tmp
+minishell$ pwd
+/tmp
+minishell$ cd ..
+minishell$ pwd
+/
+minishell$ exit
+exit
+
+[1;33m=== 14. Relative Path ===[0m
+minishell$ mkdir -p /tmp/test_minishell/subdir
+minishell$ cd /tmp/test_minishell/subdir
+minishell$ ../../../bin/ls /tmp
+{42194539-D7C2-408F-BAC6-8C929CFC54B7}
+snap-private-tmp
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-bluetooth.service-qeWYPS
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-colord.service-xcKOhp
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-fwupd.service-84Rp8d
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-ModemManager.service-gWsFNf
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-polkit.service-MQtEaQ
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-power-profiles-daemon.service-AjijE8
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-switcheroo-control.service-s1gXgq
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-systemd-logind.service-7owRVu
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-systemd-oomd.service-nDPvSB
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-systemd-resolved.service-2IEqs1
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-systemd-timesyncd.service-ixoVVH
+systemd-private-e338633b64de4a08ae405c171d0bc0f0-upower.service-ICDKlc
+test_export_grep.txt
+test_minishell
+vgdb-pipe-from-vgdb-to-11896-by-youssef-on-???
+vgdb-pipe-shared-mem-vgdb-11896-by-youssef-on-???
+vgdb-pipe-to-vgdb-from-11896-by-youssef-on-???
+vscode-typescript1000
+minishell$ exit
+exit
+
+[1;33m=== 15. Environment PATH ===[0m
+minishell$ ls
+ciao
+debug_conditional_jumps.sh
+DEVELOPMENT.md
+en.subject.pdf
+minishell$ echo
+
+minishell$ exit
+exit
+minishell$ cat
+exit
+minishell$ exit
+
+[1;33m=== 16. Redirections ===[0m
+minishell$ echo hello > /tmp/test_out.txt
+minishell$ cat /tmp/test_out.txt
+hello
+minishell$ exit
+exit
+minishell$ echo world >> /tmp/test_out.txt
+minishell$ cat /tmp/test_out.txt
+hello
+world
+minishell$ exit
+exit
+minishell$ cat < /etc/hostname
+youssef-HP-250-15-6-inch-G9-Notebook-PC
+minishell$ exit
+exit
+minishell$ cat << EOF
+> line1
+> line2
+> EOF
+line1
+line2
+minishell$ exit
+exit
+
+[1;33m=== 17. Pipes ===[0m
+minishell$ echo hello | cat
+hello
+minishell$ exit
+exit
+minishell$ ls | grep mini
+minishell
+minishell_evalsheet.pdf
+minishell.supp
+minishell$ exit
+exit
+minishell$ cat /etc/hostname | cat | cat
+youssef-HP-250-15-6-inch-G9-Notebook-PC
+minishell$ exit
+exit
+minishell$ ls filethatdoesntexist | grep bla
+ls: impossibile accedere a 'filethatdoesntexist': File o directory non esistente
+minishell$ exit
+exit
+minishell$ echo test > /tmp/test.txt
+minishell$ cat /tmp/test.txt | grep test
+test
+minishell$ exit
+exit
+
+[0;32m==================================[0m
+[0;32mEvaluation Tests Completed![0m
+[0;32m==================================[0m

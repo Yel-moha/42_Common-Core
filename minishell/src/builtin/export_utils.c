@@ -48,13 +48,15 @@ static void	print_export_var(char *var)
 	char	*eq_pos;
 	write(1, "declare -x ", 11);
 	eq_pos = ft_strchr(var, '=');
-	if (eq_pos)
+	if (eq_pos && *(eq_pos + 1) != '\0')
 	{
 		write(1, var, eq_pos - var);
 		write(1, "=\"", 2);
 		write(1, eq_pos + 1, ft_strlen(eq_pos + 1));
 		write(1, "\"", 1);
 	}
+	else if (eq_pos && *(eq_pos + 1) == '\0')
+		write(1, var, eq_pos - var);
 	else
 		write(1, var, ft_strlen(var));
 	write(1, "\n", 1);

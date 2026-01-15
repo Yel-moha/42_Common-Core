@@ -68,7 +68,7 @@ void	execute_single_cmd(t_cmd *cmd, t_shell *shell)
 {
 	int	saved_stdin;
 	int	saved_stdout;
-	if (!cmd || !cmd->argv || !cmd->argv[0] || !*cmd->argv[0])
+	if (!cmd)
 		return ;
 	if (g_signal == SIGINT)
 		return (handle_signal_interrupt(shell));
@@ -78,6 +78,12 @@ void	execute_single_cmd(t_cmd *cmd, t_shell *shell)
 	if (apply_redirections(cmd->redirs, shell) < 0)
 	{
 		shell->exit_code = 1;
+		restore_fds(saved_stdin, saved_stdout);
+		return ;
+	}
+	if (!cmd->argv || !cmd->argv[0] || !*cmd->argv[0])
+	{
+		shell->exit_code = 0;
 		restore_fds(saved_stdin, saved_stdout);
 		return ;
 	}

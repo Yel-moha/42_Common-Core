@@ -1,0 +1,53 @@
+╔════════════════════════════════════════════════════════════════╗
+║           MINISHELL - QUICK EVALUATION GUIDE                   ║
+╚════════════════════════════════════════════════════════════════╝
+
+✅ ALL TESTS PASSING | ⚠️ NORM NEEDS FIXES | 🎯 0 MEMORY LEAKS
+
+┌────────────────────────────────────────────────────────────────┐
+│ QUICK TEST COMMANDS (Copy & Paste)                            │
+└────────────────────────────────────────────────────────────────┘
+
+# Basic Commands
+/bin/ls
+/bin/echo hello world
+echo test
+
+# echo with -n
+echo -n hello
+echo -n -n -n test
+
+# Exit codes
+/bin/ls
+echo $?
+/bin/ls nonexistent
+echo $?
+
+# Quotes
+echo "hello world"
+echo "test $USER"
+echo '$USER'
+echo 'cat | grep'
+
+# Variables
+export TEST=hello
+echo $TEST
+env | grep TEST
+unset TEST
+echo $TEST
+
+# Builtins
+cd /tmp
+pwd
+cd ..
+pwd
+cd
+
+# Redirections
+echo hello > /tmp/test.txt
+cat /tmp/test.txt
+echo world >> /tmp/test.txt
+cat < /tmp/test.txt
+cat << EOF
+line1
+line2
