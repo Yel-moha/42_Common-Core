@@ -1,5 +1,7 @@
 # Fractol
 
+[![uses ft_printf](https://img.shields.io/badge/uses-ft__printf-blue)](ft_printf/README.md)
+
 Anteprima Mandelbrot
 
 ![Anteprima Mandelbrot](Mandelbrot_fractal.gif)
@@ -35,6 +37,12 @@ Pulizia:
 make clean     # rimuove .o
 make fclean    # rimuove binari e librerie
 make re        # ricompila da zero
+```
+
+Linking manuale (se compili a mano, utile per test/playground):
+
+```bash
+clang main.c -Ift_printf -Lft_printf -lftprintf -Lminilibx-linux -lmlx -lX11 -lXext -lm -o app
 ```
 
 ## Utilizzo
