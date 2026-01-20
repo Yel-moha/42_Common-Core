@@ -63,12 +63,17 @@ int	builtin_exit(char **argv, t_shell *shell)
 	int	valid;
 	write(1, "exit\n", 5);
 	if (!argv[1])
-		exit(shell->exit_code);
+	{
+		shell->should_exit = 1;
+		return (shell->exit_code);
+	}
 	valid = ft_atol_safe(argv[1], &res);
 	if (!valid)
 	{
 		print_exit_error(argv[1]);
-		exit(2);
+		shell->exit_code = 2;
+		shell->should_exit = 1;
+		return (shell->exit_code);
 	}
 	if (argv[2])
 	{
@@ -77,5 +82,7 @@ int	builtin_exit(char **argv, t_shell *shell)
 		return (1);
 	}
 	res = ((res % 256) + 256) % 256;
-	exit(res);
+	shell->exit_code = res;
+	shell->should_exit = 1;
+	return (shell->exit_code);
 }

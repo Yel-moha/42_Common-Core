@@ -20,40 +20,41 @@ static char	*handle_expansion(char *res, char *word, int *i, t_shell *shell)
 	return (append_char(res, word[(*i)++]));
 }
 
-static char	*process_word_char(char *res, char *word, int *i,
-	t_state	*state, t_shell *shell)
+static char	*process_word_char(t_expand_ctx *ctx, t_shell *shell)
 {
-	if (word[*i] == '\'' && *state != STATE_IN_DOUBLE_QUOTE)
+	if (ctx->word[*ctx->i] == '\'' && *ctx->state != STATE_IN_DOUBLE_QUOTE)
 	{
-		handle_quotes(word[*i], state);
-		(*i)++;
+		handle_quotes(ctx->word[*ctx->i], ctx->state);
+		(*ctx->i)++;
 	}
-	else if (word[*i] == '"' && *state != STATE_IN_SINGLE_QUOTE)
+	else if (ctx->word[*ctx->i] == '"' && *ctx->state != STATE_IN_SINGLE_QUOTE)
 	{
-		handle_quotes(word[*i], state);
-		(*i)++;
+		handle_quotes(ctx->word[*ctx->i], ctx->state);
+		(*ctx->i)++;
 	}
-	else if (word[*i] == '$' && *state != STATE_IN_SINGLE_QUOTE)
-		res = handle_expansion(res, word, i, shell);
+	else if (ctx->word[*ctx->i] == '$' && *ctx->state != STATE_IN_SINGLE_QUOTE)
+		ctx->res = handle_expansion(ctx->res, ctx->word, ctx->i, shell);
 	else
-		res = append_char(res, word[(*i)++]);
-	return (res);
+		ctx->res = append_char(ctx->res, ctx->word[(*ctx->i)++]);
+	return (ctx->res);
 }
 
 char	*expand_word(char *word, t_shell *shell)
 {
+	t_expand_ctx	ctx;
 	t_state	state;
-	int	i;
-	char	*res;
+
 	state = STATE_NORMAL;
-	i = 0;
-	res = ft_strdup("");
-	if (!res)
+	ctx.res = ft_strdup("");
+	if (!ctx.res)
 		return (NULL);
-	while (word[i])
-		res = process_word_char(res, word, &i, &state, shell);
+	ctx.word = word;
+	ctx.i = &(int){0};
+	ctx.state = &state;
+	while (word[*(ctx.i)])
+		process_word_char(&ctx, shell);
 	free(word);
-	return (res);
+	return (ctx.res);
 }
 /*
 void	expand_cmds(t_cmd *cmds, t_shell *shell)

@@ -13,6 +13,7 @@ int	main(int ac, char **av, char **envp)
 	if (!shell.envp_copy)
 		return (1);
 	shell.exit_code = 0;
+	shell.should_exit = 0;
 	init_signals();
 	prompt_loop(&shell);
 	free_envp(shell.envp_copy);

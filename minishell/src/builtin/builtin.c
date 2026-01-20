@@ -38,6 +38,6 @@ int	run_builtin(t_cmd *cmd, t_shell *shell)
 	if (!ft_strcmp(cmd->argv[0], "unset"))
 		return (builtin_unset(cmd->argv, shell));
 	if (!ft_strcmp(cmd->argv[0], "exit"))
-		return (builtin_exit(cmd->argv, shell), shell->exit_code);
+		return (builtin_exit(cmd->argv, shell));
 	return (1);
 }

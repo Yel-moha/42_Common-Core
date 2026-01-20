@@ -30,9 +30,15 @@ static void	process_input(char *line, t_shell *shell)
 		return ;
 	}
 	expand_cmds(cmd, shell);
+	free_tokens(tokens);
 	execute_cmds(cmd, shell);
 	free_cmds(cmd);
-	free_tokens(tokens);
+	if (shell->should_exit)
+	{
+		free_envp(shell->envp_copy);
+		rl_clear_history();
+		exit(shell->exit_code);
+	}
 }
 
 void	prompt_loop(t_shell *shell)
@@ -45,7 +51,9 @@ void	prompt_loop(t_shell *shell)
 		if (!line)
 		{
 			printf("exit\n");
-			break ;
+			free_envp(shell->envp_copy);
+			rl_clear_history();
+			exit(shell->exit_code);
 		}
 		if (*line == '\0' || only_spaces(line))
 		{

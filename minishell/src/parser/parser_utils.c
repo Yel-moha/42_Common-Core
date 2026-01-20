@@ -150,16 +150,35 @@ static int	count_argv_tokens(t_token *tok)
 	return (count);
 }
 
-static int	fill_argv_and_redirs(t_token *tok, t_cmd *cmd, char **argv)
+static void	process_redir_token(t_token *tok, t_cmd *cmd)
+{
+	add_redir(&cmd->redirs, new_redir(tok->type, tok->next->value));
+}
+
+static int	fill_argv_only(t_token *tok, char **argv)
 {
 	int	argc;
-	int	i;
+
 	argc = 0;
 	while (tok && tok->type != T_PIPE)
 	{
 		if (tok->type == T_WORD)
 			argv[argc++] = ft_strdup(tok->value);
 		else if (is_redir_token(tok->type))
+			tok = tok->next;
+		tok = tok->next;
+	}
+	argv[argc] = NULL;
+	return (argc);
+}
+
+static int	fill_redirs_only(t_token *tok, t_cmd *cmd, char **argv, int argc)
+{
+	int	i;
+
+	while (tok && tok->type != T_PIPE)
+	{
+		if (is_redir_token(tok->type))
 		{
 			if (!tok->next || tok->next->type != T_WORD)
 			{
@@ -169,15 +188,11 @@ static int	fill_argv_and_redirs(t_token *tok, t_cmd *cmd, char **argv)
 					free(argv[i++]);
 				return (-1);
 			}
-			add_redir(&cmd->redirs,
-				new_redir(tok->type, tok->next->value));
+			process_redir_token(tok, cmd);
 			tok = tok->next;
-			if (!tok)
-				break ;
 		}
 		tok = tok->next;
 	}
-	argv[argc] = NULL;
 	return (0);
 }
 
@@ -186,12 +201,14 @@ t_cmd	*parse_single_cmd(t_token **tokens)
 	t_cmd	*cmd;
 	char	**argv;
 	int	argc;
+
 	cmd = new_cmd();
 	argc = count_argv_tokens(*tokens);
 	argv = malloc(sizeof(char *) * (argc + 1));
 	if (!argv)
 		return (NULL);
-	if (fill_argv_and_redirs(*tokens, cmd, argv) < 0)
+	fill_argv_only(*tokens, argv);
+	if (fill_redirs_only(*tokens, cmd, argv, argc) < 0)
 	{
 		free(argv);
 		free_cmds(cmd);
