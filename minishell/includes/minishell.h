@@ -136,9 +136,9 @@ void	execute_single_cmd(t_cmd *cmd, t_shell *shell);
 void	execute_pipeline(t_cmd *cmds, t_shell *shell);
 void	execve_or_builtin(t_cmd *cmd, t_shell *shell, t_cmd *cmds_root);
 void	execute_cmds(t_cmd *cmds, t_shell *shell);
-int	apply_redirections(t_redir *redirs, t_shell *shell);
+int		apply_redirections(t_redir *redirs, t_shell *shell);
 void	execve_or_die(t_cmd *cmd, t_shell *shell);
-int	apply_heredoc(char *delimiter, t_shell *shell);
+int		apply_heredoc(char *delimiter, t_shell *shell);
 void	process_heredocs(t_cmd *cmds, t_shell *shell);
 void	close_heredoc_fds(t_cmd *cmds);
 void	close_all_heredoc_fds_except_current(t_cmd *cmds, t_cmd *current);
@@ -166,8 +166,8 @@ int	ft_atol_safe(const char *s, long *res);
 int	builtin_exit(char **argv, t_shell *shell);
 
 /* export helpers */
-int	is_valid_identifier(char *s);
-char *	get_key(char *arg);
+int		is_valid_identifier(char *s);
+char 	*get_key(char *arg);
 int	find_env_index(char **envp, char *key);
 void	env_add(t_shell *shell, char *new_var);
 char	*	env_get_value(char **envp, char *name);
