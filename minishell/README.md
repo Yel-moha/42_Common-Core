@@ -13,13 +13,20 @@ L’obiettivo del progetto è comprendere a fondo:
 
 ## Stato attuale del progetto
 
-Al momento il progetto è nelle **fasi iniziali**, con particolare attenzione a:
-- struttura del progetto
-- loop principale della shell
-- gestione dei segnali
-- lexer (tokenizzazione dell’input)
+✅ **Il progetto è COMPLETO e FUNZIONANTE** con:
+- Implementazione full della shell minimale
+- Tutti i builtin richiesti (echo, cd, pwd, env, export, unset, exit)
+- Pipe, redirections, heredoc
+- Gestione segnali robusta (Ctrl+C, Ctrl+D, Ctrl+\)
+- Valgrind clean (zero memory leaks)
+- Exit codes corretti
+- Nested minishell support
 
-Lo sviluppo segue uno schema preciso e incrementale.
+**Ultima sessione (23 Jan 2026):** 
+- Corretti bug Valgrind (invalid reads, segfaults)
+- Implementato SIGINT handling robusto in heredoc
+- Exit code 2 per errori sintassi
+- Refactoring per Norminette compliance (42 header, TOO_MANY_ARGS fix)
 
 ---
 
@@ -41,23 +48,49 @@ EXECUTOR
 
 ## Struttura del progetto
 
+```
 minishell/
-├── Makefile
+├── Makefile                    # Build system
 ├── includes/
-│   └── minishell.h
+│   └── minishell.h            # Main header
 ├── src/
-│   ├── main.c
-│   ├── prompt.c
-│   ├── signal.c
-│   ├── lexer.c
-│   ├── lexer_utils.c
-│   ├── lexer_state.c
-│   ├── lexer_tokens.c
-│   ├── parser.c
-│   ├── parser_utils.c
-│   ├── executor.c
-│   └── executor_utils.c
-└── libft/
+│   ├── main.c                 # Entry point
+│   ├── prompt.c               # Readline loop & input processing
+│   ├── signal.c               # Signal handlers
+│   ├── env_utils.c            # Environment utilities
+│   ├── debug.c                # Debug utilities
+│   ├── lexer/                 # Tokenization
+│   │   ├── lexer.c
+│   │   ├── lexer_utils.c
+│   │   ├── lexer_state.c
+│   │   ├── lexer_tokens.c
+│   │   └── lexer_helper.c
+│   ├── parser/                # Parsing to commands
+│   │   ├── parser.c
+│   │   └── parser_utils.c
+│   ├── expander/              # Variable expansion & quotes
+│   │   ├── expander.c
+│   │   ├── expander_utils.c
+│   │   ├── heredoc.c
+│   │   └── heredoc_utils.c
+│   ├── executor/              # Command execution
+│   │   ├── executor.c
+│   │   ├── executor_utils.c
+│   │   └── executor_heredoc.c
+│   └── builtin/               # Built-in commands
+│       ├── builtin.c
+│       ├── builtin_echo.c
+│       ├── builtin_cd.c
+│       ├── builtin_pwd.c
+│       ├── builtin_env.c
+│       ├── builtin_export.c
+│       ├── builtin_unset.c
+│       ├── builtin_exit.c
+│       ├── export_helpers.c
+│       └── export_utils.c
+└── libft/                     # Utility library
+    └── *.c, libft.h
+```
 
 
 

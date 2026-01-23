@@ -1,41 +1,56 @@
 #include "minishell.h"
 
-static void	process_token_char(char *line, int *i, int *start,
-	t_state	*state, t_token **tokens)
+typedef struct s_lexer_ctx
 {
-	handle_char(line, *i, state);
-	if (is_space(line[*i]) && *state == STATE_NORMAL)
-		handle_word_end(tokens, line, start, *i);
-	else if (line[*i] == '|' && *state == STATE_NORMAL)
+	char	*line;
+	int		*i;
+	int		*start;
+	t_state	*state;
+	t_token	**tokens;
+}	t_lexer_ctx;
+
+static void	process_token_char(t_lexer_ctx *ctx)
+{
+	handle_char(ctx->line, *ctx->i, ctx->state);
+	if (is_space(ctx->line[*ctx->i]) && *ctx->state == STATE_NORMAL)
+		handle_word_end(ctx->tokens, ctx->line, ctx->start, *ctx->i);
+	else if (ctx->line[*ctx->i] == '|' && *ctx->state == STATE_NORMAL)
 	{
-		handle_word_end(tokens, line, start, *i);
-		add_token(tokens, new_token(T_PIPE, ft_strdup("|")));
-		(*i)++;
+		handle_word_end(ctx->tokens, ctx->line, ctx->start, *ctx->i);
+		add_token(ctx->tokens, new_token(T_PIPE, ft_strdup("|")));
+		(*ctx->i)++;
 		return ;
 	}
-	else if (is_redir(line[*i]) && *state == STATE_NORMAL)
+	else if (is_redir(ctx->line[*ctx->i]) && *ctx->state == STATE_NORMAL)
 	{
-		handle_word_end(tokens, line, start, *i);
-		handle_redir(tokens, line, i);
+		handle_word_end(ctx->tokens, ctx->line, ctx->start, *ctx->i);
+		handle_redir(ctx->tokens, ctx->line, ctx->i);
 		return ;
 	}
-	else if (*start == -1)
-		*start = *i;
-	(*i)++;
+	else if (*ctx->start == -1)
+		*ctx->start = *ctx->i;
+	(*ctx->i)++;
 }
 
 t_token	*lexer(char *line)
 {
 	t_token	*tokens;
-	int	i;
-	int	start;
+	int		i;
+	int		start;
 	t_state	state;
+	t_lexer_ctx	ctx;
+
 	tokens = NULL;
 	i = 0;
 	start = -1;
 	state = STATE_NORMAL;
+	ctx.line = line;
+	ctx.i = &i;
+	ctx.start = &start;
+	ctx.state = &state;
+	ctx.tokens = &tokens;
 	while (line[i])
-		process_token_char(line, &i, &start, &state, &tokens);
+		process_token_char(&ctx);
 	if (state != STATE_NORMAL)
 		return (free_tokens(tokens), (t_token *)NULL);
 	handle_word_end(&tokens, line, &start, i);

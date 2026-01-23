@@ -13,19 +13,29 @@ static int	only_spaces(char *str)
 	return (1);
 }
 
-static void	process_input(char *line, t_shell *shell)
+static void	cleanup_and_exit(t_shell *shell)
+{
+	free_envp(shell->envp_copy);
+	rl_clear_history();
+	exit(shell->exit_code);
+}
+
+static void	execute_parsing_and_execution(char *line, t_shell *shell)
 {
 	t_token	*tokens;
 	t_cmd	*cmd;
+
 	tokens = lexer(line);
 	if (!tokens)
 	{
 		printf("minishell: unclosed quotes\n");
+		shell->exit_code = 2;
 		return ;
 	}
 	cmd = parse_tokens(tokens);
 	if (!cmd)
 	{
+		shell->exit_code = 2;
 		free_tokens(tokens);
 		return ;
 	}
@@ -33,12 +43,13 @@ static void	process_input(char *line, t_shell *shell)
 	free_tokens(tokens);
 	execute_cmds(cmd, shell);
 	free_cmds(cmd);
+}
+
+static void	process_input(char *line, t_shell *shell)
+{
+	execute_parsing_and_execution(line, shell);
 	if (shell->should_exit)
-	{
-		free_envp(shell->envp_copy);
-		rl_clear_history();
-		exit(shell->exit_code);
-	}
+		cleanup_and_exit(shell);
 }
 
 void	prompt_loop(t_shell *shell)
@@ -51,9 +62,7 @@ void	prompt_loop(t_shell *shell)
 		if (!line)
 		{
 			printf("exit\n");
-			free_envp(shell->envp_copy);
-			rl_clear_history();
-			exit(shell->exit_code);
+			cleanup_and_exit(shell);
 		}
 		if (*line == '\0' || only_spaces(line))
 		{

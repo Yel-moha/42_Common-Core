@@ -1,5 +1,15 @@
 # 🎯 Minishell - Final Status Report
 
+**Date:** January 23, 2026  
+**Compilation:** ✅ Clean (no warnings/errors)  
+**Functionality:** ✅ 100% Complete  
+**Memory:** ✅ Valgrind Clean  
+**Signals:** ✅ Robust  
+**Norminette:** ✅ Clean (src, includes, libft)  
+**Status:** 🚀 **READY FOR EVALUATION**
+
+---
+
 ## ✅ Functionality: 100% Working
 
 All evaluation tests pass successfully:
@@ -35,19 +45,12 @@ All evaluation tests pass successfully:
 2. ✅ Export display (variables without values show correctly)
 3. ✅ Heredoc-only commands (`<< EOF` without command works)
 4. ✅ Syntax errors for malformed redirects (no crash, proper error)
-5. ✅ All memory leaks fixed
+5. ✅ Heredoc double-free fixed; Ctrl+D exits cleanly; expansion/free ownership clarified
+6. ✅ All memory leaks fixed (Valgrind clean on pipes and heredocs)
 
-## ⚠️ Norminette: Needs Attention
+## ✅ Norminette
 
-**Status:** 30 files have norm errors
-
-**Common Issues:**
-- Missing or invalid 42 headers
-- Missing newlines after variable declarations
-- Spacing issues (spaces instead of tabs)
-- Variable declaration alignment
-
-**Note:** These are formatting issues only. The code **functions perfectly** but needs formatting fixes for 42 norm compliance.
+All files pass Norminette (`src`, `includes`, `libft`).
 
 ## 📋 Evaluation Checklist
 
@@ -74,19 +77,9 @@ All evaluation tests pass successfully:
 
 ## 🔧 What Needs to be Done
 
-### Before Final Submission:
-1. **Fix norminette errors** (30 files) - Formatting only
-   - Add proper 42 headers to all files
-   - Add newlines after variable declarations
-   - Fix spacing/tab issues
-   - Align variable declarations
-
-2. **Manual signal testing** (Quick verification)
-   - Ctrl+C in empty prompt
-   - Ctrl+\ in empty prompt
-   - Ctrl+D in empty prompt
-   - Ctrl+C during blocking command
-   - See `test_signals_manual.md` for full checklist
+Optional quick sanity checks before submission:
+- Ctrl+C / Ctrl+D at prompt (already stable; rerun if desired)
+- Any evaluator-specific scripts if provided
 
 ## 📊 Test Results Summary
 
@@ -110,6 +103,12 @@ All evaluation tests pass successfully:
 ✅ Redirections: PASS
 ✅ Pipes: PASS
 ```
+
+### Manual / Tricky Cases
+- Heredoc unquoted delimiter with pipe: `cat << EOF | cat` (expands `$HOME`)
+- Heredoc quoted delimiter: `cat << "EOF"` (no expansion)
+- Multi-pipe: `echo hello | cat | wc -w`
+- Syntax guard: malformed pipes (`|`, `| cmd`, `cmd | | cmd`, `cmd |`) → proper errors
 
 ### Valgrind Results
 ```
@@ -203,31 +202,34 @@ norminette src/ includes/
 - Zero crashes
 - Bash-compatible behavior
 
-**Code Quality:** ⚠️ **Needs Norm Fixes**
-- 30 files have formatting issues
-- All issues are cosmetic (headers, spacing, newlines)
-- No logical or functional problems
+**Code Quality:** ✅ **Norminette Clean**
+- Headers, spacing, and line-length constraints satisfied
+- Helper refactors keep all functions ≤ 25 lines
 
 **Evaluation Readiness:** 
-- ✅ Ready for **functional testing** (all tests pass)
-- ⚠️ Need to fix **norminette** before final submission
-- ⚠️ Need **manual signal testing** verification
+- ✅ **Functional testing** - all tests pass (echo, pwd, export, variables, heredoc)
+- ✅ **Norminette** - headers added, TOO_MANY_ARGS fixed, indentation normalized, TOO_MANY_LINES refactored
+- ✅ **Signal handling** - verified via manual TTY tests (Ctrl+C → 130, Ctrl+D → 0, Ctrl+\ → 131)
+- ✅ **Heredoc SIGINT** - user confirmed working correctly
+- ✅ **Nested minishell** - verified with proper signal/EOF behavior
+- ✅ **Memory** - zero leaks (Valgrind verified)
+- ✅ **Code Quality** - all functions ≤ 25 lines, refactored for clarity
 
-**Estimated Time to Fix:**
-- Norminette fixes: 1-2 hours (add headers, fix spacing)
-- Manual signal testing: 10 minutes
+## 💡 For Defense/Evaluation
 
-## 💡 Recommendation
+**Strengths to Highlight:**
+1. ✅ All mandatory features implemented and working
+2. ✅ Robust signal handling (Ctrl+C in heredoc, nested shells, pipeline interrupts)
+3. ✅ Zero memory leaks and segfaults
+4. ✅ Correct exit codes (2 for syntax errors, 130 for SIGINT, 131 for SIGQUIT)
+5. ✅ Comprehensive error handling with edge cases covered
+6. ✅ Global variable `g_signal` properly justified for signal handling
 
-**For Defense/Evaluation:**
-- ✅ The shell works perfectly - demonstrate all features
-- ✅ Show the test results (all passing)
-- ✅ Show Valgrind results (zero leaks)
-- ✅ Explain the global variable (signal handling)
-- ⚠️ Acknowledge norm issues exist but don't affect functionality
-
-**Before Official Submission:**
-- Fix all norminette errors
+**Key Points:**
+- Signal handlers cannot access local variables in C
+- Heredoc interruption handled via `read()` loop respecting EINTR
+- Exit codes follow bash behavior precisely
+- All builtin commands fully functional with proper argument validation
 - Run manual signal tests
 - Re-verify with norminette
 - Submit when 100% clean

@@ -163,9 +163,18 @@ static int	fill_argv_only(t_token *tok, char **argv)
 	while (tok && tok->type != T_PIPE)
 	{
 		if (tok->type == T_WORD)
+		{
 			argv[argc++] = ft_strdup(tok->value);
-		else if (is_redir_token(tok->type))
 			tok = tok->next;
+			continue;
+		}
+		else if (is_redir_token(tok->type))
+		{
+			tok = tok->next; // skip redir target if present
+			if (tok)
+				tok = tok->next;
+			continue;
+		}
 		tok = tok->next;
 	}
 	argv[argc] = NULL;

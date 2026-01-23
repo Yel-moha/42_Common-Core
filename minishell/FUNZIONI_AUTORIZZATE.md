@@ -1,5 +1,8 @@
 # 📋 FUNZIONI AUTORIZZATE - Minishell
 
+**Last Updated:** January 23, 2026  
+**Status:** ✅ All authorized functions documented and validated
+
 Documento completo che descrive tutte le funzioni autorizzate dal subject, dove e come vengono utilizzate nel progetto minishell.
 
 ---
@@ -17,7 +20,9 @@ Documento completo che descrive tutte le funzioni autorizzate dal subject, dove 
   ```
 - **Motivo:** È il metodo standard per leggere input interattivo con supporto per readline features
 
-**Nota Subject:** Può causare memory leak ma non è responsabilità nostra.
+**Nota Subject:** Può causare memory leak (autorizzato e soppresso in Valgrind via minishell.supp).
+
+**Nota Finale:** Non usata in `read_heredoc()` - sostituita con `read()` per robust SIGINT handling.
 
 ---
 

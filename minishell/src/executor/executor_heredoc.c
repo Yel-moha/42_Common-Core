@@ -5,7 +5,7 @@ void	close_heredoc_fds(t_cmd *cmds)
 	t_cmd	*cmd;
 	t_redir	*redir;
 	cmd = cmds;
-	
+
 	while (cmd)
 	{
 		redir = cmd->redirs;

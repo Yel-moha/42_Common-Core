@@ -122,14 +122,17 @@ static void	split_argv_if_needed(t_cmd *cmds)
 		splitted = ft_split(cmds->argv[0], ' ');
 		if (splitted)
 		{
-			free(cmds->argv[0]);
-			cmds->argv[0] = splitted[0];
-			i = 1;
-			while (splitted[i])
+			if (splitted[0])
 			{
-				add_arg_to_cmd(cmds, splitted[i]);
-				free(splitted[i]);
-				i++;
+				free(cmds->argv[0]);
+				cmds->argv[0] = splitted[0];
+				i = 1;
+				while (splitted[i])
+				{
+					add_arg_to_cmd(cmds, splitted[i]);
+					free(splitted[i]);
+					i++;
+				}
 			}
 			free(splitted);
 		}

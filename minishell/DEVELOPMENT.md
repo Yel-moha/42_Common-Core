@@ -2,6 +2,9 @@
 
 A complete guide for collaborators to understand and work on the minishell project.
 
+**Last Updated:** January 23, 2026  
+**Status:** Functionally complete with robust signal handling and heredoc support.
+
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Project Architecture](#project-architecture)
@@ -10,7 +13,8 @@ A complete guide for collaborators to understand and work on the minishell proje
 5. [Module Reference](#module-reference)
 6. [Coding Standards](#coding-standards)
 7. [Building & Testing](#building--testing)
-8. [Common Modifications](#common-modifications)
+8. [Final Session Summary](#final-session-summary)
+9. [Common Modifications](#common-modifications)
 
 ---
 
@@ -496,6 +500,54 @@ char *expand_variable(char *res, char *word, int *i, t_shell *shell)
 
 ---
 
+## Final Session Summary (Jan 23, 2026)
+
+### Issues Fixed
+1. **Valgrind Invalid Reads** - Safeguarded `split_argv_if_needed()` in expander to handle empty splits.
+2. **Segfault in Parser** - Fixed safe pointer advancement in `fill_argv_only()` for redirection handling.
+3. **Exit Codes** - Implemented exit code 2 for syntax errors (unclosed quotes, invalid pipes) in `prompt.c`.
+4. **Signal Handling** - Removed redundant newlines on Ctrl+C; implemented heredoc-specific SIGINT handler with `read()` loop replacing `readline()` for robust EINTR handling.
+5. **Heredoc Interruption** - Executor now aborts with exit code 130 on SIGINT during heredoc processing.
+6. **Nested Minishell** - Verified proper signal handling and EOF behavior (Ctrl+D) in nested shells.
+7. **Norminette Compliance:**
+   - Added 42 headers to all files
+   - Normalized indentation (tabs vs spaces)
+   - Fixed TOO_MANY_ARGS: refactored `process_token_char()` with context struct
+   - Fixed TOO_MANY_LINES: refactored functions to max 25 lines:
+     - `prompt.c`: split `process_input()` into `cleanup_and_exit()`, `execute_parsing_and_execution()`
+     - `heredoc.c`: split into `read_char_to_line()`, `handle_heredoc_line()`, `process_heredoc_line()`
+     - `builtin_exit.c`: split into `validate_and_set_exit_code()`, `handle_invalid_arg()`
+
+### Key Code Changes
+- **src/expander/expander.c**: Guard split results in `split_argv_if_needed()`.
+- **src/parser/parser_utils.c**: Safe token advancement in `fill_argv_only()`.
+- **src/prompt.c**: Exit code 2 on lexer/parser errors; refactored for Norminette compliance.
+- **src/signal.c**: Readline-compatible signal handler; no redundant newlines.
+- **src/expander/heredoc.c**: `read()`-based line reader for immediate SIGINT response; refactored to multiple small functions.
+- **src/executor/executor.c**: Abort paths after heredoc SIGINT; close FDs properly.
+- **src/lexer/lexer.c**: Refactored `process_token_char()` with context struct to satisfy TOO_MANY_ARGS rule.
+- **src/builtin/builtin_exit.c**: Refactored to split validation and error handling.
+
+### Testing Validation
+- ✅ Valgrind: No invalid reads on quoted inputs ('       ', "", etc.)
+- ✅ Exit codes: 2 on syntax errors, 130 on Ctrl+C, 131 on Ctrl+\, 0 on normal EOF
+- ✅ Nested minishells: Signal handling and EOF confirmed via manual TTY tests
+- ✅ Pipe validation: Syntax errors for |, || patterns, pipes at edges
+- ✅ Heredoc SIGINT: User confirmed Ctrl+C → exit 130; Ctrl+D → exit 0
+- ✅ Functional tests: echo, pwd, export, variable expansion all working correctly
+
+### Build Status
+- **Compilation**: ✅ Clean (no warnings/errors)
+- **Norminette**: ✅ Headers added; TOO_MANY_ARGS fixed; TOO_MANY_LINES refactored; indentation normalized
+- **Functionality**: ✅ All features working post-refactoring
+
+### Cleanup
+- Removed all temporary test scripts (`test_*.sh`, `debug_*.sh`)
+- Cleaned up debug and error logs
+- Organized documentation
+
+---
+
 ## Quick Reference
 
 | Task | File | Function |
@@ -516,14 +568,17 @@ char *expand_variable(char *res, char *word, int *i, t_shell *shell)
 3. **Handle errors gracefully** - Check NULL pointers
 4. **Don't modify libft** - It's a utility library
 5. **Maintain modularity** - Don't create dependencies between modules
-6. **Test edge cases:**
+6. **Signal Safety** - Use only async-signal-safe functions in handlers
+7. **Heredoc SIGINT** - Handled via `read()` loop; respects EINTR for immediate interrupts
+8. **Test edge cases:**
    - Empty strings: `""`
    - Quote combinations: `"it's"`
    - Variables in quotes: `"$HOME"`
    - Pipe chains: `cmd1 | cmd2 | cmd3`
    - Redirections: `cmd > file`
-   - Heredocs: `cat << EOF`
+   - Heredocs: `cat << EOF` (test Ctrl+C and Ctrl+D)
+   - Nested shells: `./minishell` inside `./minishell`
 
 ---
 
-Last Updated: 2026-01-13
+Last Updated: 2026-01-23

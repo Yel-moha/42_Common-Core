@@ -46,10 +46,10 @@ t_cmd	*parse_tokens(t_token *tokens)
 	t_cmd	*cmds;
 	t_cmd	*last;
 	t_cmd	*cmd;
-	
+
 	if (validate_pipes(tokens) < 0)
 		return (NULL);
-	
+
 	cmds = NULL;
 	last = NULL;
 	while (tokens)

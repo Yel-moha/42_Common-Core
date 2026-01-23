@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
+/*   Updated: 2026/01/23 00:00:00 by youssef          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	handle_signal_interrupt(t_shell *shell)
 {
 	shell->exit_code = 130;
 	g_signal = 0;
-	printf("\n");
 }
 
 static void	handle_child_exit_signal(int sig, t_shell *shell)
@@ -12,7 +23,6 @@ static void	handle_child_exit_signal(int sig, t_shell *shell)
 	if (sig == SIGINT)
 	{
 		shell->exit_code = 130;
-		printf("\n");
 	}
 	else if (sig == SIGQUIT)
 	{
@@ -73,6 +83,12 @@ static int	prepare_single_cmd(t_cmd *cmd, t_shell *shell,
 	if (g_signal == SIGINT)
 		return (handle_signal_interrupt(shell), -1);
 	process_heredocs(cmd, shell);
+	if (g_signal == SIGINT)
+	{
+		// heredoc interrupted
+		shell->exit_code = 130;
+		return (-1);
+	}
 	*saved_stdin = dup(STDIN_FILENO);
 	*saved_stdout = dup(STDOUT_FILENO);
 	if (apply_redirections(cmd->redirs, shell) < 0)
@@ -92,7 +108,10 @@ void	execute_single_cmd(t_cmd *cmd, t_shell *shell)
 	if (!cmd)
 		return ;
 	if (prepare_single_cmd(cmd, shell, &saved_stdin, &saved_stdout) < 0)
+	{
+		close_heredoc_fds(cmd);
 		return ;
+	}
 	if (!cmd->argv || !cmd->argv[0] || !*cmd->argv[0])
 		shell->exit_code = 0;
 	else
@@ -185,6 +204,12 @@ void	execute_pipeline(t_cmd *cmds, t_shell *shell)
 	int	fd[2];
 
 	process_all_heredocs(cmds, shell);
+	if (g_signal == SIGINT)
+	{
+		shell->exit_code = 130;
+		close_heredoc_fds(cmds);
+		return;
+	}
 	ps.prev_fd = -1;
 	current = cmds;
 	while (current)

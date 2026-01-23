@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
+/*   Updated: 2026/01/23 00:00:00 by youssef          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -14,7 +26,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
-# include <dirent.h>  //aggiunta per la variabile DIR nella funzione static exit_error
+# include <dirent.h>
 
 /* ************************************************************************** */
 /*                                   GLOBALS                                  */
@@ -35,7 +47,7 @@ typedef enum e_token_type
 	T_REDIR_OUT,
 	T_REDIR_APPEND,
 	T_HEREDOC
-}	 t_token_type;
+}	t_token_type;
 
 typedef enum e_state
 {
@@ -43,7 +55,7 @@ typedef enum e_state
 	STATE_IN_SINGLE_QUOTE,
 	STATE_IN_DOUBLE_QUOTE,
 	STATE_IN_VAR_EXPANSION
-}	 t_state;
+}	t_state;
 
 typedef struct s_redir
 {
@@ -51,14 +63,14 @@ typedef struct s_redir
 	char	*target;
 	int		heredoc_fd;
 	struct s_redir	*next;
-}	 t_redir;
+}	t_redir;
 
 typedef struct s_cmd
 {
 	char	**argv;
 	t_redir	*redirs;
 	struct s_cmd	*next;
-}	 t_cmd;
+}	t_cmd;
 
 typedef struct s_token
 {
@@ -66,20 +78,20 @@ typedef struct s_token
 	char	*value;
 	struct s_token	*next;
 	int	expand;
-}	 t_token;
+}	t_token;
 
 typedef struct s_shell
 {
 	char	**envp_copy;	// LA TUA COPIA MODIFICABILE
 	int	exit_code;
 	int	should_exit;
-}	 t_shell;
+}	t_shell;
 
 typedef struct s_pipe_state
 {
 	int	*fd;
 	int	prev_fd;
-}	 t_pipe_state;
+}	t_pipe_state;
 
 typedef struct s_expand_ctx
 {
@@ -87,7 +99,7 @@ typedef struct s_expand_ctx
 	char	*word;
 	int		*i;
 	t_state	*state;
-}	 t_expand_ctx;
+}	t_expand_ctx;
 
 /* ************************************************************************** */
 /*                               PROTOTYPES                                   */
@@ -99,7 +111,7 @@ void	init_signals(void);
 void	reset_signals_in_child(void);
 
 /* lexer */
-t_token	*	lexer(char *line);
+t_token	*lexer(char *line);
 void	handle_redir(t_token **tokens, char *line, int *i);
 
 /* lexer utils */
@@ -114,21 +126,21 @@ void	handle_char(char *line, int i, t_state *state);
 t_state	update_state(char c, t_state state);
 
 /* lexer tokens */
-t_token	*	new_token(t_token_type type, char *value);
+t_token	*new_token(t_token_type type, char *value);
 void	add_token(t_token **head, t_token *new_token);
 void	handle_word_end(t_token **tokens, char *line, int *start, int i);
 void	add_word(t_token **tokens, char *line, int start, int end);
 
 /* parser */
-t_cmd	*	parse_tokens(t_token *tokens);
-t_cmd	*	parse_single_cmd(t_token **tokens);
+t_cmd	*parse_tokens(t_token *tokens);
+t_cmd	*parse_single_cmd(t_token **tokens);
 
 /* parser utils */
 char	**tokens_to_argv(t_token *start);
 void	free_cmds(t_cmd *cmds);
-t_redir	*	new_redir(t_token_type type, char *target);
+t_redir	*new_redir(t_token_type type, char *target);
 void	add_redir(t_redir **lst, t_redir *new_redir);
-t_token	*	parse_redir(t_cmd *cmd, t_token *tok);
+t_token	*parse_redir(t_cmd *cmd, t_token *tok);
 int	is_redir_token(t_token_type type);
 
 /* executor */
@@ -145,8 +157,8 @@ void	close_all_heredoc_fds_except_current(t_cmd *cmds, t_cmd *current);
 void	cleanup_and_exit_child(t_shell *shell, t_cmd *cmds, int status);
 
 /* executor utils */
-char	*	get_env_value(char **envp, char *name);
-char	*	find_command_path(char *cmd, t_shell *shell);
+char	*get_env_value(char **envp, char *name);
+char	*find_command_path(char *cmd, t_shell *shell);
 
 /* builtins */
 int	is_builtin(char *cmd);
@@ -170,7 +182,7 @@ int		is_valid_identifier(char *s);
 char 	*get_key(char *arg);
 int	find_env_index(char **envp, char *key);
 void	env_add(t_shell *shell, char *new_var);
-char	*	env_get_value(char **envp, char *name);
+char	*env_get_value(char **envp, char *name);
 int	has_equal(char *s);
 void	env_replace(char **envp, int index, char *new_var);
 
@@ -188,11 +200,11 @@ print_export_entry(char *env);
 
 /* expander */
 void	expand_cmds(t_cmd *cmds, t_shell *shell);
-char	*	expand_word(char *word, t_shell *shell);
-char	*	expand_variable(char *res, char *word, int *i, t_shell *shell);
-char	*	append_char(char *s, char c);
+char	*expand_word(char *word, t_shell *shell);
+char	*expand_variable(char *res, char *word, int *i, t_shell *shell);
+char	*append_char(char *s, char c);
 int	heredoc_should_expand(char *delimiter);
-char	*	strip_quotes(char *s);
+char	*strip_quotes(char *s);
 void	read_heredoc(char *delimiter, t_shell *shell, int fd);
 void	add_arg_to_cmd(t_cmd *cmd, char *arg);
 
