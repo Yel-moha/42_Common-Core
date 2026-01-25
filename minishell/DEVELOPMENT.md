@@ -265,13 +265,21 @@ typedef enum e_state
 #### `src/main.c`
 ```c
 void prompt_loop(t_shell *shell)     // Main interactive loop
+// Global: volatile sig_atomic_t g_signal  // Signal tracking
+```
+
+#### `src/prompt.c`
+```c
+void prompt_loop(t_shell *shell)                           // Main interactive loop
+static int handle_signal_interrupt(t_shell *shell, char **line)  // Handles Ctrl+C signal
+static void process_input(char *line, t_shell *shell)      // Process single command input
 ```
 
 #### `src/signal.c`
 ```c
 void init_signals(void)              // Setup signal handlers
 void reset_signals_in_child(void)    // Child process signal reset
-// Global: int g_signal             // Signal tracking
+static void sigint_handler(int sig)  // SIGINT handler (Ctrl+C)
 ```
 
 #### `src/env_utils.c`

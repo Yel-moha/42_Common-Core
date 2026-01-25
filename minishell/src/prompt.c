@@ -51,14 +51,32 @@ static void	process_input(char *line, t_shell *shell)
 	if (shell->should_exit)
 		cleanup_and_exit(shell);
 }
+static int	handle_signal_interrupt(t_shell *shell, char **line)
+{
+	if (g_signal == SIGINT)
+	{
+		shell->exit_code = 130;
+		g_signal = 0;
+		if (!*line)
+			return (1);
+		if (**line == '\0')
+		{
+			free(*line);
+			return (1);
+		}
+	}
+	return (0);
+}
 
 void	prompt_loop(t_shell *shell)
 {
 	char	*line;
+
 	while (1)
 	{
-		g_signal = 0;
 		line = readline("minishell$ ");
+		if (handle_signal_interrupt(shell, &line))
+			continue ;
 		if (!line)
 		{
 			printf("exit\n");
@@ -74,3 +92,33 @@ void	prompt_loop(t_shell *shell)
 		free(line);
 	}
 }
+/*
+void	prompt_loop(t_shell *shell)
+{
+	char	*line;
+	while (1)
+	{
+		g_signal = 0;
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			printf("exit\n");
+			cleanup_and_exit(shell);
+		}
+		if (g_signal == SIGINT)
+		{
+			shell->exit_code = 130;
+			free(line);
+			continue;
+		}
+		if (*line == '\0' || only_spaces(line))
+		{
+			free(line);
+			continue;
+		}
+		add_history(line);
+		process_input(line, shell);
+		free(line);
+	}
+}
+	*/

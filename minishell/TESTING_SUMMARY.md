@@ -133,21 +133,40 @@ ERROR SUMMARY: 0 errors from 0 contexts
 ```c
 volatile sig_atomic_t g_signal = 0;  // Global variable
 
-void signal_handler(int sig) {
-    g_signal = sig;  // Signal handler sets global
+void sigint_handler(int sig) {
+    (void)sig;
+    g_signal = SIGINT;          // Set signal flag
+    write(1, "\n", 1);          // Safe function in signal handler
+    rl_on_new_line();           // Readline: prepare new line
+    rl_replace_line("", 0);     // Readline: clear buffer
+    rl_redisplay();             // Readline: show prompt
+}
+
+int handle_signal_interrupt(t_shell *shell, char **line) {
+    if (g_signal == SIGINT) {   // Main checks global
+        shell->exit_code = 130; // Set exit code for $?
+        g_signal = 0;            // Reset
+        if (!*line || **line == '\0') {
+            free(*line);
+            return (1);          // Skip processing
+        }
+    }
+    return (0);
 }
 
 int main() {
-    signal(SIGINT, signal_handler);
+    struct sigaction sa;
+    sa.sa_handler = sigint_handler;
+    sa.sa_flags = SA_RESTART;   // Readline continues after signal
+    sigaction(SIGINT, &sa, NULL);
     
     while (1) {
         char *line = readline("minishell$ ");
-        
-        if (g_signal == SIGINT) {  // Main checks global
-            printf("\n");
-            g_signal = 0;  // Reset
+        if (handle_signal_interrupt(&shell, &line))
             continue;
-        }
+        // ... process command ...
+    }
+}
         
         // Process command...
     }

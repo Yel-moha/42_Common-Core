@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int g_signal = 0;
+volatile sig_atomic_t g_signal = 0;
 
 int	main(int ac, char **av, char **envp)
 {

@@ -170,12 +170,13 @@ Una variabile globale è **obbligatoria** per la gestione dei segnali in C. Quan
 ```
 1. Utente preme Ctrl+C
 2. OS interrompe il programma
-3. Signal handler viene chiamato
+3. Signal handler viene chiamato (sigint_handler)
 4. Signal handler scrive: g_signal = SIGINT
-5. Controllo ritorna a readline() 
-6. Main loop verifica: if (g_signal == SIGINT)
-7. Stampa newline e nuovo prompt
-8. Resetta: g_signal = 0
+5. Signal handler chiama rl_redisplay() per mostrare nuovo prompt
+6. Controllo ritorna a readline() (con SA_RESTART continua)
+7. Main loop chiama handle_signal_interrupt()
+8. Funzione imposta shell->exit_code = 130 e resetta g_signal = 0
+9. Prossimo echo $? mostrerà 130
 ```
 
 Senza la variabile globale, il main loop non potrebbe mai sapere che è stata premuta Ctrl+C.

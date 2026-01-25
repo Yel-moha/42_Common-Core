@@ -13,12 +13,15 @@
 
 **Esempio:**
 ```
-Utente preme Ctrl+C
-→ OS chiama signal handler
+Utente preme Ctrl+C durante readline
+→ OS chiama signal handler (sigint_handler)
 → Handler scrive: g_signal = SIGINT
-→ Main loop verifica: if (g_signal == SIGINT)
-→ Stampa newline e nuovo prompt
+→ Handler mostra nuova riga e ridisegna prompt (rl_redisplay)
+→ Readline continua (SA_RESTART)
+→ Main loop chiama handle_signal_interrupt()
+→ Imposta shell->exit_code = 130
 → Resetta: g_signal = 0
+→ echo $? mostrerà 130
 ```
 
 ---
@@ -138,14 +141,16 @@ Exit code non cambia (rimane quello precedente).
 ---
 
 ### "Come gestite ctrl-C durante la digitazione?"
-**Readline gestisce il buffer:**
+**Readline e signal handler collaborano:**
 1. Utente digita "echo hello"
 2. Preme Ctrl+C
-3. Signal handler: g_signal = SIGINT
-4. Readline ritorna
-5. Main loop stampa "\n"
-6. Resetta g_signal
-7. readline() di nuovo (con buffer pulito)
+3. Signal handler (sigint_handler): g_signal = SIGINT
+4. Signal handler stampa "\n" e chiama rl_redisplay()
+5. Readline continua (SA_RESTART flag attivo)
+6. Prompt mostrato automaticamente
+7. Main loop chiama handle_signal_interrupt()
+8. Imposta exit_code = 130 e resetta g_signal = 0
+9. Pronto per nuovo input (buffer pulito da rl_replace_line)
 
 ---
 
