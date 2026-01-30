@@ -1,13 +1,5 @@
 #include "minishell.h"
 
-typedef struct s_lexer_ctx
-{
-	char	*line;
-	int		*i;
-	int		*start;
-	t_state	*state;
-	t_token	**tokens;
-}	t_lexer_ctx;
 
 static void	process_token_char(t_lexer_ctx *ctx)
 {

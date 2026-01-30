@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
-/*   Updated: 2026/01/25 17:30:15 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/01/30 11:32:42 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ typedef enum e_state
 	STATE_IN_DOUBLE_QUOTE,
 	STATE_IN_VAR_EXPANSION
 }	t_state;
+
+typedef struct s_lexer_ctx
+{
+	char	*line;
+	int		*i;
+	int		*start;
+	t_state	*state;
+	t_token	**tokens;
+}	t_lexer_ctx;
 
 typedef struct s_redir
 {

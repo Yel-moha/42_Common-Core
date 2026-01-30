@@ -168,11 +168,6 @@ int main() {
     }
 }
         
-        // Process command...
-    }
-}
-```
-
 Without this global variable:
 - ❌ Cannot detect Ctrl+C pressed by user
 - ❌ Cannot show new prompt after Ctrl+C
