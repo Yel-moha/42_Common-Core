@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
-/*   Updated: 2026/01/30 11:32:42 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:44:17 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ typedef enum e_state
 	STATE_IN_VAR_EXPANSION
 }	t_state;
 
+typedef struct s_token
+{
+	t_token_type	type;
+	char	*value;
+	int	expand;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_lexer_ctx
 {
 	char	*line;
@@ -80,14 +88,6 @@ typedef struct s_cmd
 	t_redir	*redirs;
 	struct s_cmd	*next;
 }	t_cmd;
-
-typedef struct s_token
-{
-	t_token_type	type;
-	char	*value;
-	struct s_token	*next;
-	int	expand;
-}	t_token;
 
 typedef struct s_shell
 {
