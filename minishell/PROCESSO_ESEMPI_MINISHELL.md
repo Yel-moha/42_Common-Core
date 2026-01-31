@@ -5,8 +5,264 @@ Questo documento descrive **passo‑passo** tutto il flusso di esecuzione, segue
 > Nota: i nomi delle funzioni sono evidenziati con `backticks` e la spiegazione è costruita sulle funzioni presenti nel progetto.
 
 ---
+## 0) Enum t_token_type: i tipi di token
 
+L'enum `t_token_type` definisce tutti i tipi di token riconosciuti dal **lexer**:
+
+```c
+typedef enum e_token_type
+{
+	T_WORD,          // Parola: comando, argomento, file
+	T_PIPE,          // Operatore pipe: |
+	T_REDIR_IN,      // Redirezione input singola: <
+	T_REDIR_OUT,     // Redirezione output singola: >
+	T_REDIR_APPEND,  // Redirezione append: >>
+	T_HEREDOC        // Heredoc: <<
+}	t_token_type;
+```
+
+### Ruolo di ogni tipo nel flusso:
+
+**T_WORD**
+- Rappresenta una sequenza di caratteri che non è un operatore.
+- Esempi: `echo`, `hello`, `filename.txt`, `$VAR`, `-l`.
+- Nel **parser**, i `T_WORD` diventano argomenti (`argv`) o target di redirections.
+- Nel **lexer**, viene estratto fino al prossimo operatore o spazio.
+
+**T_PIPE**
+- Rappresenta l'operatore `|` che connette due comandi.
+- Nel **lexer**, viene riconosciuto in `STATE_NORMAL` e crea un nuovo token.
+- Nel **parser**, segna il confine tra due comandi: `parse_tokens()` crea un nuovo `t_cmd` ogni volta che incontra `T_PIPE`.
+- Nel **parser**, deve essere validato da `validate_pipes()`: non può essere all'inizio, alla fine o doppio (`||`).
+- Nel **executor**, `T_PIPE` causa l'esecuzione in `execute_pipeline()` anziché in `execute_single_cmd()`.
+
+**T_REDIR_IN**
+- Rappresenta `<` per redirigere l'input da file.
+- Il token successivo **deve** essere un `T_WORD` contenente il nome del file.
+- Nel **parser**, `parse_redir()` verifica la presenza del target e crea una `t_redir` con `type = T_REDIR_IN`.
+- Nel **executor**, `apply_file_redir()` apre il file in lettura (`O_RDONLY`) e lo duplica su `STDIN_FILENO`.
+
+**T_REDIR_OUT**
+- Rappresenta `>` per redirigere l'output su file (sovrascrivere).
+- Nel **lexer**, riconosciuto da `is_redir()` e distinguito da `>>` da `is_double_redir()`.
+- Nel **parser**, il target deve seguire immediatamente.
+- Nel **executor**, `apply_file_redir()` apre il file in scrittura (`O_WRONLY | O_CREAT | O_TRUNC, 0644`) e lo duplica su `STDOUT_FILENO`.
+
+**T_REDIR_APPEND**
+- Rappresenta `>>` per aggiungere output a file.
+- Nel **lexer**, `handle_redir()` riconosce `>>` e crea un token `T_REDIR_APPEND`, incrementando `i` di 2.
+- Nel **parser**, funziona come `T_REDIR_OUT`.
+- Nel **executor**, `apply_file_redir()` apre in append (`O_WRONLY | O_CREAT | O_APPEND, 0644`).
+
+**T_HEREDOC**
+- Rappresenta `<<` per un documento inline (heredoc).
+- Il token successivo è il **delimitatore** (es. `EOF`, `DELIMITER`).
+- Nel **lexer**, `handle_redir()` riconosce `<<` e crea `T_HEREDOC`, incrementando `i` di 2.
+- Nel **parser**, il delimitatore viene salvato come target della redirection.
+- Nel **executor**, `process_heredocs()` chiama `setup_heredoc_redir()` che legge dall'input fino al delimitatore:
+  - Crea una pipe interna.
+  - Salva il fd di lettura in `redir->heredoc_fd`.
+  - `apply_redirections()` duplica questo fd su `STDIN_FILENO`.
+
+### Traccia di un T_WORD nell'intero flusso:
+
+1. **Lexer** (`lexer()` → `process_token_char()` → `handle_word_end()` → `add_word()`):
+   - Caratteri accumulati finché non si incontra spazio/operatore.
+   - Creato un `t_token` con `type = T_WORD` e la stringa estratta.
+
+2. **Parser** (`parse_single_cmd()` → `fill_argv_only()`):
+   - Se il `T_WORD` non è preceduto da redirection, entra in `argv`.
+   - Altrimenti, è il target di una redirection.
+
+3. **Expander** (`expand_cmds()` → `expand_argv()` → `expand_word()`):
+   - Se contiene `$`, viene espansa a variabile ambiente.
+   - Se contiene quote, vengono rimosse.
+   - Se contiene spazi dopo espansione, viene splittato in più argomenti.
+
+4. **Executor** (`execute_single_cmd()` o `execute_pipeline()`):
+   - Se `argv[0]`, viene eseguito come comando.
+   - Se argomento, viene passato al comando.
+   - Se target redirection, viene aperto come file.
+
+### Traccia di un T_PIPE nell'intero flusso:
+
+1. **Lexer**: Riconosciuto in `STATE_NORMAL`, produce un token separato.
+
+2. **Parser** (`parse_tokens()` → `validate_pipes()`):
+   - `validate_pipes()` controlla che non sia all'inizio/fine/doppio.
+   - Se valido, `parse_tokens()` crea un nuovo `t_cmd` ogni volta che lo incontra.
+
+3. **Executor** (`execute_cmds()` → `execute_pipeline()`):
+   - Crea una pipe tra ogni coppia di comandi.
+   - Ogni figlio duplica `STDOUT` su `fd[1]` (scrittura) e `STDIN` su `fd[0]` del figlio precedente (lettura).
+   - Il parent chiude i fd corretti e aspetta tutti i figli.
+
+### Traccia di un T_HEREDOC nell'intero flusso:
+
+1. **Lexer**: `<<` produce `T_HEREDOC`, il token successivo è il delimitatore.
+
+2. **Parser**: La redirection viene salvata con `type = T_HEREDOC` e `target = delimitatore`.
+
+3. **Executor pre-processing** (`process_heredocs()` → `setup_heredoc_redir()`):
+   - Crea una pipe, salva il fd di lettura in `redir->heredoc_fd`.
+   - `read_heredoc()` legge righe da `STDIN` finché non incontra il delimitatore.
+   - Se il delimitatore non contiene quote, le variabili vengono espanse.
+
+4. **Executor esecuzione** (`apply_redirections()`):
+   - Duplica `heredoc_fd` su `STDIN_FILENO` del comando.
+
+---
 ## 1) Flusso generale (catena di chiamate)
+
+---
+
+## 0.5) Enum t_state: gli stati del lexer
+
+L'enum `t_state` definisce i 4 stati che il **lexer** attraversa mentre legge la linea di input:
+
+```c
+typedef enum e_state
+{
+   STATE_NORMAL,           // Non siamo dentro quote
+   STATE_IN_SINGLE_QUOTE,  // Siamo dentro single quote (')
+   STATE_IN_DOUBLE_QUOTE,  // Siamo dentro double quote (")
+   STATE_IN_VAR_EXPANSION  // (Non usato attualmente nel codice)
+}	t_state;
+```
+
+### Ruolo di ogni stato nel flusso:
+
+**STATE_NORMAL**
+- Lo stato iniziale e il default.
+- In questo stato, il lexer riconosce:
+  - **Spazi/tab**: terminano una parola.
+  - **Operatori** (`|`, `<`, `>`, `<<`, `>>`): creano token e chiudono la parola.
+  - **Quote** (`'`, `"`): cambiano stato.
+  - **Caratteri normali**: accumulati nella parola corrente.
+- Quando il lexer legge una singola quote `'`, transita in `STATE_IN_SINGLE_QUOTE`.
+- Quando il lexer legge una doppia quote `"`, transita in `STATE_IN_DOUBLE_QUOTE`.
+
+**STATE_IN_SINGLE_QUOTE**
+- Tutto è letterale: nessuna espansione, nessun escape.
+- Le parentesi `(`, `)` e operatori `|`, `<`, `>` sono **caratteri normali**, non operatori.
+- I dollari `$` sono letterali, non attivano l'espansione di variabili.
+- **Sola eccezione**: non è possibile "escapare" un singolo quote dentro single quote.
+- Per aggiungere un singolo quote, bisogna uscire da single quote, aggiungere uno quote escapato, e rientrare.
+- Quando il lexer legge un singolo quote `'`, transita di nuovo in `STATE_NORMAL`.
+- **Esempio**: `'hello $VAR'` → produce un `T_WORD` con il valore letterale `hello $VAR` (nessuna espansione).
+
+**STATE_IN_DOUBLE_QUOTE**
+- La maggior parte è letterale, ma le variabili **vengono espanse** (fase dell'expander).
+- Gli operatori `|`, `<`, `>` sono **letterali**, non creano token.
+- **Eccezione importante**: `"` non può apparire dentro (terminerebbe le quote).
+- Il backslash `\` ha significato speciale solo prima di `$`, `` ` ``, `"`, `\`, newline.
+- Quando il lexer legge una doppia quote `"`, transita di nuovo in `STATE_NORMAL`.
+- **Esempio**: `"hello $VAR"` → produce un `T_WORD`; nell'expander, `$VAR` viene sostituita con il valore della variabile.
+
+**STATE_IN_VAR_EXPANSION** (non usato)
+- Questo stato è definito ma **non utilizzato** nel codice attuale.
+- Potrebbe essere stato pensato per una futura ottimizzazione dell'expander.
+
+### Transizioni di stato nel lexer:
+
+La funzione chiave è `update_state()` (in `lexer_state.c`):
+
+```c
+t_state update_state(char c, t_state state)
+{
+   if (c == '\'' && state == STATE_NORMAL)
+      return (STATE_IN_SINGLE_QUOTE);
+   if (c == '\'' && state == STATE_IN_SINGLE_QUOTE)
+      return (STATE_NORMAL);
+   if (c == '"' && state == STATE_NORMAL)
+      return (STATE_IN_DOUBLE_QUOTE);
+   if (c == '"' && state == STATE_IN_DOUBLE_QUOTE)
+      return (STATE_NORMAL);
+   return (state);
+}
+```
+
+**Transizioni possibili**:
+- `STATE_NORMAL` + `'` → `STATE_IN_SINGLE_QUOTE`
+- `STATE_IN_SINGLE_QUOTE` + `'` → `STATE_NORMAL`
+- `STATE_NORMAL` + `"` → `STATE_IN_DOUBLE_QUOTE`
+- `STATE_IN_DOUBLE_QUOTE` + `"` → `STATE_NORMAL`
+- Qualsiasi altro carattere → state rimane invariato
+
+### Conseguenze dello stato sulla tokenizzazione:
+
+**In STATE_NORMAL**:
+```
+echo hello | grep world
+^^^^^^^^^^   ^^^^   ^^^^^
+T_WORD      T_WORD (pipe causa separazione)
+```
+Il `|` è riconosciuto come `T_PIPE` e chiude la parola precedente.
+
+**In STATE_IN_SINGLE_QUOTE**:
+```
+echo 'hello | grep'
+     ^^^^^^^^^^^^^^^^
+     T_WORD con valore letterale "hello | grep"
+```
+Il `|` è parte della parola, non un operatore.
+
+**In STATE_IN_DOUBLE_QUOTE**:
+```
+echo "hello | grep"
+     ^^^^^^^^^^^^^^^
+     T_WORD con valore "hello | grep" (il | non è operatore, ma verrà gestito come parte della parola)
+```
+
+### Validazione dello stato finale:
+
+Alla fine della tokenizzazione, il lexer controlla:
+
+```c
+if (state != STATE_NORMAL)
+    return (free_tokens(tokens), (t_token *)NULL);
+```
+
+Se il parser termina con quote non chiuse (stato != `STATE_NORMAL`), la funzione `lexer()` libera i token e ritorna `NULL`, segnalando un errore "unclosed quotes".
+
+### Traccia di input con quote attraverso il lexer:
+
+**Input**: `echo 'hello world' test`
+
+1. **i=0**: `e` → `STATE_NORMAL`, start parola.
+2. **i=1-3**: `c`, `h`, `o` → accumula.
+3. **i=4**: space → chiude parola, crea `T_WORD` (`echo`).
+4. **i=5**: space → salto.
+5. **i=6**: `'` → `STATE_NORMAL` + `'` → transita a `STATE_IN_SINGLE_QUOTE`, start parola.
+6. **i=7-11**: `h`, `e`, `l`, `l`, `o` → accumula (stato quote singola).
+7. **i=12**: space → accumula (è letterale in single quote).
+8. **i=13-17**: `w`, `o`, `r`, `l`, `d` → accumula.
+9. **i=18**: `'` → `STATE_IN_SINGLE_QUOTE` + `'` → transita a `STATE_NORMAL`, chiude parola, crea `T_WORD` (`hello world`).
+10. **i=19**: space → salto.
+11. **i=20-23**: `t`, `e`, `s`, `t` → accumula.
+12. **EOF**: chiude parola, crea `T_WORD` (`test`).
+13. **Stato finale**: `STATE_NORMAL` ✓ (nessun errore).
+
+**Risultato**:
+- `T_WORD` (`echo`)
+- `T_WORD` (`hello world`)
+- `T_WORD` (`test`)
+
+### Interazione tra stato e expander:
+
+L'expander **non espande** le variabili dentro **single quote**, ma **sì** dentro **double quote**.
+
+**Input dopo lexer**: 
+- `echo "VAL=$MYVAR"` → `T_WORD` (`"VAL=$MYVAR"`)
+
+**Dopo expander** (con `MYVAR=42`):
+- `VAL=42` (il `$MYVAR` è stato sostituito, ma le quote doppie sono rimosse)
+
+**Input dopo lexer**: 
+- `echo 'VAL=$MYVAR'` → `T_WORD` (`'VAL=$MYVAR'`)
+
+**Dopo expander**:
+- `VAL=$MYVAR` (letterale, nessuna espansione)
 
 **Avvio programma → prompt → lexer → parser → expander → executor → builtins/execve**
 
