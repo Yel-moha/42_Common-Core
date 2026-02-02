@@ -1,34 +1,117 @@
 {
-    RL leaks
+    readline
     Memcheck:Leak
     ...
+    ...
+    fun:readline
+    fun:main
+}
+{
+    add_history
+    Memcheck:Leak
+    ...
+    ...
+    fun:add_history
+    fun:main
+}
+{
+    rl_initialize
+    Memcheck:Leak
+    ...
+    ...
+    fun:rl_initialize
     fun:readline
 }
 {
-    RL add_history leaks
+    readline
     Memcheck:Leak
     ...
-    fun:add_history
+    ...
+    fun:readline
+    fun: ft_here_doc
 }
-
 {
-   MALLOC FAILURE OF /usr/bin/*
+   malloc
    Memcheck:Leak
    fun:malloc
    ...
    obj:/usr/bin/*
 }
 {
-   CALLOC FAILURE of /usr/bin/*
+   calloc
    Memcheck:Leak
    fun:calloc
    ...
    obj:/usr/bin/*
 }
 {
-   REALLOC FAILURE of /usr/bin/*
+   realloc
    Memcheck:Leak
    fun:realloc
    ...
    obj:/usr/bin/*
+}
+{
+    readline
+    Memcheck:Leak
+    ...
+    ...
+    fun:readline
+    fun:main_exe_1
+}
+{
+    add_history
+    Memcheck:Leak
+    ...
+    ...
+    fun:add_history
+    fun:main_exe_1
+}
+{
+    readline
+    Memcheck:Leak
+    ...
+    ...
+    fun:readline
+    fun:main_exe_2
+}
+{
+    add_history
+    Memcheck:Leak
+    ...
+    ...
+    fun:add_history
+    fun:main_exe_2
+}
+{
+    readline
+    Memcheck:Leak
+    ...
+    ...
+    fun:readline
+    fun:main_exe_3
+}
+{
+    add_history
+    Memcheck:Leak
+    ...
+    ...
+    fun:add_history
+    fun:main_exe_3
+}
+{
+    readline
+    Memcheck:Leak
+    ...
+    ...
+    fun:readline
+    fun:main_exe_4
+}
+{
+    add_history
+    Memcheck:Leak
+    ...
+    ...
+    fun:add_history
+    fun:main_exe_4
 }
