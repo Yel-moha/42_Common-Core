@@ -1,5 +1,5 @@
 #include "philo.h"
-// riprendere il canale youtube sui threads dall numero 5 intitolato how to create threads in a loop
+// riprendere il canale youtube sui threads dall numero 6 intitolato get a return from a thread
 /*
 void* routine()
 {
@@ -23,28 +23,27 @@ void* routine()
 }
 int main(int argc, char **argv)
 {
-    pthread_t t1, t2, t3, t4;
+    pthread_t th[4];
+    int i;
+
     pthread_mutex_init(&mutex, NULL);
-    //int mails = 0;
-    
-    if(pthread_create(&t1, NULL, &routine, NULL) != 0)
-        return 1;
-    if(pthread_create(&t2, NULL, &routine, NULL) != 0)
-        return 2;
-    if(pthread_create(&t3, NULL, &routine, NULL) != 0)
-        return 3;
-    if(pthread_create(&t4, NULL, &routine, NULL) != 0)
-        return 4;
-    if(pthread_join(t1, NULL) != 0)
-        return 5;
-    if(pthread_join(t2, NULL) != 0)
-        return 6;
-    if(pthread_join(t3, NULL) != 0)
-        return 7;
-    if(pthread_join(t4, NULL) != 0)
-        return 8;
-    printf("il numero di mail e' %d\n", mails);
+    for(i = 0; i < 200; i++)
+    {
+        if(pthread_create(th + i, NULL, &routine, NULL) != 0)
+        {
+            perror("Failed create thread\n");
+            return 1;
+        }
+        printf("Thread %d is started: \n", i);
+    }
+    for(i = 0; i < 200; i++)
+    {
+        if(pthread_join(th[i], NULL) != 0)
+            return 2;
+        printf("Thread %d has finished execution\n", i);
+    }
     pthread_mutex_destroy(&mutex);
+    printf("il numero di mail e' %d\n", mails);
     return 0;
 }
 
