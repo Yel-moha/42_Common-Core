@@ -14,16 +14,18 @@ pthread_mutex_t mutex;
 
 void* routine()
 {
-   for(int i = 0; i < 10000; i++)
+   for(int i = 0; i < 100; i++)
    {
         pthread_mutex_lock(&mutex);
         mails++;
         pthread_mutex_unlock(&mutex);
    }
 }
+
 int main(int argc, char **argv)
 {
-    pthread_t th[62240]; // limite processi di questo pc ottenuto tramite il comando ulimit -u
+    int num = atoi(argv[1]);
+    pthread_t th[num]; // limite processi di questo pc ottenuto tramite il comando ulimit -u
     int i;
     /*
     il tentativo di creare questo numero di thread fallisce, 
@@ -38,7 +40,7 @@ int main(int argc, char **argv)
     */
 
     pthread_mutex_init(&mutex, NULL);
-    for(i = 0; i < 100; i++)
+    for(i = 0; i < num; i++)
     {
         if(pthread_create(th + i, NULL, &routine, NULL) != 0)
         {
@@ -47,7 +49,7 @@ int main(int argc, char **argv)
         }
         printf("Thread %d is started: \n", i);
     }
-    for(i = 0; i < 100; i++)
+    for(i = 0; i < num; i++)
     {
         if(pthread_join(th[i], NULL) != 0)
             return 2;

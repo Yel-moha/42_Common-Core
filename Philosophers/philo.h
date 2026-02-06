@@ -22,6 +22,23 @@ typedef struct s_fork
     int fork_id;
 }       t_fork;
 
+
+/*
+    *struttura per i dati condivisi tra philosofi
+*/
+
+typedef struct s_data
+{
+    long philosophers_num;
+    long time_to_die;
+    long time_to_eat;
+    long time_to_sleep;
+    long max_meals;  // [5] | flag opzionale
+    bool start_execution;
+    bool end_execution;;
+}       t_data;
+
+
 /*
     *struttura philosophers
     *esempio di esecuzione
@@ -39,21 +56,6 @@ typedef struct  s_philosopher
     t_data      *data;
 }   t_philosophers;
 
-
-/*
-    *struttura per i dati condivisi tra philosofi
-*/
-
-typedef struct s_data
-{
-    long philosophers_num;
-    long time_to_die;
-    long time_to_eat;
-    long time_to_sleep;
-    long max_meals;  // [5] | flaf opzionale
-    bool start_execution;
-    bool end_execution;;
-}       t_data;
 
 //  utils.c 
 void exit_error(const char *error);
