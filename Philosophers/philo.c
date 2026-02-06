@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     */
 
     pthread_mutex_init(&mutex, NULL);
-    for(i = 0; i < 62240; i++)
+    for(i = 0; i < 100; i++)
     {
         if(pthread_create(th + i, NULL, &routine, NULL) != 0)
         {
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
         }
         printf("Thread %d is started: \n", i);
     }
-    for(i = 0; i < 62240; i++)
+    for(i = 0; i < 100; i++)
     {
         if(pthread_join(th[i], NULL) != 0)
             return 2;
