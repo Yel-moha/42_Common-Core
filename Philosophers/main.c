@@ -9,6 +9,16 @@ int main(int ac, char **av)
     if(ac == 5 || ac == 6)
     {
         //il numero di input e' corretto
+        /*
+        while (non morto)
+        {
+            pensare();
+            prendi_forchette();  // ← QUI IL MUTEX
+            mangia();           // ← Aggiorna last_meal_time
+            posa_forchette();   // ← QUI UNLOCK MUTEX
+            dormi();
+        }
+        */
     }
     else
     {

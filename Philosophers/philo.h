@@ -47,7 +47,7 @@ typedef struct s_data
 typedef struct  s_philosopher
 {
     int id;
-    long conuter_mels;
+    long meals_eaten;
     bool is_full;
     long last_time_meal; //tempo dell'ultimo pasto;
     t_fork  *left_fork;
