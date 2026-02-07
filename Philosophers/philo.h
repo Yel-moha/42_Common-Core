@@ -59,5 +59,6 @@ typedef struct  s_philosopher
 
 //  utils.c 
 void exit_error(const char *error);
+long	ft_atol(const char *str);
 
 #endif 
