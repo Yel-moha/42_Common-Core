@@ -58,7 +58,11 @@ typedef struct  s_philosopher
 
 
 //  utils.c 
-void exit_error(const char *error);
+void    exit_error(const char *error);
 long	ft_atol(const char *str);
+
+// assign.c
+int     check_input(int ac, char **av);
+void    assign_data(int ac, char **av, t_data *data);
 
 #endif 

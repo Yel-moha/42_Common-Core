@@ -6,30 +6,18 @@
 
 int main(int ac, char **av)
 {
-   //t_philosophers 
-    if(ac == 5 || ac == 6)
-    {
-        
-        t_philosophers *philos;
-        long i;
-        long num_philos;
-
-        num_philos = ft_atol(av[1]);
-        philos = malloc(sizeof(t_philosophers) * num_philos);
-        i = 0;
-        while(i < num_philos)
-       {
-        printf("ho assegnato l'id numero %ld \n", i);
-        i++;
-       }
-        free(philos);
-    }
-    else
-    {
-        //Errore
+    t_data  *data;
+    if(!check_input(ac, av))
         exit_error("Invalid input: \
         Correct one is like this: ./philo 5 800 200 200 [5]");
+    else if(parse_input(ac, av))
+    {
+        assign_data(ac, av, data);
     }
+    if(ac == 5)
+            // senza numero massimo di pasti
+    if(ac == 6)
+            // con un numero di pasti massimo
     return 0;
 }
 
