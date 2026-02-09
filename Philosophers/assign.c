@@ -2,39 +2,6 @@
 
 // qui raggrupperemo le funzioni di assegnazione.
 
-static void* routine()
-{
-   for(int i = 0; i < 10000; i++)
-   {
-        //pthread_mutex_lock(&mutex);
-        //mails++;
-        //pthread_mutex_unlock(&mutex);
-   }
-}
-
-void assign_to_philos(char **av, t_philosophers *philos, t_data *data)
-{
-    (void)philos;
-    long i;
-    long num_philos;
-
-    num_philos = ft_atol(av[1]);
-    data->philosophers_num = num_philos;
-    pthread_t th[num_philos];
-    i = 0;
-        while(i < num_philos)
-        {
-            if(pthread_create(th + i, &routine, NULL, NULL) != 0)
-                perror("Failed create thread\n");
-            i++;
-        }
-        while(i >= 0)
-        {
-            i--;
-            if(pthread_join(th[i], NULL) != 0)
-                perror("Failed joining thread\n");
-        }
-}
 int check_input(int ac, char **av)
 {
     int i;
@@ -46,6 +13,7 @@ int check_input(int ac, char **av)
         {
             if(ft_atol(av[i]) < 0)
                 return 0;
+            i++;
         }
     }
     else
@@ -63,4 +31,60 @@ void assign_data(int ac, char **av, t_data *data)
         data->max_meals = ft_atol(av[5]);
     else
         data->max_meals = -1;
+}
+
+t_fork *take_forks(t_data data)
+{
+    t_fork *forks;
+    long i;
+
+    forks = malloc(sizeof(t_fork) * data.philosophers_num);
+    if(!forks)
+        return NULL;
+    while(i < data.philosophers_num)
+    {
+        pthread_mutex_init(&forks[i], NULL);
+        i++;
+    }
+    return forks;
+}
+void assign_to_philos(t_philosophers *philos, t_data *data, t_fork *forks)
+{
+    long i;
+    long num_philos;
+
+    num_philos = data->philosophers_num;
+    i = 0;
+    while(i < num_philos)
+    {
+        philos[i].id = i + 1;
+        philos->meals_eaten = 0;
+        philos->is_full = false;
+        philos[i].last_time_meal = 0;
+        philos[i].left_fork = &forks[i];
+        philos[i].right_fork = &forks[(i + 1) % num_philos];
+        philos->data = data;
+        i++;
+    }
+}
+void    create_threads(t_philosophers *philos, t_data *data)
+{
+    long i;
+    long num_philos;
+
+    num_philos = data->philosophers_num;
+    i = 0;
+    while(i < num_philos)
+    {
+        if(pthread_create(&philos[i].thread_id, NULL, &routine, &philos[i]) != 0)
+            perror("Failed create thread\n");
+        i++;
+    }
+    i = 0;
+    while(i < num_philos)
+    {
+        if(pthread_join(philos[i].thread_id, NULL) != 0)
+            perror("Failed joining thread\n");
+        i++;
+    }
 }

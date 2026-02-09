@@ -64,5 +64,8 @@ long	ft_atol(const char *str);
 // assign.c
 int     check_input(int ac, char **av);
 void    assign_data(int ac, char **av, t_data *data);
+t_fork  *take_forks(t_data data);
+void    assign_to_philos(t_philosophers *philos, t_data *data, t_fork *forks);
+void    create_threads(t_philosophers *philos, t_data *data);
 
 #endif 

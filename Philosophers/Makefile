@@ -1,6 +1,6 @@
 NAME = philo
 
-SRCS = assign.c utils.c main.c
+SRCS = assign.c utils.c main.c routine.c
 OBJS = $(SRCS:.c=.o)
 
 CC = clang
