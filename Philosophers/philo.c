@@ -36,6 +36,11 @@ int main(int argc, char **argv)
         printf("Thread %d has finished execution\n", i);
     }
     pthread_mutex_destroy(&mutex);
+    /////////////////////////////////
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    printf("Secondi: %ld, Microsecondi: %ld\n", tv.tv_sec, tv.tv_usec);
+    ///////////////////////////
     printf("il numero di mail e' %d\n", mails);
     return 0;
 }
