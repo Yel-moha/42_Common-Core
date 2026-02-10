@@ -33,17 +33,19 @@ void assign_data(int ac, char **av, t_data *data)
         data->max_meals = -1;
 }
 
-t_fork *take_forks(t_data data)
+t_fork *take_forks(t_data *data)
 {
     t_fork *forks;
     long i;
 
-    forks = malloc(sizeof(t_fork) * data.philosophers_num);
+    forks = malloc(sizeof(t_fork) * data->philosophers_num);
     if(!forks)
         return NULL;
-    while(i < data.philosophers_num)
+    i = 0;
+    while(i < data->philosophers_num)
     {
-        pthread_mutex_init(&forks[i], NULL);
+        pthread_mutex_init(&forks[i].fork, NULL);
+        forks[i].fork_id = i;
         i++;
     }
     return forks;
@@ -58,28 +60,35 @@ void assign_to_philos(t_philosophers *philos, t_data *data, t_fork *forks)
     while(i < num_philos)
     {
         philos[i].id = i + 1;
-        philos->meals_eaten = 0;
-        philos->is_full = false;
-        philos[i].last_time_meal = 0;
+        philos[i].meals_eaten = 0;
+        philos[i].is_full = false;
+        philos[i].last_time_meal = data->start_time;
         philos[i].left_fork = &forks[i];
         philos[i].right_fork = &forks[(i + 1) % num_philos];
-        philos->data = data;
+        philos[i].data = data;
         i++;
     }
 }
 void    create_threads(t_philosophers *philos, t_data *data)
 {
     long i;
-    pthread_t monitor_thread;
 
     i = 0;
     while(i < data->philosophers_num)
     {
-        if(pthread_create(&philos[i].thread_id, NULL, &routine, &philos[i]) != 0)
+        if(pthread_create(&philos[i].thread_id, NULL, philo_routine, &philos[i]) != 0)
             perror("Failed create thread\n");
         i++;
     }
-    pthread_create(&monitor_thread, NULL, &monitor_routine, data);
+}
+
+void    monitor_and_join(t_philosophers *philos, t_data *data)
+{
+    long i;
+    pthread_t monitor_thread;
+
+    if(pthread_create(&monitor_thread, NULL, monitor_routine, data) != 0)
+        perror("Failed create monitor thread\n");
     i = 0;
     while(i < data->philosophers_num)
     {
@@ -87,5 +96,6 @@ void    create_threads(t_philosophers *philos, t_data *data)
             perror("Failed joining thread\n");
         i++;
     }
-    pthread_join(monitor_thread, NULL);
+    if(pthread_join(monitor_thread, NULL) != 0)
+        perror("Failed joining monitor thread\n");
 }

@@ -1,14 +1,15 @@
 NAME = philo
 
-SRCS = assign.c utils.c main.c routine.c
+SRCS = assign.c utils.c main.c routine.c time_utils.c
 OBJS = $(SRCS:.c=.o)
 
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -g -pthread
 
-all = $(NAME)
+all: $(NAME)
+
 $(NAME): $(OBJS)
-		$(CC) $(CFALGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean: 
 		rm -f $(OBJS)

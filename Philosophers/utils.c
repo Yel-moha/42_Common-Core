@@ -35,10 +35,10 @@ long	ft_atol(const char *str)
 int	check_philo_death(t_philosophers *philo, t_data *data)
 {
 	long	time_since_meal;
+	long	last_meal;
 
-	pthread_mutex_lock(&data->time_mutex);
-	time_since_meal = get_time_in_ms() - philo->last_time_meal;
-	pthread_mutex_unlock(&data->time_mutex);
+	last_meal = get_last_meal_time(philo);
+	time_since_meal = get_time_in_ms() - last_meal;
 	if(time_since_meal > data->time_to_die)
 	{
 		print_death(philo, data);

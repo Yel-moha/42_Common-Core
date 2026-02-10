@@ -38,11 +38,30 @@ void *philo_routine(void *arg)
 
     philo = (t_philosophers *) arg;
     wait_for_start(philo->data);
+    if (philo->id % 2 == 0)
+        usleep(100);
     while(!simulation_should_end(philo->data))
     {
-        think_action(philo);
+        if (philo->id % 2 == 0)
+        {
+            pthread_mutex_lock(&philo->left_fork->fork);
+            print_state(philo, "has taken a fork");
+            pthread_mutex_lock(&philo->right_fork->fork);
+            print_state(philo, "has taken a fork");
+        }
+        else
+        {
+            pthread_mutex_lock(&philo->right_fork->fork);
+            print_state(philo, "has taken a fork");
+            pthread_mutex_lock(&philo->left_fork->fork);
+            print_state(philo, "has taken a fork");
+        }
         eat_action(philo);
-        sleep_action(philo);
+        pthread_mutex_unlock(&philo->left_fork->fork);
+        pthread_mutex_unlock(&philo->right_fork->fork);
+        print_state(philo, "is sleeping");
+        ft_usleep(philo->data->time_to_sleep);
+        print_state(philo, "is thinking");
     }
     return (NULL);
 }
@@ -50,7 +69,6 @@ void *monitor_routine(void *arg)
 {
     t_data  *data;
     int i;
-    long time_since_meal;
 
     data = (t_data *)arg;
     while(!check_simulation_end(data))

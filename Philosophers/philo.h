@@ -22,6 +22,8 @@ typedef struct s_fork
     int fork_id;
 }       t_fork;
 
+// Forward declaration
+typedef struct s_philosopher t_philosophers;
 
 /*
     *struttura per i dati condivisi tra philosofi
@@ -43,6 +45,7 @@ typedef struct s_data
     pthread_mutex_t time_mutex;   // mutex per aggiornare/leggere last_meal_time
     pthread_mutex_t start_mutex;
     pthread_mutex_t end_mutex;
+    pthread_mutex_t *meal_mutexes;
     t_philosophers  *philosophers;
 }       t_data;
 
@@ -61,6 +64,7 @@ typedef struct  s_philosopher
     t_fork  *left_fork;
     t_fork  *right_fork;
     pthread_t thread_id; // un filosofo e' un thread
+    pthread_mutex_t meal_mutex; 
     t_data      *data;
 }   t_philosophers;
 
@@ -75,15 +79,27 @@ void	print_death(t_philosophers *philo, t_data *data);
 // assign.c
 int     check_input(int ac, char **av);
 void    assign_data(int ac, char **av, t_data *data);
-t_fork  *take_forks(t_data data);
+t_fork  *take_forks(t_data *data);
 void    assign_to_philos(t_philosophers *philos, t_data *data, t_fork *forks);
 void    create_threads(t_philosophers *philos, t_data *data);
+void    monitor_and_join(t_philosophers *philos, t_data *data);
 
 // routine.c
-long    get_time_in_ms(void);
-long    get_timestamp_ms(long start_time);
 void    print_state(t_philosophers *philo, char *state);
 void    wait_for_start(t_data *data);
 void    *philo_routine(void *arg);
 void    *monitor_routine(void *arg);
-#endif 
+
+// time_utils.c
+long    get_time_in_ms(void);
+long    get_timestamp_ms(long start_time);
+void    update_last_meal(t_philosophers *philo);
+long    get_last_meal_time(t_philosophers *philo);
+void    eat_action(t_philosophers *philo);
+void    think_action(t_philosophers *philo);
+void    sleep_action(t_philosophers *philo);
+bool    simulation_should_end(t_data *data);
+bool    check_simulation_end(t_data *data);
+void    ft_usleep(long time);
+
+#endif
