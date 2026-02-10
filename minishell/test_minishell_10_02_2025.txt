@@ -1,0 +1,241 @@
+### BUILTINS ###
+
+touch w_block r_block
+chmod -w w_block
+chmod -r r_block
+
+#env
+env
+env > w_block
+echo Exit Code: 0
+env < r_block
+echo Exit Code: 0
+
+#export
+export var1 var2= var3="" var4="ciao"
+export 123asd="ciao" ?=123 var5?="gotcha" var____2!=7
+echo Exit Code: 0
+export
+export > w_block
+echo Exit Code: 0
+export < r_block
+echo Exit Code: 0
+
+#echo
+echo     0var4 ?
+echo concatenated: 
+echo just            one              space here!      !   -n      !       ! 
+echo -n -nnnnnnnnnnnnnnnnnnnnnnn -nnmn ciao
+echo -n -nnnnn n - nnn ciao
+echo 'hello there' > w_block
+echo Exit Code: 0
+echo 'hello there' < r_block
+echo Exit Code: 0
+
+
+
+#unset
+unset
+echo Exit Code: 0
+unset var1 var2 var3 var4 var5
+echo Exit Code: 0
+unset 123asd="ciao"
+echo Exit Code: 0
+
+# cd
+touch not_a_dir
+mkdir aaa
+mkdir aaa/no_perms_dir
+mkdir aaa/no_perms_dir/ccc
+chmod 000 aaa/no_perms_dir
+
+export home=/home/yel-moha
+unset HOME
+cd
+echo Exit Code: 0
+cd do_not_exist
+echo Exit Code: 0
+cd not_a_dir
+echo Exit Code: 0
+cd aaa/no_perms_dir/ccc
+echo Exit Code: 0
+
+chmod 777 aaa/no_perms_dir
+rm -rf not_a_dir aaa
+export HOME=
+
+# cd and 
+pwd
+pwd
+env | grep PWD
+cd ..
+env | grep PWD
+unset PWD
+pwd
+cd /home/yel-moha/github/42_Common-Core
+env | grep PWD
+cd ..
+
+export PWD
+
+#exit
+exit 1 | exit 2 | exit 3
+echo Exit Code: 0
+
+exit 10 | exit -10
+echo Exit Code: 0
+
+# SINGLE COMMANDS
+
+error 127
+echo Exit Code: 0
+
+echo ciao > 
+echo Exit Code: 0
+
+rm -f out
+echo "BIG BOY TEXT" | > out
+echo Exit Code: 0
+
+cat out 
+rm out
+
+# redirs are tricky
+
+rm -f out
+ls > out | <out cat
+
+echo sometext > out
+ls > out | <out cat
+
+cat out 
+rm out
+
+### REDIRS ###
+
+touch w_block r_block
+chmod -w w_block
+chmod -r r_block
+
+< r_block cat
+echo Exit Code: 0 
+> w_block echo ciao 
+echo Exit Code: 0
+< r_block greppp
+echo Exit Code: 0
+> w_block greppp
+echo Exit Code: 0
+
+echo some_text >file1>file2>fil3>w_block>file4
+echo Exit Code: 0
+ls | grep file
+rm -f file1 file2 file3 file4
+
+ls > w_block | grep a | grep b | cat > w_block
+echo Exit Code: 0
+
+echo ciao > 
+echo Exit Code: 0
+
+rm -f w_block r_block
+
+### QUOTES ###
+
+export ciao=XXXX
+
+echo ciao$""805409''
+echo ci$""$''
+
+unset ciao
+
+export a='Paperon"de"Paperoni'
+echo '"ciao doveri ieri sera ?" - "non sono fatti tuoi"'
+echo Exit Code: 0 
+echo "ciao dov'eri ieri sera ?" - "non sono fatti tuoi"
+echo Exit Code: 0
+
+unset a
+
+e'ch'"o " ciao
+echo Exit Code: 0
+
+### PIPES ###
+
+# basics
+
+# sleep 1 | sleep 2 | sleep 3
+
+
+
+exit 1 | exit 2 | exit 3
+echo Exit Code: 0
+
+# cat | cat | cat | ls
+
+ls -l | grep .c
+echo Exit Code: 0
+
+
+
+ls | grepp a | cat
+echo Exit Code: 0
+
+
+
+echo pippo | grep
+echo Exit Code: 0
+
+
+
+echo "ciao | ls" | grep '' | w"c" -l >out
+echo Exit code: 0
+
+cat out 
+rm out
+
+
+
+ls | << prut cat | grep la > pippo
+lalalalalaalla
+lolololololol
+prut
+
+cat pippo
+rm pippo
+
+### HEREDOC ###
+
+<< X cat | grep a
+ppapapa
+popoop
+X
+
+<< X | cat
+ppapapa
+popoop
+X
+
+### SYNTAX ERRORS ###
+
+| | |
+echo Exit Code: 0
+>><
+echo Exit Code: 0
+<<>
+echo Exit Code: 0
+>><<
+echo Exit Code: 0
+<<>>
+echo Exit Code: 0
+<|>
+echo Exit Code: 0
+| echo
+echo Exit Code: 0
+
+<< a << b | | << c cat >out
+a
+b
+echo Exit Code: 0
+
+echo DONE
+[15:42]https://github.com/Bretzz/minishell
