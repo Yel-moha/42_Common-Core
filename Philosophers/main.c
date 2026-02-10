@@ -55,7 +55,7 @@ static int	start_simulation(t_data *data)
 	assign_to_philos(philos, data, forks);
 	data->philosophers = philos;
 	create_threads(philos, data);
-	usleep(10);
+	usleep(100);
 	pthread_mutex_lock(&data->start_mutex);
 	data->all_ready = 1;
 	pthread_mutex_unlock(&data->start_mutex);

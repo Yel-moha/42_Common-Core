@@ -18,6 +18,14 @@ void print_state(t_philosophers *philo, char *state)
     long timestamp;
 
     pthread_mutex_lock(&philo->data->print_mutex);
+    pthread_mutex_lock(&philo->data->end_mutex);
+    if (philo->data->end_execution)
+    {
+        pthread_mutex_unlock(&philo->data->end_mutex);
+        pthread_mutex_unlock(&philo->data->print_mutex);
+        return ;
+    }
+    pthread_mutex_unlock(&philo->data->end_mutex);
     current_time = get_time_in_ms();
     timestamp = current_time - philo->data->start_time;
     printf("%ld %d %s\n", timestamp, philo->id, state);
@@ -32,6 +40,58 @@ void    wait_for_start(t_data *data)
         usleep(100);
 }
 
+static int	try_take_forks(t_philosophers *philo)
+{
+    if (philo->id % 2 == 0)
+    {
+        pthread_mutex_lock(&philo->left_fork->fork);
+        print_state(philo, "has taken a fork");
+        if (simulation_should_end(philo->data))
+        {
+            pthread_mutex_unlock(&philo->left_fork->fork);
+            return (0);
+        }
+        pthread_mutex_lock(&philo->right_fork->fork);
+        print_state(philo, "has taken a fork");
+    }
+    else
+    {
+        pthread_mutex_lock(&philo->right_fork->fork);
+        print_state(philo, "has taken a fork");
+        if (simulation_should_end(philo->data))
+        {
+            pthread_mutex_unlock(&philo->right_fork->fork);
+            return (0);
+        }
+        pthread_mutex_lock(&philo->left_fork->fork);
+        print_state(philo, "has taken a fork");
+    }
+    return (1);
+}
+
+static void	release_forks(t_philosophers *philo)
+{
+    pthread_mutex_unlock(&philo->left_fork->fork);
+    pthread_mutex_unlock(&philo->right_fork->fork);
+}
+
+static int	philo_cycle(t_philosophers *philo)
+{
+    if (!try_take_forks(philo))
+        return (0);
+    if (simulation_should_end(philo->data))
+    {
+        release_forks(philo);
+        return (0);
+    }
+    eat_action(philo);
+    release_forks(philo);
+    print_state(philo, "is sleeping");
+    ft_usleep(philo->data, philo->data->time_to_sleep);
+    print_state(philo, "is thinking");
+    return (1);
+}
+
 void *philo_routine(void *arg)
 {
     t_philosophers *philo;
@@ -42,26 +102,8 @@ void *philo_routine(void *arg)
         usleep(100);
     while(!simulation_should_end(philo->data))
     {
-        if (philo->id % 2 == 0)
-        {
-            pthread_mutex_lock(&philo->left_fork->fork);
-            print_state(philo, "has taken a fork");
-            pthread_mutex_lock(&philo->right_fork->fork);
-            print_state(philo, "has taken a fork");
-        }
-        else
-        {
-            pthread_mutex_lock(&philo->right_fork->fork);
-            print_state(philo, "has taken a fork");
-            pthread_mutex_lock(&philo->left_fork->fork);
-            print_state(philo, "has taken a fork");
-        }
-        eat_action(philo);
-        pthread_mutex_unlock(&philo->left_fork->fork);
-        pthread_mutex_unlock(&philo->right_fork->fork);
-        print_state(philo, "is sleeping");
-        ft_usleep(philo->data->time_to_sleep);
-        print_state(philo, "is thinking");
+		if (!philo_cycle(philo))
+			break ;
     }
     return (NULL);
 }

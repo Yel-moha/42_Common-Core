@@ -20,7 +20,7 @@ void    eat_action(t_philosophers *philo)
     print_state(philo, "is eating");
     update_last_meal(philo);
     philo->meals_eaten++;
-    ft_usleep(philo->data->time_to_eat);
+    ft_usleep(philo->data, philo->data->time_to_eat);
 }
 
 void    think_action(t_philosophers *philo)
@@ -31,20 +31,38 @@ void    think_action(t_philosophers *philo)
 void    sleep_action(t_philosophers *philo)
 {
     print_state(philo, "is sleeping");
-    ft_usleep(philo->data->time_to_sleep);
+    ft_usleep(philo->data, philo->data->time_to_sleep);
 }
 
 bool    simulation_should_end(t_data *data)
 {
-    return (data->end_execution);
+    bool ended;
+
+    pthread_mutex_lock(&data->end_mutex);
+    ended = data->end_execution;
+    pthread_mutex_unlock(&data->end_mutex);
+    return (ended);
 }
 
 bool    check_simulation_end(t_data *data)
 {
-    return (data->end_execution);
+    bool ended;
+
+    pthread_mutex_lock(&data->end_mutex);
+    ended = data->end_execution;
+    pthread_mutex_unlock(&data->end_mutex);
+    return (ended);
 }
 
-void    ft_usleep(long time)
+void    ft_usleep(t_data *data, long time)
 {
-    usleep(time * 1000);
+    long start;
+
+    start = get_time_in_ms();
+    while (!simulation_should_end(data))
+    {
+        if (get_time_in_ms() - start >= time)
+            break ;
+        usleep(100);
+    }
 }

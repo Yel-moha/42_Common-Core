@@ -100,6 +100,6 @@ void    think_action(t_philosophers *philo);
 void    sleep_action(t_philosophers *philo);
 bool    simulation_should_end(t_data *data);
 bool    check_simulation_end(t_data *data);
-void    ft_usleep(long time);
+void    ft_usleep(t_data *data, long time);
 
 #endif

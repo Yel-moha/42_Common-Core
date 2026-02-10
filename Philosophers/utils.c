@@ -50,9 +50,17 @@ int	check_philo_death(t_philosophers *philo, t_data *data)
 void	print_death(t_philosophers *philo, t_data *data)
 {
 	pthread_mutex_lock(&data->print_mutex);
+	pthread_mutex_lock(&data->end_mutex);
+	if (data->end_execution)
+	{
+		pthread_mutex_unlock(&data->end_mutex);
+		pthread_mutex_unlock(&data->print_mutex);
+		return ;
+	}
+	data->end_execution = 1;
+	pthread_mutex_unlock(&data->end_mutex);
 	printf("%ld %d died\n", 
 		get_time_in_ms() - data->start_time, 
 		philo->id);
-	data->end_execution = 1;
 	pthread_mutex_unlock(&data->print_mutex);
 }
