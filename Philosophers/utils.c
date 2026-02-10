@@ -32,3 +32,27 @@ long	ft_atol(const char *str)
 	return (num * sign);
 }
 
+int	check_philo_death(t_philosophers *philo, t_data *data)
+{
+	long	time_since_meal;
+
+	pthread_mutex_lock(&data->time_mutex);
+	time_since_meal = get_time_in_ms() - philo->last_time_meal;
+	pthread_mutex_unlock(&data->time_mutex);
+	if(time_since_meal > data->time_to_die)
+	{
+		print_death(philo, data);
+		return (1);
+	}
+	return (0);
+}
+
+void	print_death(t_philosophers *philo, t_data *data)
+{
+	pthread_mutex_lock(&data->print_mutex);
+	printf("%ld %d died\n", 
+		get_time_in_ms() - data->start_time, 
+		philo->id);
+	data->end_execution = 1;
+	pthread_mutex_unlock(&data->print_mutex);
+}

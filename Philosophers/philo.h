@@ -35,7 +35,15 @@ typedef struct s_data
     long time_to_sleep;
     long max_meals;  // [5] | flag opzionale
     bool start_execution;
-    bool end_execution;;
+    bool end_execution;
+    long start_time;           // tempo di inizio simulazione (in ms)
+    int ready_threads;
+    int all_ready;
+    pthread_mutex_t print_mutex;  // mutex per stampa sincronizzata
+    pthread_mutex_t time_mutex;   // mutex per aggiornare/leggere last_meal_time
+    pthread_mutex_t start_mutex;
+    pthread_mutex_t end_mutex;
+    t_philosophers  *philosophers;
 }       t_data;
 
 
@@ -60,6 +68,9 @@ typedef struct  s_philosopher
 //  utils.c 
 void    exit_error(const char *error);
 long	ft_atol(const char *str);
+int	check_philo_death(t_philosophers *philo, t_data *data);
+void	print_death(t_philosophers *philo, t_data *data);
+
 
 // assign.c
 int     check_input(int ac, char **av);
@@ -68,4 +79,11 @@ t_fork  *take_forks(t_data data);
 void    assign_to_philos(t_philosophers *philos, t_data *data, t_fork *forks);
 void    create_threads(t_philosophers *philos, t_data *data);
 
+// routine.c
+long    get_time_in_ms(void);
+long    get_timestamp_ms(long start_time);
+void    print_state(t_philosophers *philo, char *state);
+void    wait_for_start(t_data *data);
+void    *philo_routine(void *arg);
+void    *monitor_routine(void *arg);
 #endif 

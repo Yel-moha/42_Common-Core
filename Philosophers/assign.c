@@ -70,21 +70,22 @@ void assign_to_philos(t_philosophers *philos, t_data *data, t_fork *forks)
 void    create_threads(t_philosophers *philos, t_data *data)
 {
     long i;
-    long num_philos;
+    pthread_t monitor_thread;
 
-    num_philos = data->philosophers_num;
     i = 0;
-    while(i < num_philos)
+    while(i < data->philosophers_num)
     {
         if(pthread_create(&philos[i].thread_id, NULL, &routine, &philos[i]) != 0)
             perror("Failed create thread\n");
         i++;
     }
+    pthread_create(&monitor_thread, NULL, &monitor_routine, data);
     i = 0;
-    while(i < num_philos)
+    while(i < data->philosophers_num)
     {
         if(pthread_join(philos[i].thread_id, NULL) != 0)
             perror("Failed joining thread\n");
         i++;
     }
+    pthread_join(monitor_thread, NULL);
 }
