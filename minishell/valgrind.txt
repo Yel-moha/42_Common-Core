@@ -1,0 +1,3 @@
+valgrind --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes --suppressions=$PWD/minishell.supp -q'
+
+se si vuole vedere l'output di valhrind occore togliere il flag "-g"

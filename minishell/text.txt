@@ -1,2 +1,4 @@
 ultima priova
 ora lo distruggo
+
+--gen-suppression=all

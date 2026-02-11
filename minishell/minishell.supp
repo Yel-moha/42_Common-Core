@@ -1,117 +1,180 @@
 {
-    readline
-    Memcheck:Leak
-    ...
-    ...
-    fun:readline
-    fun:main
-}
-{
-    add_history
-    Memcheck:Leak
-    ...
-    ...
-    fun:add_history
-    fun:main
-}
-{
-    rl_initialize
-    Memcheck:Leak
-    ...
-    ...
-    fun:rl_initialize
-    fun:readline
-}
-{
-    readline
-    Memcheck:Leak
-    ...
-    ...
-    fun:readline
-    fun: ft_here_doc
-}
-{
-   malloc
+   readline_leak_1
    Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:readline
+}
+
+{
+   readline_leak_2
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/libreadline.so.
+}
+
+{
+   readline_leak_3
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:add_history
+}
+
+{
+   readline_leak_4
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/libreadline.so.
+   ...
+   fun:readline
+}
+
+{
+   readline_leak_5
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:rl_*
+}
+
+{
+   ncurses_leak
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   ...
+   obj:/libtinfo.so.
+}
+
+{
+   ncurses_leak_2
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   ...
+   obj:/libncurses.so.
+}
+
+{
+   system_binaries_malloc
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
    fun:malloc
    ...
    obj:/usr/bin/*
 }
+
 {
-   calloc
+   system_binaries_calloc
    Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
    fun:calloc
    ...
    obj:/usr/bin/*
 }
+
 {
-   realloc
+   system_binaries_realloc
    Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
    fun:realloc
    ...
    obj:/usr/bin/*
 }
+
 {
-    readline
-    Memcheck:Leak
-    ...
-    ...
-    fun:readline
-    fun:main_exe_1
+   system_binaries_all
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   ...
+   obj:/usr/bin/*
 }
+
 {
-    add_history
-    Memcheck:Leak
-    ...
-    ...
-    fun:add_history
-    fun:main_exe_1
+   bin_binaries_malloc
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   fun:malloc
+   ...
+   obj:/bin/*
 }
+
 {
-    readline
-    Memcheck:Leak
-    ...
-    ...
-    fun:readline
-    fun:main_exe_2
+   bin_binaries_calloc
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   fun:calloc
+   ...
+   obj:/bin/*
 }
+
 {
-    add_history
-    Memcheck:Leak
-    ...
-    ...
-    fun:add_history
-    fun:main_exe_2
+   bin_binaries_realloc
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   fun:realloc
+   ...
+   obj:/bin/*
 }
+
 {
-    readline
-    Memcheck:Leak
-    ...
-    ...
-    fun:readline
-    fun:main_exe_3
+   bin_binaries_all
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   ...
+   obj:/bin/*
 }
+
 {
-    add_history
-    Memcheck:Leak
-    ...
-    ...
-    fun:add_history
-    fun:main_exe_3
+   usr_games_binaries
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible,reachable
+   ...
+   obj:/usr/games/*
 }
+
 {
-    readline
-    Memcheck:Leak
-    ...
-    ...
-    fun:readline
-    fun:main_exe_4
+   minishell_still_reachable_malloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
 }
+
 {
-    add_history
-    Memcheck:Leak
-    ...
-    ...
-    fun:add_history
-    fun:main_exe_4
+   minishell_still_reachable_calloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   ...
+}
+
+{
+   minishell_still_reachable_realloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   ...
+}
+
+{
+   readline_undo_list
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect
+   fun:malloc
+   fun:xmalloc
+   fun:rl_add_undo
+   ...
+}
+
+{
+   readline_rubout_char
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect
+   fun:malloc
+   fun:xmalloc
+   ...
+   fun:_rl_rubout_char
+   ...
 }
