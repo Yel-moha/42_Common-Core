@@ -1,6 +1,6 @@
 NAME = philo
 
-SRCS = threads.c parsing.c utils.c debug.c
+SRCS = threads.c parsing.c utils.c debug.c routine.c print.c
 OBJS = $(SRCS:.c=.o)
 
 CC = clang

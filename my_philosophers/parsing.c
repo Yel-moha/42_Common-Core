@@ -84,14 +84,3 @@ void    forks_for_philos(t_fork *forks, t_data *data, t_philos *philos)
         i++;
     }
 }
-
-void    create_threads(t_philos *philos, t_data *data)
-{
-    long    i;
-
-    i = 0;
-    while(i < data->num_philos)
-    {
-        if(pthread_create(&philos[i].thread_id, NULL, philo_routine, ))
-    }
-}
