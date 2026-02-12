@@ -20,3 +20,20 @@ void print(t_philos *philo, const char *state)
     pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
+void    print_the_end(t_philos *philo, t_data *data)
+{
+    pthread_mutex_lock(&philo->data->print_mutex);
+    pthread_mutex_lock(&philo->data->end_mutex);
+    if(philo->data->end_exec)
+    {
+        pthread_mutex_unlock(&philo->data->print_mutex);
+        pthread_mutex_unlock(&philo->data->end_mutex);
+        return ;
+    }
+    data->end_exec = 1;
+    pthread_mutex_unlock(&philo->data->end_exec);
+    printf("%ld %d\n", 
+        get_time_in_millis - data->start_time
+        , philo->id);
+    pthread_mutex_unlock(&philo->data->print_mutex);
+}

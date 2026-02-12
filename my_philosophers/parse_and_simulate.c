@@ -46,6 +46,14 @@ int lets_simulate(t_data *data)
     data->start_time = get_time_in_millis();
     forks_for_philos(forks, data, philos);
     data->philos = philos;
+    create_threads(philos, data);
+    usleep(100);
+    pthread_mutex_lock(&data->start_mutex);
+    data->we_all_exist = 1;
+    pthread_mutex_unlock(&data->start_mutex);
+    monitor_and_join(philos, data);
+    cleanup(data, forks, philos);
+    return (1);
 }
 
 

@@ -25,3 +25,23 @@ long	ft_atol(const char *str)
 	}
 	return (num * sign);
 }
+
+void	cleanup(t_data *data, t_fork *forks, t_philos *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_philos)
+	{
+		pthread_mutex_destroy(&data->meal_mutexes[i]);
+		pthread_mutex_destroy(&forks[i].fork);
+		i++;
+	}
+	free(data->meal_mutexes);
+	free(forks);
+	free(philos);
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->time_mutex);
+	pthread_mutex_destroy(&data->start_mutex);
+	pthread_mutex_destroy(&data->end_mutex);
+}
