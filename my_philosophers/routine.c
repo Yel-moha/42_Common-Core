@@ -47,7 +47,7 @@ void    wait_for_them(t_data *data)
     pthread_mutex_lock(&data->start_mutex);
     data->ready_threads++;
     pthread_mutex_unlock(&data->start_mutex);
-    while(!data->we_all_exist);
+    while(!data->we_all_exist)
         usleep(100);
 }
 

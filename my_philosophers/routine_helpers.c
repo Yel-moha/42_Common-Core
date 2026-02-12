@@ -3,12 +3,12 @@
 void    release_forks(t_philos  *philo)
 {
     pthread_mutex_unlock(&philo->left_fork->fork);
-    pthread_mutex_unlcok(&philo->right_fork->fork);
+    pthread_mutex_unlock(&philo->right_fork->fork);
 }
 
 void    eat_action(t_philos *philo)
 {
-    print_state(philo, "is eating");
+    print(philo, "is eating");
     update_last_meal(philo);
     philo->meals_eaten++;
     ft_usleep(philo->data, philo->data->time_to_eat);
@@ -16,12 +16,12 @@ void    eat_action(t_philos *philo)
 
 void    think_action(t_philos *philo)
 {
-    print_state(philo, "is thinking");
+    print(philo, "is thinking");
 }
 
 void    sleep_action(t_philos *philo)
 {
-    print_state(philo, "is sleeping");
+    print(philo, "is sleeping");
     ft_usleep(philo->data, philo->data->time_to_sleep);
 }
 

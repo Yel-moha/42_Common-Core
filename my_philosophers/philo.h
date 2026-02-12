@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdbool.h>
 #include <sys/time.h>
 #include <limits.h>
@@ -16,6 +17,9 @@ typedef struct s_fork
     t_mutex fork;
     int     id_fork;
 } t_fork;
+
+//forward declaration
+typedef struct s_philos t_philos;
 
 //lista per i data condivisi tra filosofi
 
@@ -46,7 +50,7 @@ typedef struct s_philos
     long        meals_eaten;
     bool        is_full;
     long        last_time_meal;
-    pthread_t   *thread_id;
+    pthread_t   thread_id;
     t_data      *data;
     t_fork      *left_fork;
     t_fork      *right_fork;
@@ -56,9 +60,6 @@ typedef struct s_philos
 long	ft_atol(const char *str);
 void	cleanup(t_data *data, t_fork *forks, t_philos *philos);
 
-//debug.c
-void    print_data(t_data *data);
-void    print_the_end(t_philos *philo, t_data *data);
 
 //parse_and_simulate.c
 int parse_input(int argc, char **argv);

@@ -2,7 +2,8 @@
 
 int parse_input(int argc, char **argv)
 {
-    if(atol(argv[1]) < 0)
+    //aggiungere parsing is digit
+    if(atol(argv[1]) < 0) // mettere limte numero filosofi
         return (0);
     if(atol(argv[2]) < 0)
         return (0);

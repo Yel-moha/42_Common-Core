@@ -2,19 +2,23 @@
 
 int main(int argc, char **argv)
 {
-    t_data *data;
+    t_data data;
 
     if(argc != 5 && argc != 6)
-    {
-        perror("Invalid input\n");
-        //return 1;
-    }
+        return (printf("Error: Invalid input\n"), 1);
     if(!parse_input(argc, argv))
         perror("Number < 0 not allowed on this simulation\n");
-    data = malloc(sizeof(t_data) * 1);
-    inizialize_data(data, argc, argv);
-    print_data(data);
-    free(data);
+    inizialize_data(&data, argc, argv);
+    data.we_all_exist = 0;
+    data.ready_threads = 0;
+    data.end_exec = 0;
+    if(!init_mutexes(&data))
+        return(printf("Error: Mutex init failed\n"), 1);
+    if(!lets_simulate(&data))
+    {
+        cleanup(&data, NULL, NULL);
+        return (printf("Error: Simulation failed\n"), 1);
+    }
     return 0;
 }
 int	init_mutexes(t_data *data)
@@ -38,7 +42,7 @@ int	init_mutexes(t_data *data)
 }
 int philo_cycle(t_philos *philo)
 {
-    if(!try_take_forks)
+    if(!try_take_forks(philo))
         return 0;
     if(check_the_end(philo->data))
     {
@@ -61,7 +65,7 @@ void *philo_routine(void *arg)
         usleep(100);
     while(!check_the_end(philo->data))
     {
-        if(!philo_cycle)
+        if(!philo_cycle(philo))
             break ;
     }
     return (NULL);
@@ -72,6 +76,7 @@ void    *philos_master(void *arg)
     t_data *data;
     int     i;
 
+    i = 0;
     data = (t_data *)arg;
     while(!check_the_end(data))
     {

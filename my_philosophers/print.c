@@ -13,7 +13,7 @@ void print(t_philos *philo, const char *state)
         pthread_mutex_unlock(&philo->data->end_mutex);
         return ;
     }
-    pthread_mutex_unlock(&philo->data->end_exec);
+    pthread_mutex_unlock(&philo->data->end_mutex);
     current_time = get_time_in_millis();
     timestamp = current_time - philo->data->start_time;
     printf("%ld %d %s\n", timestamp, philo->id, state);
@@ -31,9 +31,9 @@ void    print_the_end(t_philos *philo, t_data *data)
         return ;
     }
     data->end_exec = 1;
-    pthread_mutex_unlock(&philo->data->end_exec);
-    printf("%ld %d\n", 
-        get_time_in_millis - data->start_time
+    pthread_mutex_unlock(&philo->data->end_mutex);
+    printf("%ld %d died\n", 
+        get_time_in_millis() - data->start_time
         , philo->id);
     pthread_mutex_unlock(&philo->data->print_mutex);
 }
