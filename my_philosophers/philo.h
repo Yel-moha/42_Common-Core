@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:49:21 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/14 16:50:21 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/14 18:08:59 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	cleanup(t_data *data, t_fork *forks, t_philos *philos);
 int		all_philos_full(t_data *data);
 long	get_meals_eaten(t_philos *philo);
 void	check_full_stop(t_data *data);
-int		check_deaths(t_data *data);
 
 //parse_and_simulate.c
 int		parse_input(int argc, char **argv);

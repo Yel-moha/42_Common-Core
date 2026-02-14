@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:47:51 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/14 16:48:03 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/14 18:21:42 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,8 @@ void	*philos_master(void *arg)
 	data = (t_data *)arg;
 	while (!check_the_end(data))
 	{
-		if (check_deaths(data))
-			break ;
 		check_full_stop(data);
-		usleep(1000);
+		usleep(100);
 	}
 	return (NULL);
 }
