@@ -30,11 +30,10 @@ typedef struct s_data
     long            time_to_eat;
     long            time_to_sleep;
     long            max_meals;
-    bool            start_exec; // flag booleano avvio esecuzione
     bool            end_exec;   //flag booleano fine esecuzione (la morte di un filosofo)
     long            start_time; // tempo inizio esecuzione dei thread;
     int             ready_threads;
-    int             we_all_exist;
+    bool             we_all_exist;
     pthread_mutex_t print_mutex; //mutex per stampa sincronizzata
     pthread_mutex_t time_mutex;
     pthread_mutex_t end_mutex;
@@ -62,9 +61,9 @@ void	cleanup(t_data *data, t_fork *forks, t_philos *philos);
 
 
 //parse_and_simulate.c
-int parse_input(int argc, char **argv);
-void inizialize_data(t_data *data, int argc, char **argv);
-int lets_simulate(t_data *data);
+int     parse_input(int argc, char **argv);
+void    inizialize_data(t_data *data, int argc, char **argv);
+int     lets_simulate(t_data *data);
 t_fork  *take_forks(t_data  *data);
 void    forks_for_philos(t_fork *forks, t_data *data, t_philos *philos);
 
@@ -80,9 +79,9 @@ void    print(t_philos *philo, const char *state);
 void    print_the_end(t_philos *philo, t_data *data);
 
 //threads.c
-int main(int argc, char **argv);
-int	init_mutexes(t_data *data);
-int philo_cycle(t_philos *philo);
+int     main(int argc, char **argv);
+int	    init_mutexes(t_data *data);
+int     philo_cycle(t_philos *philo);
 void    *philo_routine(void *arg);
 void    *philos_master(void *arg);
 

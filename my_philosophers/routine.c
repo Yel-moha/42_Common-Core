@@ -44,11 +44,20 @@ void    monitor_and_join(t_philos *philos, t_data *data)
 
 void    wait_for_them(t_data *data)
 {
+    bool all_exist;
+
     pthread_mutex_lock(&data->start_mutex);
     data->ready_threads++;
     pthread_mutex_unlock(&data->start_mutex);
-    while(!data->we_all_exist)
-        usleep(100);
+    all_exist = false;
+    while(!all_exist)
+    {
+        pthread_mutex_lock(&data->start_mutex);
+        all_exist = data->we_all_exist;
+        pthread_mutex_unlock(&data->start_mutex);
+        if(!all_exist)
+            usleep(100);
+    }
 }
 
 int	try_take_forks(t_philos *philo)
@@ -57,7 +66,7 @@ int	try_take_forks(t_philos *philo)
     {
         pthread_mutex_lock(&philo->left_fork->fork);
         print(philo, "has taken a fork");
-        if(check_the_end(philo->data))
+        if(check_the_end(philo->data)  || philo->data->num_philos == 1)
         {
             pthread_mutex_unlock(&philo->left_fork->fork);
             return (0);
@@ -69,7 +78,7 @@ int	try_take_forks(t_philos *philo)
     {
         pthread_mutex_lock(&philo->right_fork->fork);
         print(philo, "has taken a fork");
-        if(check_the_end(philo->data))
+        if(check_the_end(philo->data) || philo->data->num_philos == 1)
         {
             pthread_mutex_unlock(&philo->right_fork->fork);
             return (0);

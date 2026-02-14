@@ -35,6 +35,9 @@ int is_dead(t_philos *philo, t_data *data)
     if(time_since_last_meal > data->time_to_die)
     {
         print_the_end(philo, data);
+        pthread_mutex_lock(&data->end_mutex);
+        data->end_exec = true;
+        pthread_mutex_unlock(&data->end_mutex);
         return (1);
     }
     return (0);

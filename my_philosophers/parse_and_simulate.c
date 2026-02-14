@@ -3,7 +3,7 @@
 int parse_input(int argc, char **argv)
 {
     //aggiungere parsing is digit
-    if(atol(argv[1]) < 0) // mettere limte numero filosofi
+    if(atol(argv[1]) < 1) // almeno 2 filosofi per evitare deadlock
         return (0);
     if(atol(argv[2]) < 0)
         return (0);
@@ -50,7 +50,7 @@ int lets_simulate(t_data *data)
     create_threads(philos, data);
     usleep(100);
     pthread_mutex_lock(&data->start_mutex);
-    data->we_all_exist = 1;
+    data->we_all_exist = true;
     pthread_mutex_unlock(&data->start_mutex);
     monitor_and_join(philos, data);
     cleanup(data, forks, philos);

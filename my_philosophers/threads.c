@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     if(!parse_input(argc, argv))
         perror("Number < 0 not allowed on this simulation\n");
     inizialize_data(&data, argc, argv);
-    data.we_all_exist = 0;
+    data.we_all_exist = false;
     data.ready_threads = 0;
     data.end_exec = 0;
     if(!init_mutexes(&data))
@@ -76,14 +76,20 @@ void    *philos_master(void *arg)
     t_data *data;
     int     i;
 
-    i = 0;
     data = (t_data *)arg;
     while(!check_the_end(data))
     {
+        i = 0;
         while(i < data->num_philos)
         {
             if(is_dead(&data->philos[i], data))
+            {
+                pthread_mutex_lock(&data->end_mutex);
+                data->end_exec = 1;
+                pthread_mutex_unlock(&data->end_mutex);
                 break ;
+            }
+            i++;
         }
         usleep(1000);
     }
