@@ -1,10 +1,30 @@
+/* ************************************************************************** */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   utils.c											:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: yel-moha <yel-moha@student.42firenze.it	+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2026/02/14 16:42:24 by yel-moha		  #+#	#+#			 */
+/*   Updated: 2026/02/14 16:45:08 by yel-moha		 ###   ########.fr	   */
+/*																			*/
+/* ************************************************************************** */
+
 #include "philo.h"
+
+static int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (2048);
+	else
+		return (0);
+}
 
 long	ft_atol(const char *str)
 {
-	int	i;
+	int		i;
 	long	num;
-	int	sign;
+	int		sign;
 
 	sign = 1;
 	i = 0;
@@ -23,6 +43,8 @@ long	ft_atol(const char *str)
 		num = ((str[i] - 48) + (num * 10));
 		i++;
 	}
+	if (!ft_isdigit(str[i]) && str[i])
+		return (-1);
 	return (num * sign);
 }
 
