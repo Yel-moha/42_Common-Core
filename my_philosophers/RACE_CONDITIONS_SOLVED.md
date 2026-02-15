@@ -23,56 +23,46 @@ Il filosofo doveva:
 2. Fare lock su `right_fork` (forks[0]) → **DEADLOCK** (stesso mutex, stesso thread!)
 
 ### Soluzione Implementata
-Usare **`pthread_mutex_trylock()`** per il secondo lock, invece di `pthread_mutex_lock()`:
+Controllare il **caso speciale di 1 filosofo** prima di provare a prendere il secondo mutex. Se c'è solo 1 filosofo, rilasciare il primo mutex senza tentare di bloccarsi sul secondo (che è lo stesso mutex):
 
 **File:** `routine.c` - Funzione `try_take_forks()`
 
 ```c
 int	try_take_forks(t_philos *philo)
 {
-    if(philo->id % 2 == 0)
-    {
-        pthread_mutex_lock(&philo->left_fork->fork);
-        print(philo, "has taken a fork");
-        if(check_the_end(philo->data) || philo->data->num_philos == 1)
-        {
-            pthread_mutex_unlock(&philo->left_fork->fork);
-            return (0);
-        }
-        // 🔑 MODIFICA: trylock al posto di lock
-        if(pthread_mutex_trylock(&philo->right_fork->fork) != 0)
-        {
-            pthread_mutex_unlock(&philo->left_fork->fork);
-            return (0);  // Non bloccare, ritorna e riprova dopo
-        }
-        print(philo, "has taken a fork");
-    }
-    else
-    {
-        pthread_mutex_lock(&philo->right_fork->fork);
-        print(philo, "has taken a fork");
-        if(check_the_end(philo->data) || philo->data->num_philos == 1)
-        {
-            pthread_mutex_unlock(&philo->right_fork->fork);
-            return (0);
-        }
-        // 🔑 MODIFICA: trylock al posto di lock
-        if(pthread_mutex_trylock(&philo->left_fork->fork) != 0)
-        {
-            pthread_mutex_unlock(&philo->right_fork->fork);
-            return (0);  // Non bloccare, ritorna e riprova dopo
-        }
-        print(philo, "has taken a fork");
-    }
-    return (1);
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->left_fork->fork);
+		print(philo, "has taken a fork");
+		if (check_the_end(philo->data) || philo->data->num_philos == 1)
+		{
+			pthread_mutex_unlock(&philo->left_fork->fork);
+			return (0);
+		}
+		pthread_mutex_lock(&philo->right_fork->fork);
+		print(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->right_fork->fork);
+		print(philo, "has taken a fork");
+		if (check_the_end(philo->data) || philo->data->num_philos == 1)
+		{
+			pthread_mutex_unlock(&philo->right_fork->fork);
+			return (0);
+		}
+		pthread_mutex_lock(&philo->left_fork->fork);
+		print(philo, "has taken a fork");
+	}
+	return (1);
 }
 ```
 
-**Vantaggi:**
-- ✅ `pthread_mutex_trylock()` non blocca se il mutex è già occupato
-- ✅ Ritorna subito (error code != 0) permettendo il rilascio della prima forchetta
-- ✅ Previene deadlock e permette al filosofo di riprovare later
-- ✅ Implementa una forma di "back-off" che evita starvation
+**Come funziona:**
+- ✅ Se `num_philos == 1`, il filosofo rilascia il primo mutex senza bloccarsi sul secondo
+- ✅ Previene il deadlock dovuto a mutex ricorsivo su uno stesso thread
+- ✅ Permette al filosofo di morire di fame (come atteso nel problema)
+- ✅ Evita il blocco infinito nel caso edge di 1 solo filosofo
 
 ---
 
@@ -338,7 +328,7 @@ Questo è **esattamente lo scopo** di Valgrind: **rendere reproducibili i bug di
 ## 🎯 Conclusione
 
 Tutti i problemi di concorrenza sono stati **identificati e risolti**:
-- ❌ Deadlock eliminato con `pthread_mutex_trylock()`
-- ❌ Race condition eliminata proteggendo accessi con mutex
+- ✅ Deadlock eliminato con check per il caso speciale di 1 filosofo
+- ✅ Race condition eliminata proteggendo accessi con mutex
 - ✅ Thread safety garantita su tutte le variabili condivise
 - 🔬 Valgrind ci ha aiutato a identificare questi problemi che sarebbero rimasti nascosti
