@@ -61,6 +61,7 @@ int	check_deaths(t_data *data)
 
 void	check_full_stop(t_data *data)
 {
+	check_deaths(data);
 	if (data->max_meals > 0 && all_philos_full(data))
 	{
 		pthread_mutex_lock(&data->end_mutex);
