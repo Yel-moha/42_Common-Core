@@ -56,7 +56,10 @@ static void	print_export_var(char *var)
 		write(1, "\"", 1);
 	}
 	else if (eq_pos && *(eq_pos + 1) == '\0')
+	{
 		write(1, var, eq_pos - var);
+		write(1, "=\"\"", 3);
+	}
 	else
 		write(1, var, ft_strlen(var));
 	write(1, "\n", 1);
@@ -83,7 +86,7 @@ static void	print_export_error(char *arg, t_shell *shell)
 	ft_putendl_fd("': not a valid identifier", 2);
 	shell->exit_code = 1;
 }
-
+/*
 static void	export_new_var(t_shell *shell, char *arg)
 {
 	char	*var;
@@ -94,6 +97,12 @@ static void	export_new_var(t_shell *shell, char *arg)
 		env_add(shell, var);
 		free(var);
 	}
+}
+*/
+
+static void	export_new_var(t_shell *shell, char *arg)
+{
+	env_add(shell, arg);
 }
 
 void	export_var(t_shell *shell, char *arg)

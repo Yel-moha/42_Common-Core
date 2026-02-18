@@ -1,0 +1,23 @@
+**durante heredoc, 
+        l'EOF sotto espansione, ad esepio
+        export a="ciao"
+        cat << a
+            >riga 1
+            >riga 2
+            >$a   // qui dovrebbe espandere e chidere l'heredoc, non e' neccessario forse, se rimane tempo lo implementiamo, 
+                    perche l'espansione e' gia implementata all'interno del heredoc ma non comprende anche l'EOF
+
+**export
+    esempi di espansione diversi da bash
+        + export var=     ---> bash esporta var=""   ---> minishell esporta var (senza = ="")
+        + export var=""   ---> bash esporta var=""   ---> minishell esporta var (senza = ="")
+                
+**unset
+    unset 123asd="ciao" 
+        |---> bash--> echo $? = 0
+        |---> minishell : minishell: unset: `123asd=ciao': not a valid identifier
+                            minishell$ echo $?
+                            1
+
+
+
