@@ -107,7 +107,7 @@ static void	expand_redirs(t_cmd *cmds, t_shell *shell)
 	redir = cmds->redirs;
 	while (redir)
 	{
-		if (redir->target)
+		if (redir->target && redir->type != T_HEREDOC)
 			redir->target = expand_word(redir->target, shell);
 		redir = redir->next;
 	}

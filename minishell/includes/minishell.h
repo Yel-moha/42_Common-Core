@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
-/*   Updated: 2026/01/30 17:44:17 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/18 18:20:22 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ typedef enum e_state
 typedef struct s_token
 {
 	t_token_type	type;
-	char	*value;
-	int	expand;
+	char			*value;
+	int				expand;
 	struct s_token	*next;
 }	t_token;
 
@@ -170,33 +170,33 @@ char	*get_env_value(char **envp, char *name);
 char	*find_command_path(char *cmd, t_shell *shell);
 
 /* builtins */
-int	is_builtin(char *cmd);
-int	run_builtin(t_cmd *cmd, t_shell *shell);
+int		is_builtin(char *cmd);
+int		run_builtin(t_cmd *cmd, t_shell *shell);
 void	builtin_pwd(void);
 void	builtin_echo(char **argv);
-int	ft_strcmp(const char *s1, const char *s2);
-int	builtin_cd(char **argv, t_shell *shell);
+int		ft_strcmp(const char *s1, const char *s2);
+int		builtin_cd(char **argv, t_shell *shell);
 void	update_env_var(t_shell *shell, char *name, char *value);
 void	builtin_env(t_shell *shell);
-int	builtin_export(t_shell *shell, char **argv);
+int		builtin_export(t_shell *shell, char **argv);
 void	env_remove_at_index(t_shell *shell, int index);
-int	builtin_unset(char **argv, t_shell *shell);
-int	get_sign(const char **s);
-int	add_digit(long *val, int digit, int neg);
-int	ft_atol_safe(const char *s, long *res);
-int	builtin_exit(char **argv, t_shell *shell);
+int		builtin_unset(char **argv, t_shell *shell);
+int		get_sign(const char **s);
+int		add_digit(long *val, int digit, int neg);
+int		ft_atol_safe(const char *s, long *res);
+int		builtin_exit(char **argv, t_shell *shell);
 
 /* export helpers */
 int		is_valid_identifier(char *s);
 char 	*get_key(char *arg);
-int	find_env_index(char **envp, char *key);
+int		find_env_index(char **envp, char *key);
 void	env_add(t_shell *shell, char *new_var);
 char	*env_get_value(char **envp, char *name);
-int	has_equal(char *s);
+int		has_equal(char *s);
 void	env_replace(char **envp, int index, char *new_var);
 
 /*export utils*/
-char **env_dup(char **envp);
+char	**env_dup(char **envp);
 void	env_sort(char **env);
 void	print_export_env(t_shell *shell);
 void	export_var(t_shell *shell, char *arg);
@@ -212,7 +212,7 @@ void	expand_cmds(t_cmd *cmds, t_shell *shell);
 char	*expand_word(char *word, t_shell *shell);
 char	*expand_variable(char *res, char *word, int *i, t_shell *shell);
 char	*append_char(char *s, char c);
-int	heredoc_should_expand(char *delimiter);
+int		heredoc_should_expand(char *delimiter);
 char	*strip_quotes(char *s);
 void	read_heredoc(char *delimiter, t_shell *shell, int fd);
 void	add_arg_to_cmd(t_cmd *cmd, char *arg);

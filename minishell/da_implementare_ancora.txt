@@ -18,6 +18,3 @@
         |---> minishell : minishell: unset: `123asd=ciao': not a valid identifier
                             minishell$ echo $?
                             1
-
-
-
