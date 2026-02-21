@@ -3,38 +3,39 @@
 static int	count_envp(char **envp)
 {
 	int	i;
+
 	i = 0;
 	while (envp[i])
 		i++;
 	return (i);
 }
 
-static char **alloc_and_copy_envp(char **envp, int count)
+static char	**alloc_and_copy_envp(char **envp, int count)
 {
 	char	**copy;
-	int	i;
+
 	copy = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!copy)
 		return (NULL);
-	i = 0;
-	while (i < count)
+	copy[count] = NULL;
+	while (count > 0)
 	{
-		copy[i] = ft_strdup(envp[i]);
-		if (!copy[i])
+		count--;
+		copy[count] = ft_strdup(envp[count]);
+		if (!copy[count])
 		{
-			while (i-- > 0)
-				free(copy[i]);
+			while (copy[++count])
+				free(copy[count]);
 			return (free(copy), NULL);
 		}
-		i++;
 	}
-	copy[count] = NULL;
 	return (copy);
 }
 
-char    **copy_envp(char **envp)
+char	**copy_envp(char **envp)
 {
 	int	count;
+
 	if (!envp)
 		return (NULL);
 	count = count_envp(envp);
@@ -45,8 +46,9 @@ char    **copy_envp(char **envp)
 void	free_envp(char **envp)
 {
 	int	i;
+
 	if (!envp)
-		return;
+		return ;
 	i = 0;
 	while (envp[i])
 	{
@@ -61,6 +63,7 @@ char	*env_get_value(char **envp, char *name)
 {
 	int	i;
 	int	len;
+
 	if (!envp || !name)
 		return (NULL);
 	len = ft_strlen(name);

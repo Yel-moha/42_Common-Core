@@ -77,23 +77,23 @@ typedef struct s_lexer_ctx
 typedef struct s_redir
 {
 	t_token_type	type;
-	char	*target;
-	int		heredoc_fd;
+	char			*target;
+	int				heredoc_fd;
 	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_cmd
 {
-	char	**argv;
-	t_redir	*redirs;
+	char			**argv;
+	t_redir			*redirs;
 	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_shell
 {
-	char	**envp_copy;	// LA TUA COPIA MODIFICABILE
-	int	exit_code;
-	int	should_exit;
+	char		**envp_copy;
+	int			exit_code;
+	int			should_exit;
 }	t_shell;
 
 typedef struct s_pipe_state
@@ -110,12 +110,21 @@ typedef struct s_expand_ctx
 	t_state	*state;
 }	t_expand_ctx;
 
+typedef struct s_heredoc_ctx
+{
+	char	*delimiter;
+	int		fd;
+	t_shell	*shell;
+	int		expand;
+}	t_heredoc_ctx;
+
 /* ************************************************************************** */
 /*                               PROTOTYPES                                   */
 /* ************************************************************************** */
 
 /* main / prompt */
 void	prompt_loop(t_shell *shell);
+int		only_spaces(char *str);
 void	init_signals(void);
 void	reset_signals_in_child(void);
 
@@ -125,10 +134,10 @@ void	handle_redir(t_token **tokens, char *line, int *i);
 
 /* lexer utils */
 void	free_tokens(t_token *tokens);
-int	is_space(char c);
-int	is_redir(char c);
-int	is_operator(char c);
-int	is_double_redir(char *line, int i);
+int		is_space(char c);
+int		is_redir(char c);
+int		is_operator(char c);
+int		is_double_redir(char *line, int i);
 
 /* lexer state */
 void	handle_char(char *line, int i, t_state *state);
@@ -150,7 +159,7 @@ void	free_cmds(t_cmd *cmds);
 t_redir	*new_redir(t_token_type type, char *target);
 void	add_redir(t_redir **lst, t_redir *new_redir);
 t_token	*parse_redir(t_cmd *cmd, t_token *tok);
-int	is_redir_token(t_token_type type);
+int		is_redir_token(t_token_type type);
 
 /* executor */
 void	execute_single_cmd(t_cmd *cmd, t_shell *shell);
@@ -161,6 +170,13 @@ int		apply_redirections(t_redir *redirs, t_shell *shell);
 void	execve_or_die(t_cmd *cmd, t_shell *shell);
 int		apply_heredoc(char *delimiter, t_shell *shell);
 void	process_heredocs(t_cmd *cmds, t_shell *shell);
+void	handle_builtin_or_exec(t_cmd *cmd, t_shell *shell,
+			int *saved_stdin, int *saved_stdout);
+void	process_all_heredocs(t_cmd *cmds, t_shell *shell);
+void	setup_child_pipes(int *fd, int prev_fd, t_cmd *current);
+void	close_parent_pipes(int *prev_fd, int *fd, t_cmd *current);
+void	handle_pipeline_signal(int status, t_shell *shell);
+void	wait_all_and_set_exit(pid_t last_pid, t_shell *shell);
 void	close_heredoc_fds(t_cmd *cmds);
 void	close_all_heredoc_fds_except_current(t_cmd *cmds, t_cmd *current);
 void	cleanup_and_exit_child(t_shell *shell, t_cmd *cmds, int status);
@@ -188,7 +204,7 @@ int		builtin_exit(char **argv, t_shell *shell);
 
 /* export helpers */
 int		is_valid_identifier(char *s);
-char 	*get_key(char *arg);
+char	*get_key(char *arg);
 int		find_env_index(char **envp, char *key);
 void	env_add(t_shell *shell, char *new_var);
 char	*env_get_value(char **envp, char *name);
@@ -199,6 +215,7 @@ void	env_replace(char **envp, int index, char *new_var);
 char	**env_dup(char **envp);
 void	env_sort(char **env);
 void	print_export_env(t_shell *shell);
+void	export_new_var(t_shell *shell, char *arg);
 void	export_var(t_shell *shell, char *arg);
 
 /*
@@ -215,6 +232,8 @@ char	*append_char(char *s, char c);
 int		heredoc_should_expand(char *delimiter);
 char	*strip_quotes(char *s);
 void	read_heredoc(char *delimiter, t_shell *shell, int fd);
+void	setup_heredoc_sigaction(void);
+void	restore_sigaction(void);
 void	add_arg_to_cmd(t_cmd *cmd, char *arg);
 
 /* libft */

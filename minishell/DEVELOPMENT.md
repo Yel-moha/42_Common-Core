@@ -2,7 +2,7 @@
 
 A complete guide for collaborators to understand and work on the minishell project.
 
-**Last Updated:** January 23, 2026  
+**Last Updated:** February 21, 2026  
 **Status:** Functionally complete with robust signal handling and heredoc support.
 
 ## Table of Contents
@@ -66,14 +66,15 @@ minishell/
 ├── src/
 │   ├── main.c            # Entry point
 │   ├── prompt.c          # Main loop & readline
+│   ├── prompt_utils.c    # Prompt helper functions
 │   ├── signal.c          # Signal handlers (SIGINT, SIGQUIT)
 │   ├── env_utils.c       # Environment variable utilities
 │   ├── debug.c           # Debug printing functions
 │   ├── lexer/            # Tokenization module
-│   ├── parser/           # Parsing module
-│   ├── expander/         # Expansion module
-│   ├── executor/         # Execution module
-│   └── builtin/          # Built-in commands
+│   ├── parser/           # Parsing module (parser.c, parser_utils.c, parser_redir.c, parser_single_cmd.c)
+│   ├── expander/         # Expansion module (expander.c, expander_utils.c, expander_var.c, expander_cmds.c, expander_args.c, heredoc*.c)
+│   ├── executor/         # Execution module (executor.c + pipeline/exec/redir/heredoc splits)
+│   └── builtin/          # Built-in commands (+ export/exit helper splits)
 ```
 
 ---
@@ -166,12 +167,12 @@ typedef enum e_state
 | File | Function | Purpose |
 |------|----------|---------|
 | `parser.c` | `t_cmd *parse_tokens(t_token *tokens)` | Main parser - creates command list |
-| `parser.c` | `t_cmd *parse_single_cmd(t_token **tokens)` | Parses single command |
+| `parser_single_cmd.c` | `t_cmd *parse_single_cmd(t_token **tokens)` | Parses single command |
 | `parser_utils.c` | `char **tokens_to_argv(t_token *start)` | Converts tokens to argv array |
-| `parser_utils.c` | `t_redir *new_redir(t_token_type type, char *target)` | Creates redirection struct |
-| `parser_utils.c` | `void add_redir(t_redir **lst, t_redir *new)` | Adds redirection to list |
-| `parser_utils.c` | `t_token *parse_redir(t_cmd *cmd, t_token *tok)` | Parses redirection token |
-| `parser_utils.c` | `int is_redir_token(t_token_type type)` | Checks if token is redirection |
+| `parser_redir.c` | `t_redir *new_redir(t_token_type type, char *target)` | Creates redirection struct |
+| `parser_redir.c` | `void add_redir(t_redir **lst, t_redir *new)` | Adds redirection to list |
+| `parser_redir.c` | `t_token *parse_redir(t_cmd *cmd, t_token *tok)` | Parses redirection token |
+| `parser_redir.c` | `int is_redir_token(t_token_type type)` | Checks if token is redirection |
 
 **Key Rules:**
 - Stops parsing at pipes (they create separate commands)
@@ -185,15 +186,16 @@ typedef enum e_state
 
 | File | Function | Purpose |
 |------|----------|---------|
-| `expander.c` | `void expand_cmds(t_cmd *cmds, t_shell *shell)` | Main expander - expands all commands |
 | `expander.c` | `char *expand_word(char *word, t_shell *shell)` | Expands single word |
+| `expander_cmds.c` | `void expand_cmds(t_cmd *cmds, t_shell *shell)` | Main expander - expands all commands |
 | `expander.c` | `static void handle_quotes(char word_char, t_state *state)` | Manages quote state |
-| `expander.c` | `static char *process_word_char(char *res, char *word, int *i, t_state *state, t_shell *shell)` | Processes one character |
+| `expander.c` | `static char *process_word_char(t_expand_ctx *ctx, t_shell *shell)` | Processes one character |
 | `expander_utils.c` | `char *append_char(char *s, char c)` | Appends character to string |
-| `expander_utils.c` | `char *expand_variable(char *res, char *word, int *i, t_shell *shell)` | Expands $VAR or $? |
+| `expander_var.c` | `char *expand_variable(char *res, char *word, int *i, t_shell *shell)` | Expands $VAR or $? |
 | `expander_utils.c` | `char *strip_quotes(char *s)` | Removes outer quotes from string |
 | `heredoc.c` | `void read_heredoc(char *delimiter, t_shell *shell, int fd)` | Reads heredoc input |
 | `heredoc.c` | `int heredoc_should_expand(char *delimiter)` | Checks if heredoc needs expansion |
+| `heredoc_signal.c` | `void setup_heredoc_sigaction(struct sigaction *old)` | Sets SIGINT behavior in heredoc |
 | `heredoc_utils.c` | `char *heredoc_expand_line(char *line, t_shell *shell)` | Expands variables in heredoc |
 
 **Key Rules:**
@@ -213,15 +215,15 @@ typedef enum e_state
 
 | File | Function | Purpose |
 |------|----------|---------|
-| `executor.c` | `void execute_cmds(t_cmd *cmds, t_shell *shell)` | Main executor dispatcher |
-| `executor.c` | `void execute_pipeline(t_cmd *cmds, t_shell *shell)` | Handles pipe chains |
+| `executor_utils.c` | `void execute_cmds(t_cmd *cmds, t_shell *shell)` | Main executor dispatcher |
+| `executor_pipeline.c` | `void execute_pipeline(t_cmd *cmds, t_shell *shell)` | Handles pipe chains |
 | `executor.c` | `void execute_single_cmd(t_cmd *cmd, t_shell *shell)` | Executes single command |
-| `executor.c` | `void execve_or_builtin(t_cmd *cmd, t_shell *shell)` | Routes to builtin or execve |
+| `executor_exec.c` | `void execve_or_builtin(t_cmd *cmd, t_shell *shell, t_cmd *cmds_root)` | Routes to builtin or execve |
 | `executor_utils.c` | `char *get_env_value(char **envp, char *name)` | Gets environment variable value |
 | `executor_utils.c` | `char *find_command_path(char *cmd, t_shell *shell)` | Finds command in PATH |
-| `executor_utils.c` | `int apply_redirections(t_redir *redirs, t_shell *shell)` | Applies all redirections |
+| `executor_redirections.c` | `int apply_redirections(t_redir *redirs, t_shell *shell)` | Applies all redirections |
 | `executor_heredoc.c` | `void process_heredocs(t_cmd *cmds, t_shell *shell)` | Pre-processes all heredocs |
-| `executor_heredoc.c` | `int apply_heredoc(char *delimiter, t_shell *shell)` | Creates heredoc temp file |
+| `executor_heredoc_apply.c` | `int apply_heredoc(char *delimiter, t_shell *shell)` | Creates heredoc stream |
 | `executor_heredoc.c` | `void close_heredoc_fds(t_cmd *cmds)` | Cleanup heredoc files |
 
 **Key Rules:**
@@ -249,9 +251,11 @@ typedef enum e_state
 | `export_helpers.c` | `int is_valid_identifier(char *s)` | Validates var names | |
 | `export_helpers.c` | `int find_env_index(char **envp, char *key)` | Finds env variable | |
 | `export_utils.c` | `void export_var(t_shell *shell, char *arg)` | Exports single variable | <25 lines |
-| `export_utils.c` | `void env_add(t_shell *shell, char *new_var)` | Adds to environment | |
-| `export_utils.c` | `void env_replace(char **envp, int index, char *new_var)` | Updates env var | |
+| `export_helpers.c` | `void env_add(t_shell *shell, char *new_var)` | Adds to environment | |
+| `export_helpers.c` | `void env_replace(char **envp, int index, char *new_var)` | Updates env var | |
 | `export_utils.c` | `void print_export_env(t_shell *shell)` | Prints export format | |
+| `export_env_dup.c` | `char **env_dup(char **envp)` | Duplicates env array | |
+| `export_new_var.c` | `void export_new_var(t_shell *shell, char *arg)` | Adds export without '=' | |
 
 **Key Rules:**
 - Built-ins run in parent shell (affect environment)
@@ -464,7 +468,7 @@ static char *process_word_char(char *res, char *word, int *i,
 
 ### Modifying Redirection Behavior
 
-Redirections are applied in **`src/executor/executor_utils.c`** in `apply_redirections()`:
+Redirections are applied in **`src/executor/executor_redirections.c`** in `apply_redirections()`:
 
 ```c
 int apply_redirections(t_redir *redirs, t_shell *shell)
@@ -485,7 +489,7 @@ int apply_redirections(t_redir *redirs, t_shell *shell)
 
 ### Adding Variable Expansion
 
-Variable expansion happens in **`src/expander/expander_utils.c`** in `expand_variable()`:
+Variable expansion happens in **`src/expander/expander_var.c`** in `expand_variable()`:
 
 ```c
 char *expand_variable(char *res, char *word, int *i, t_shell *shell)
@@ -563,9 +567,9 @@ char *expand_variable(char *res, char *word, int *i, t_shell *shell)
 | Add command | `src/builtin/builtin_cmd.c` | `builtin_cmd()` |
 | Fix parsing | `src/parser/parser.c` | `parse_tokens()` |
 | Modify quotes | `src/expander/expander.c` | `process_word_char()` |
-| Change expansion | `src/expander/expander_utils.c` | `expand_variable()` |
-| Handle redirections | `src/executor/executor_utils.c` | `apply_redirections()` |
-| Modify pipes | `src/executor/executor.c` | `execute_pipeline()` |
+| Change expansion | `src/expander/expander_var.c` | `expand_variable()` |
+| Handle redirections | `src/executor/executor_redirections.c` | `apply_redirections()` |
+| Modify pipes | `src/executor/executor_pipeline.c` | `execute_pipeline()` |
 
 ---
 

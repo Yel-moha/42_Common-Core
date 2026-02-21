@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-static int	only_spaces(char *str)
-{
-	int	i;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '\t')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 static void	cleanup_and_exit(t_shell *shell)
 {
 	free_envp(shell->envp_copy);
@@ -51,6 +38,7 @@ static void	process_input(char *line, t_shell *shell)
 	if (shell->should_exit)
 		cleanup_and_exit(shell);
 }
+
 static int	handle_signal_interrupt(t_shell *shell, char **line)
 {
 	if (g_signal == SIGINT)
@@ -85,40 +73,10 @@ void	prompt_loop(t_shell *shell)
 		if (*line == '\0' || only_spaces(line))
 		{
 			free(line);
-			continue;
+			continue ;
 		}
 		add_history(line);
 		process_input(line, shell);
 		free(line);
 	}
 }
-/*
-void	prompt_loop(t_shell *shell)
-{
-	char	*line;
-	while (1)
-	{
-		g_signal = 0;
-		line = readline("minishell$ ");
-		if (!line)
-		{
-			printf("exit\n");
-			cleanup_and_exit(shell);
-		}
-		if (g_signal == SIGINT)
-		{
-			shell->exit_code = 130;
-			free(line);
-			continue;
-		}
-		if (*line == '\0' || only_spaces(line))
-		{
-			free(line);
-			continue;
-		}
-		add_history(line);
-		process_input(line, shell);
-		free(line);
-	}
-}
-	*/

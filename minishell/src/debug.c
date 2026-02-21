@@ -5,6 +5,7 @@
 void	print_cmds(t_cmd *cmds)
 {
 	int	i;
+
 	while (cmds)
 	{
 		i = 0;

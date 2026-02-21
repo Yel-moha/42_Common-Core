@@ -1,28 +1,32 @@
 #include "minishell.h"
 
+static int	pipe_newline_error(void)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token ", 1);
+	ft_putendl_fd("`newline'", 1);
+	return (-1);
+}
+
+static int	pipe_error(void)
+{
+	printf("minishell: syntax error near unexpected token `|'\n");
+	return (-1);
+}
+
 static int	validate_pipes(t_token *tokens)
 {
 	if (!tokens)
 		return (0);
 	if (tokens->type == T_PIPE)
-	{
-		printf("minishell: syntax error near unexpected token `|'\n");
-		return (-1);
-	}
+		return (pipe_error());
 	while (tokens)
 	{
 		if (tokens->type == T_PIPE)
 		{
 			if (!tokens->next)
-			{
-				printf("minishell: syntax error near unexpected token `newline'\n");
-				return (-1);
-			}
+				return (pipe_newline_error());
 			if (tokens->next->type == T_PIPE)
-			{
-				printf("minishell: syntax error near unexpected token `|'\n");
-				return (-1);
-			}
+				return (pipe_error());
 		}
 		tokens = tokens->next;
 	}
@@ -49,7 +53,6 @@ t_cmd	*parse_tokens(t_token *tokens)
 
 	if (validate_pipes(tokens) < 0)
 		return (NULL);
-
 	cmds = NULL;
 	last = NULL;
 	while (tokens)

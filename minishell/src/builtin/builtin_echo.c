@@ -3,6 +3,7 @@
 static int	is_n_flag(char *arg)
 {
 	int	i;
+
 	if (!arg || arg[0] != '-')
 		return (0);
 	i = 1;
@@ -15,6 +16,7 @@ void	builtin_echo(char **argv)
 {
 	int	i;
 	int	newline;
+
 	i = 1;
 	newline = 1;
 	while (argv[i] && is_n_flag(argv[i]))

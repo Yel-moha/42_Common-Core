@@ -1,28 +1,6 @@
 #include "minishell.h"
 #include <errno.h>
 
-static void	heredoc_sigint(int sig)
-{
-	(void)sig;
-	g_signal = SIGINT;
-	write(1, "\n", 1);
-}
-
-static void	setup_heredoc_sigaction(struct sigaction *old)
-{
-	struct sigaction	sa;
-
-	sa.sa_handler = heredoc_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, old);
-}
-
-static void	restore_sigaction(struct sigaction *old)
-{
-	sigaction(SIGINT, old, NULL);
-}
-
 static int	read_char_to_line(char **line)
 {
 	char	buf;
@@ -53,7 +31,7 @@ static int	read_char_to_line(char **line)
 static char	*read_heredoc_line(void)
 {
 	char	*line;
-	int	status;
+	int		status;
 
 	write(1, "> ", 2);
 	line = ft_strdup("");
@@ -95,24 +73,23 @@ static void	process_heredoc_line(char *line, int fd, t_shell *shell, int expand)
 	write(fd, "\n", 1);
 }
 
-static int	handle_heredoc_line(char *line, char *delimiter, int fd,
-	t_shell *shell, int expand)
+static int	handle_heredoc_line(char *line, t_heredoc_ctx *ctx)
 {
 	if (g_signal == SIGINT)
 	{
-		shell->exit_code = 130;
+		ctx->shell->exit_code = 130;
 		if (line)
 			free(line);
 		return (-1);
 	}
-	if (!line || ft_strcmp(line, delimiter) == 0)
+	if (!line || ft_strcmp(line, ctx->delimiter) == 0)
 	{
 		if (line)
 			free(line);
 		return (-1);
 	}
-	process_heredoc_line(line, fd, shell, expand);
-	if (!expand && line)
+	process_heredoc_line(line, ctx->fd, ctx->shell, ctx->expand);
+	if (!ctx->expand && line)
 		free(line);
 	return (0);
 }
@@ -120,19 +97,21 @@ static int	handle_heredoc_line(char *line, char *delimiter, int fd,
 void	read_heredoc(char *delimiter, t_shell *shell, int fd)
 {
 	char			*line;
-	int				expand;
-	struct sigaction	old_sa;
+	t_heredoc_ctx	ctx;
 
 	if (!delimiter || !shell)
 		return ;
-	setup_heredoc_sigaction(&old_sa);
+	setup_heredoc_sigaction();
 	g_signal = 0;
-	expand = heredoc_should_expand(delimiter);
+	ctx.delimiter = delimiter;
+	ctx.fd = fd;
+	ctx.shell = shell;
+	ctx.expand = heredoc_should_expand(delimiter);
 	while (1)
 	{
 		line = read_heredoc_line();
-		if (handle_heredoc_line(line, delimiter, fd, shell, expand) == -1)
+		if (handle_heredoc_line(line, &ctx) == -1)
 			break ;
 	}
-	restore_sigaction(&old_sa);
+	restore_sigaction();
 }

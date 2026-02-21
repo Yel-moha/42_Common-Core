@@ -1,30 +1,11 @@
 #include "minishell.h"
 
-char **env_dup(char **envp)
-{
-	int	i;
-	i = 0;
-	char	**dup;
-	while (envp[i])
-		i++;
-	dup = malloc(sizeof(char *) * (i + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (envp[i])
-	{
-		dup[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	dup[i] = NULL;
-	return (dup);
-}
-
 void	env_sort(char **env)
 {
-	int	i;
-	int	j;
 	char	*tmp;
+	int		i;
+	int		j;
+
 	i = 0;
 	while (env[i])
 	{
@@ -46,6 +27,7 @@ void	env_sort(char **env)
 static void	print_export_var(char *var)
 {
 	char	*eq_pos;
+
 	write(1, "declare -x ", 11);
 	eq_pos = ft_strchr(var, '=');
 	if (eq_pos && *(eq_pos + 1) != '\0')
@@ -68,7 +50,8 @@ static void	print_export_var(char *var)
 void	print_export_env(t_shell *shell)
 {
 	char	**dup;
-	int	i;
+	int		i;
+
 	dup = env_dup(shell->envp_copy);
 	if (!dup)
 		return ;
@@ -86,29 +69,11 @@ static void	print_export_error(char *arg, t_shell *shell)
 	ft_putendl_fd("': not a valid identifier", 2);
 	shell->exit_code = 1;
 }
-/*
-static void	export_new_var(t_shell *shell, char *arg)
-{
-	char	*var;
-
-	var = ft_strjoin(arg, "=");
-	if (var)
-	{
-		env_add(shell, var);
-		free(var);
-	}
-}
-*/
-
-static void	export_new_var(t_shell *shell, char *arg)
-{
-	env_add(shell, arg);
-}
 
 void	export_var(t_shell *shell, char *arg)
 {
 	char	*key;
-	int	index;
+	int		index;
 
 	if (!is_valid_identifier(arg))
 		return (print_export_error(arg, shell));

@@ -10,7 +10,8 @@ static void	print_unset_error(char *arg)
 static void	remove_env_var(t_shell *shell, char *arg)
 {
 	char	*key;
-	int	index;
+	int		index;
+
 	key = get_key(arg);
 	index = find_env_index(shell->envp_copy, key);
 	if (index != -1)
@@ -21,6 +22,7 @@ static void	remove_env_var(t_shell *shell, char *arg)
 int	builtin_unset(char **argv, t_shell *shell)
 {
 	int	i;
+
 	i = 1;
 	while (argv[i])
 	{
@@ -39,6 +41,7 @@ int	builtin_unset(char **argv, t_shell *shell)
 void	env_remove_at_index(t_shell *shell, int index)
 {
 	int	i;
+
 	if (!shell || !shell->envp_copy || index < 0)
 		return ;
 	free(shell->envp_copy[index]);

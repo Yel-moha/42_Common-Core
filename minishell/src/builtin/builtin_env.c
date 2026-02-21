@@ -3,6 +3,7 @@
 void	builtin_env(t_shell *shell)
 {
 	int	i;
+
 	if (!shell || !shell->envp_copy)
 	{
 		return ;

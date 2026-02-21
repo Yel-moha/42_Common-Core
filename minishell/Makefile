@@ -6,6 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRCS = \
 	src/main.c \
 	src/prompt.c \
+	src/prompt_utils.c \
 	src/signal.c \
 	src/env_utils.c \
 	src/lexer/lexer_helper.c \
@@ -15,10 +16,18 @@ SRCS = \
 	src/lexer/lexer_tokens.c \
 	src/parser/parser.c \
 	src/parser/parser_utils.c \
+	src/parser/parser_redir.c \
+	src/parser/parser_single_cmd.c \
 	src/debug.c \
 	src/executor/executor.c \
+	src/executor/executor_single_exec.c \
+	src/executor/executor_pipeline.c \
+	src/executor/executor_pipeline_utils.c \
 	src/executor/executor_utils.c \
+	src/executor/executor_exec.c \
+	src/executor/executor_redirections.c \
 	src/executor/executor_heredoc.c \
+	src/executor/executor_heredoc_apply.c \
 	src/builtin/builtin.c \
 	src/builtin/builtin_pwd.c \
 	src/builtin/builtin_echo.c \
@@ -26,13 +35,21 @@ SRCS = \
 	src/builtin/builtin_env.c \
 	src/builtin/builtin_export.c \
 	src/builtin/export_helpers.c \
+	src/builtin/export_helpers_extra.c \
 	src/builtin/export_utils.c \
+	src/builtin/export_new_var.c \
+	src/builtin/export_env_dup.c \
 	src/builtin/builtin_unset.c \
 	src/builtin/builtin_exit.c \
+	src/builtin/builtin_exit_utils.c \
 	src/expander/expander_utils.c \
 	src/expander/expander.c \
+	src/expander/expander_var.c \
+	src/expander/expander_cmds.c \
+	src/expander/expander_args.c \
 	src/expander/heredoc_utils.c \
-	src/expander/heredoc.c
+	src/expander/heredoc.c \
+	src/expander/heredoc_signal.c
 
 OBJS = $(SRCS:.c=.o)
 

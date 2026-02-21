@@ -3,6 +3,7 @@
 int	heredoc_should_expand(char *delimiter)
 {
 	int	i;
+
 	i = 0;
 	while (delimiter[i])
 	{
@@ -15,8 +16,9 @@ int	heredoc_should_expand(char *delimiter)
 
 char	*strip_quotes(char *s)
 {
-	int	i;
+	int		i;
 	char	*res;
+
 	i = 0;
 	res = ft_strdup("");
 	while (s[i])

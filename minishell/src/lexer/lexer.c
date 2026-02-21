@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 static void	process_token_char(t_lexer_ctx *ctx)
 {
 	handle_char(ctx->line, *ctx->i, ctx->state);
@@ -26,10 +25,10 @@ static void	process_token_char(t_lexer_ctx *ctx)
 
 t_token	*lexer(char *line)
 {
-	t_token	*tokens;
-	int		i;
-	int		start;
-	t_state	state;
+	t_token		*tokens;
+	int			i;
+	int			start;
+	t_state		state;
 	t_lexer_ctx	ctx;
 
 	tokens = NULL;
@@ -44,7 +43,7 @@ t_token	*lexer(char *line)
 	while (line[i])
 		process_token_char(&ctx);
 	if (state != STATE_NORMAL)
-		return (free_tokens(tokens), (t_token *)NULL);
+		return (free_tokens(tokens), (t_token *) NULL);
 	handle_word_end(&tokens, line, &start, i);
 	return (tokens);
 }

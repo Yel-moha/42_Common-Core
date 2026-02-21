@@ -56,6 +56,7 @@ minishell/
 ├── src/
 │   ├── main.c                 # Entry point
 │   ├── prompt.c               # Readline loop & input processing
+│   ├── prompt_utils.c         # Prompt helpers
 │   ├── signal.c               # Signal handlers
 │   ├── env_utils.c            # Environment utilities
 │   ├── debug.c                # Debug utilities
@@ -67,16 +68,28 @@ minishell/
 │   │   └── lexer_helper.c
 │   ├── parser/                # Parsing to commands
 │   │   ├── parser.c
-│   │   └── parser_utils.c
+│   │   ├── parser_utils.c
+│   │   ├── parser_redir.c
+│   │   └── parser_single_cmd.c
 │   ├── expander/              # Variable expansion & quotes
 │   │   ├── expander.c
 │   │   ├── expander_utils.c
+│   │   ├── expander_var.c
+│   │   ├── expander_cmds.c
+│   │   ├── expander_args.c
 │   │   ├── heredoc.c
-│   │   └── heredoc_utils.c
+│   │   ├── heredoc_utils.c
+│   │   └── heredoc_signal.c
 │   ├── executor/              # Command execution
 │   │   ├── executor.c
 │   │   ├── executor_utils.c
-│   │   └── executor_heredoc.c
+│   │   ├── executor_exec.c
+│   │   ├── executor_redirections.c
+│   │   ├── executor_single_exec.c
+│   │   ├── executor_pipeline.c
+│   │   ├── executor_pipeline_utils.c
+│   │   ├── executor_heredoc.c
+│   │   └── executor_heredoc_apply.c
 │   └── builtin/               # Built-in commands
 │       ├── builtin.c
 │       ├── builtin_echo.c
@@ -86,8 +99,12 @@ minishell/
 │       ├── builtin_export.c
 │       ├── builtin_unset.c
 │       ├── builtin_exit.c
+│       ├── builtin_exit_utils.c
 │       ├── export_helpers.c
-│       └── export_utils.c
+│       ├── export_helpers_extra.c
+│       ├── export_utils.c
+│       ├── export_new_var.c
+│       └── export_env_dup.c
 └── libft/                     # Utility library
     └── *.c, libft.h
 ```

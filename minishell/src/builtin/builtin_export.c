@@ -3,6 +3,7 @@
 int	builtin_export(t_shell *shell, char **argv)
 {
 	int	i;
+
 	if (!shell || !argv)
 		return (1);
 	i = 1;
