@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/21 15:33:52 by yel-moha          #+#    #+#             */
+/*   Updated: 2026/02/21 15:33:53 by yel-moha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	pipe_newline_error(void)
@@ -33,18 +45,6 @@ static int	validate_pipes(t_token *tokens)
 	return (0);
 }
 
-/*
-static t_cmd	*new_cmd(void)
-{
-	t_cmd	*cmd;
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	cmd->argv = NULL;
-	cmd->next = NULL;
-	return (cmd);
-}
-*/
 t_cmd	*parse_tokens(t_token *tokens)
 {
 	t_cmd	*cmds;

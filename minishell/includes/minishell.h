@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
-/*   Updated: 2026/02/18 18:20:22 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/21 15:37:03 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>

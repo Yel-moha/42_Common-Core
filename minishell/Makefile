@@ -37,7 +37,6 @@ SRCS = \
 	src/builtin/export_helpers.c \
 	src/builtin/export_helpers_extra.c \
 	src/builtin/export_utils.c \
-	src/builtin/export_new_var.c \
 	src/builtin/export_env_dup.c \
 	src/builtin/builtin_unset.c \
 	src/builtin/builtin_exit.c \
