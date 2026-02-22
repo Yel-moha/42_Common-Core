@@ -94,6 +94,7 @@ echo ciao >
 echo Exit Code: 0
 
 rm -f out
+continuare i test da quiiiiiiiiiiiiiiiii
 echo "BIG BOY TEXT" | > out
 echo Exit Code: 0
 
@@ -103,7 +104,6 @@ rm out
 # redirs are tricky
 
 rm -f out
-continuare i test da quiiiiiiiiiiiiiiiii
 ls > out | <out cat
 
 echo sometext > out
