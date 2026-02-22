@@ -12,13 +12,6 @@
 
 #include "minishell.h"
 
-static void	print_unset_error(char *arg)
-{
-	write(2, "minishell: unset: `", 19);
-	write(2, arg, ft_strlen(arg));
-	write(2, "': not a valid identifier\n", 26);
-}
-
 static void	remove_env_var(t_shell *shell, char *arg)
 {
 	char	*key;
@@ -35,15 +28,11 @@ int	builtin_unset(char **argv, t_shell *shell)
 {
 	int	i;
 
+	shell->exit_code = 0;
 	i = 1;
 	while (argv[i])
 	{
-		if (!is_valid_identifier(argv[i]))
-		{
-			print_unset_error(argv[i]);
-			shell->exit_code = 1;
-		}
-		else
+		if (is_valid_identifier(argv[i]))
 			remove_env_var(shell, argv[i]);
 		i++;
 	}

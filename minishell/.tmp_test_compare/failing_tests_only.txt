@@ -1,0 +1,62 @@
+Failing tests (from case_report.txt)
+
+Case 004 | line 8 | bash=0 minishell=0 | env
+Case 005 | line 9 | bash=1 minishell=1 | env > w_block
+Case 007 | line 11 | bash=1 minishell=1 | env < r_block
+Case 010 | line 16 | bash=1 minishell=1 | export 123asd="ciao" ?=123 var5?="gotcha" var____2!=7
+Case 012 | line 18 | bash=0 minishell=0 | export
+Case 013 | line 19 | bash=1 minishell=1 | export > w_block
+Case 015 | line 21 | bash=1 minishell=1 | export < r_block
+Case 019 | line 27 | bash=0 minishell=0 | echo just            one              space here!      !   -n      !       !
+Case 022 | line 30 | bash=1 minishell=1 | echo 'hello there' > w_block
+Case 024 | line 32 | bash=1 minishell=1 | echo 'hello there' < r_block
+Case 030 | line 42 | bash=0 minishell=1 | unset 123asd="ciao"
+Case 039 | line 54 | bash=1 minishell=1 | cd
+Case 041 | line 56 | bash=1 minishell=1 | cd do_not_exist
+Case 043 | line 58 | bash=1 minishell=1 | cd not_a_dir
+Case 045 | line 60 | bash=1 minishell=1 | cd aaa/no_perms_dir/ccc
+Case 052 | line 70 | bash=0 minishell=0 | env | grep PWD
+Case 054 | line 72 | bash=0 minishell=0 | env | grep PWD
+Case 057 | line 75 | bash=1 minishell=1 | cd /home/yel-moha/github/42_Common-Core
+Case 060 | line 79 | bash=0 minishell=0 | export PWD
+Case 065 | line 90 | bash=127 minishell=127 | error 127
+Case 067 | line 93 | bash=2 minishell=2 | echo ciao >
+Case 070 | line 97 | bash=0 minishell=1 | echo "BIG BOY TEXT" | > out
+Case 075 | line 106 | bash=1 minishell=0 | ls > out | <out cat
+Case 078 | line 111 | bash=0 minishell=0 | cat out
+Case 083 | line 120 | bash=1 minishell=1 | < r_block cat
+Case 085 | line 122 | bash=1 minishell=1 | > w_block echo ciao
+Case 087 | line 124 | bash=1 minishell=1 | < r_block greppp
+Case 089 | line 126 | bash=1 minishell=1 | > w_block greppp
+Case 091 | line 129 | bash=1 minishell=1 | echo some_text >file1>file2>fil3>w_block>file4
+Case 095 | line 134 | bash=1 minishell=1 | ls > w_block | grep a | grep b | cat > w_block
+Case 097 | line 137 | bash=2 minishell=2 | echo ciao >
+Case 101 | line 146 | bash=0 minishell=0 | echo ciao$""805409''
+Case 102 | line 147 | bash=0 minishell=0 | echo ci$""$''
+Case 103 | line 149 | bash=0 minishell=0 | unset ciao
+Case 110 | line 159 | bash=127 minishell=0 | e'ch'"o " ciao
+Case 116 | line 180 | bash=0 minishell=0 | ls | grepp a | cat
+Case 124 | line 198 | bash=0 minishell=None | ls | << prut cat | grep la > pippo
+Case 125 | line 203 | bash=0 minishell=None | cat pippo
+Case 126 | line 204 | bash=0 minishell=None | rm pippo
+Case 127 | line 208 | bash=0 minishell=None | << X cat | grep a
+Case 128 | line 213 | bash=0 minishell=None | << X | cat
+Case 129 | line 220 | bash=2 minishell=None | | | |
+Case 130 | line 221 | bash=0 minishell=None | echo Exit Code: 0
+Case 131 | line 222 | bash=2 minishell=None | >><
+Case 132 | line 223 | bash=0 minishell=None | echo Exit Code: 0
+Case 133 | line 224 | bash=2 minishell=None | <<>
+Case 134 | line 225 | bash=0 minishell=None | echo Exit Code: 0
+Case 135 | line 226 | bash=2 minishell=None | >><<
+Case 136 | line 227 | bash=0 minishell=None | echo Exit Code: 0
+Case 137 | line 228 | bash=2 minishell=None | <<>>
+Case 138 | line 229 | bash=0 minishell=None | echo Exit Code: 0
+Case 139 | line 230 | bash=2 minishell=None | <|>
+Case 140 | line 231 | bash=0 minishell=None | echo Exit Code: 0
+Case 141 | line 232 | bash=2 minishell=None | | echo
+Case 142 | line 233 | bash=0 minishell=None | echo Exit Code: 0
+Case 143 | line 235 | bash=2 minishell=None | << a << b | | << c cat >out
+Case 144 | line 236 | bash=127 minishell=None | a
+Case 145 | line 237 | bash=127 minishell=None | b
+Case 146 | line 238 | bash=0 minishell=None | echo Exit Code: 0
+Case 147 | line 240 | bash=0 minishell=None | echo DONE

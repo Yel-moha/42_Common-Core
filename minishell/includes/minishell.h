@@ -173,6 +173,12 @@ int		apply_heredoc(char *delimiter, t_shell *shell);
 void	process_heredocs(t_cmd *cmds, t_shell *shell);
 void	handle_builtin_or_exec(t_cmd *cmd, t_shell *shell,
 			int *saved_stdin, int *saved_stdout);
+int		handle_empty_cmd(t_cmd *cmd, t_shell *shell);
+int		handle_builtin_cmd(t_cmd *cmd, t_shell *shell);
+void	exec_external_cmd(t_cmd *cmd, t_shell *shell,
+			int *saved_stdin, int *saved_stdout);
+void	handle_child_exit_signal(int sig, t_shell *shell);
+void	update_exit_from_status(int status, t_shell *shell);
 void	process_all_heredocs(t_cmd *cmds, t_shell *shell);
 void	setup_child_pipes(int *fd, int prev_fd, t_cmd *current);
 void	close_parent_pipes(int *prev_fd, int *fd, t_cmd *current);

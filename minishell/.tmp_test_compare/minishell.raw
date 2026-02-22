@@ -1,0 +1,413 @@
+minishell$ 
+minishell$ touch w_block r_block
+minishell$ chmod -w w_block
+minishell$ chmod -r r_block
+minishell$ 
+minishell$ env
+SHELL=/bin/bash
+SESSION_MANAGER=local/youssef-HP-250-15-6-inch-G9-Notebook-PC:@/tmp/.ICE-unix/2731,unix/youssef-HP-250-15-6-inch-G9-Notebook-PC:/tmp/.ICE-unix/2731
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+HISTCONTROL=ignorespace
+XDG_MENU_PREFIX=gnome-
+TERM_PROGRAM_VERSION=1.109.3
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GNOME_SHELL_SESSION_MODE=ubuntu
+SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
+XMODIFIERS=@im=ibus
+DESKTOP_SESSION=ubuntu
+GTK_MODULES=gail:atk-bridge
+DBUS_STARTER_BUS_TYPE=session
+PWD=/home/youssef/github/42_Commoncore/minishell
+LOGNAME=youssef
+XDG_SESSION_DESKTOP=ubuntu
+XDG_SESSION_TYPE=wayland
+SYSTEMD_EXEC_PID=2731
+XAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.6XY5K3
+VSCODE_GIT_ASKPASS_NODE=/usr/share/code/code
+HOME=/home/youssef
+USERNAME=youssef
+IM_CONFIG_PHASE=1
+LANG=it_IT.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+MEMORY_PRESSURE_WATCH=/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\x2dsession\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure
+VTE_VERSION=7600
+WAYLAND_DISPLAY=wayland-0
+GIT_ASKPASS=/usr/share/code/resources/app/extensions/git/dist/askpass.sh
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/587555be_216a_4289_b1c3_3b39b489a82a
+CHROME_DESKTOP=code.desktop
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+GNOME_SETUP_DISPLAY=:1
+VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+LESSCLOSE=/usr/bin/lesspipe %s %s
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LESSOPEN=| /usr/bin/lesspipe %s
+USER=youssef
+GIT_PAGER=cat
+VSCODE_GIT_IPC_HANDLE=/run/user/1000/vscode-git-dcb18114fb.sock
+GNOME_TERMINAL_SERVICE=:1.100
+DISPLAY=:0
+SHLVL=3
+GSM_SKIP_SSH_AGENT_WORKAROUND=true
+QT_IM_MODULE=ibus
+DBUS_STARTER_ADDRESS=unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b
+FC_FONTATIONS=1
+XDG_RUNTIME_DIR=/run/user/1000
+DEBUGINFOD_URLS=https://debuginfod.ubuntu.com 
+VSCODE_GIT_ASKPASS_MAIN=/usr/share/code/resources/app/extensions/git/dist/askpass-main.js
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+GDK_BACKEND=wayland
+PATH=/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/youssef/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/youssef/.local/bin:/home/youssef/.local/bin:/home/youssef/.local/bin
+GDMSESSION=ubuntu
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b
+OLDPWD=/home/youssef/github/42_Commoncore
+TERM_PROGRAM=vscode
+_=./minishell
+minishell$ env > w_block
+w_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ env < r_block
+r_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ export var1 var2= var3="" var4="ciao"
+minishell$ export 123asd="ciao" ?=123 var5?="gotcha" var____2!=7
+export: `123asd=ciao': not a valid identifier
+export: `?=123': not a valid identifier
+export: `var5?=gotcha': not a valid identifier
+export: `var____2!=7': not a valid identifier
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ export
+declare -x CHROME_DESKTOP="code.desktop"
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b"
+declare -x DBUS_STARTER_ADDRESS="unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b"
+declare -x DBUS_STARTER_BUS_TYPE="session"
+declare -x DEBUGINFOD_URLS="https://debuginfod.ubuntu.com "
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x FC_FONTATIONS="1"
+declare -x GDK_BACKEND="wayland"
+declare -x GDMSESSION="ubuntu"
+declare -x GIT_ASKPASS="/usr/share/code/resources/app/extensions/git/dist/askpass.sh"
+declare -x GIT_PAGER="cat"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_SETUP_DISPLAY=":1"
+declare -x GNOME_SHELL_SESSION_MODE="ubuntu"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/587555be_216a_4289_b1c3_3b39b489a82a"
+declare -x GNOME_TERMINAL_SERVICE=":1.100"
+declare -x GSM_SKIP_SSH_AGENT_WORKAROUND="true"
+declare -x GTK_MODULES="gail:atk-bridge"
+declare -x HISTCONTROL="ignorespace"
+declare -x HOME="/home/youssef"
+declare -x IM_CONFIG_PHASE="1"
+declare -x LANG="it_IT.UTF-8"
+declare -x LESSCLOSE="/usr/bin/lesspipe %s %s"
+declare -x LESSOPEN="| /usr/bin/lesspipe %s"
+declare -x LOGNAME="youssef"
+declare -x LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:"
+declare -x MEMORY_PRESSURE_WATCH="/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\x2dsession\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure"
+declare -x MEMORY_PRESSURE_WRITE="c29tZSAyMDAwMDAgMjAwMDAwMAA="
+declare -x OLDPWD="/home/youssef/github/42_Commoncore"
+declare -x PATH="/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/youssef/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/youssef/.local/bin:/home/youssef/.local/bin:/home/youssef/.local/bin"
+declare -x PWD="/home/youssef/github/42_Commoncore/minishell"
+declare -x QT_ACCESSIBILITY="1"
+declare -x QT_IM_MODULE="ibus"
+declare -x SESSION_MANAGER="local/youssef-HP-250-15-6-inch-G9-Notebook-PC:@/tmp/.ICE-unix/2731,unix/youssef-HP-250-15-6-inch-G9-Notebook-PC:/tmp/.ICE-unix/2731"
+declare -x SHELL="/bin/bash"
+declare -x SHLVL="3"
+declare -x SSH_AUTH_SOCK="/run/user/1000/keyring/ssh"
+declare -x SYSTEMD_EXEC_PID="2731"
+declare -x TERM="xterm-256color"
+declare -x TERM_PROGRAM="vscode"
+declare -x TERM_PROGRAM_VERSION="1.109.3"
+declare -x USER="youssef"
+declare -x USERNAME="youssef"
+declare -x VSCODE_GIT_ASKPASS_EXTRA_ARGS=""
+declare -x VSCODE_GIT_ASKPASS_MAIN="/usr/share/code/resources/app/extensions/git/dist/askpass-main.js"
+declare -x VSCODE_GIT_ASKPASS_NODE="/usr/share/code/code"
+declare -x VSCODE_GIT_IPC_HANDLE="/run/user/1000/vscode-git-dcb18114fb.sock"
+declare -x VSCODE_PYTHON_AUTOACTIVATE_GUARD="1"
+declare -x VTE_VERSION="7600"
+declare -x WAYLAND_DISPLAY="wayland-0"
+declare -x XAUTHORITY="/run/user/1000/.mutter-Xwaylandauth.6XY5K3"
+declare -x XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+declare -x XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+declare -x XDG_DATA_DIRS="/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop"
+declare -x XDG_MENU_PREFIX="gnome-"
+declare -x XDG_RUNTIME_DIR="/run/user/1000"
+declare -x XDG_SESSION_CLASS="user"
+declare -x XDG_SESSION_DESKTOP="ubuntu"
+declare -x XDG_SESSION_TYPE="wayland"
+declare -x XMODIFIERS="@im=ibus"
+declare -x _="./minishell"
+declare -x var1
+declare -x var2=""
+declare -x var3=""
+declare -x var4="ciao"
+minishell$ export > w_block
+w_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ export < r_block
+r_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ echo     0var4 ?
+0var4 ?
+minishell$ echo concatenated: 
+concatenated:
+minishell$ echo just            one              space here!      !   -n      !       ! 
+just            one              space here!      !   -n      !       !
+minishell$ echo -n -nnnnnnnnnnnnnnnnnnnnnnn -nnmn ciao
+-nnmn ciaominishell$ echo -n -nnnnn n - nnn ciao
+n - nnn ciaominishell$ echo 'hello there' > w_block
+w_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ echo 'hello there' < r_block
+r_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ unset
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ unset var1 var2 var3 var4 var5
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ unset 123asd="ciao"
+minishell: unset: `123asd=ciao': not a valid identifier
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ touch not_a_dir
+minishell$ mkdir aaa
+minishell$ mkdir aaa/no_perms_dir
+minishell$ mkdir aaa/no_perms_dir/ccc
+minishell$ chmod 000 aaa/no_perms_dir
+minishell$ 
+minishell$ export home=/home/yel-moha
+minishell$ unset HOME
+minishell$ cd
+minishell: cd: HOME not set
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ cd do_not_exist
+minishell: cd: do_not_exist: No such file or directory
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ cd not_a_dir
+minishell: cd: not_a_dir: Not a directory
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ cd aaa/no_perms_dir/ccc
+minishell: cd: aaa/no_perms_dir/ccc: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ chmod 777 aaa/no_perms_dir
+minishell$ rm -rf not_a_dir aaa
+minishell$ export HOME=
+minishell$ 
+minishell$ pwd
+/home/youssef/github/42_Commoncore/minishell
+minishell$ pwd
+/home/youssef/github/42_Commoncore/minishell
+minishell$ env | grep PWD
+PWD=/home/youssef/github/42_Commoncore/minishell
+OLDPWD=/home/youssef/github/42_Commoncore
+minishell$ cd ..
+minishell$ env | grep PWD
+PWD=/home/youssef/github/42_Commoncore
+OLDPWD=/home/youssef/github/42_Commoncore/minishell
+minishell$ unset PWD
+minishell$ pwd
+/home/youssef/github/42_Commoncore
+minishell$ cd /home/yel-moha/github/42_Common-Core
+minishell: cd: /home/yel-moha/github/42_Common-Core: No such file or directory
+minishell$ env | grep PWD
+OLDPWD=/home/youssef/github/42_Commoncore/minishell
+minishell$ cd ..
+minishell$ 
+minishell$ export PWD
+minishell$ 
+minishell$ exit 1 | exit 2 | exit 3
+exit
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ exit 10 | exit -10
+exit
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ 
+minishell$ error 127
+minishell: error: command not found
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ echo ciao > 
+minishell: syntax error near unexpected token `newline'
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ rm -f out
+minishell$ echo "BIG BOY TEXT" | > out
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ cat out 
+minishell$ rm out
+minishell$ 
+minishell$ 
+minishell$ rm -f out
+minishell$ ls > out | <out cat
+minishell$ 
+minishell$ echo sometext > out
+minishell$ ls > out | <out cat
+minishell$ 
+minishell$ cat out 
+42_Commoncore
+42_examshell
+AllarmGSM
+Analisi_Numerica
+fil3
+kali_tools
+minishell
+minishell_tester
+mio-sito-futuro
+out
+pippo
+yel-moha
+minishell$ rm out
+minishell$ 
+minishell$ 
+minishell$ touch w_block r_block
+minishell$ chmod -w w_block
+minishell$ chmod -r r_block
+minishell$ 
+minishell$ < r_block cat
+r_block: Permission denied
+minishell$ echo Exit Code: 0 
+Exit Code: 0
+minishell$ > w_block echo ciao 
+w_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ < r_block greppp
+r_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ > w_block greppp
+w_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ echo some_text >file1>file2>fil3>w_block>file4
+w_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ ls | grep file
+file1
+file2
+minishell$ rm -f file1 file2 file3 file4
+minishell$ 
+minishell$ ls > w_block | grep a | grep b | cat > w_block
+w_block: Permission denied
+w_block: Permission denied
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ echo ciao > 
+minishell: syntax error near unexpected token `newline'
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ rm -f w_block r_block
+minishell$ 
+minishell$ 
+minishell$ export ciao=XXXX
+minishell$ 
+minishell$ echo ciao$""805409''
+ciao$805409
+minishell$ echo ci$""$''
+ci$$
+minishell$ 
+minishell$ unset ciao
+minishell$ 
+minishell$ export a='Paperon"de"Paperoni'
+minishell$ echo '"ciao doveri ieri sera ?" - "non sono fatti tuoi"'
+"ciao doveri ieri sera ?" - "non sono fatti tuoi"
+minishell$ echo Exit Code: 0 
+Exit Code: 0
+minishell$ echo "ciao dov'eri ieri sera ?" - "non sono fatti tuoi"
+ciao dov'eri ieri sera ? - non sono fatti tuoi
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ unset a
+minishell$ 
+minishell$ e'ch'"o " ciao
+ciao
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ exit 1 | exit 2 | exit 3
+exit
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ 
+minishell$ ls -l | grep .c
+drwxrwxr-x 18 youssef youssef  4096 feb 13 23:49 42_Commoncore
+drwxrwxr-x  5 youssef youssef  4096 dic 21 00:21 Analisi_Numerica
+drwxrwxr-x  7 youssef youssef  4096 dic 30 02:09 mio-sito-futuro
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ ls | grepp a | cat
+minishell: grepp: command not found
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ echo pippo | grep
+Uso: grep [OPZIONE]... MODELLI [FILE]...
+Usare "grep --help" per ulteriori informazioni.
+minishell$ echo Exit Code: 0
+Exit Code: 0
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ echo "ciao | ls" | grep '' | w"c" -l >out
+minishell$ echo Exit code: 0
+Exit code: 0
+minishell$ 
+minishell$ cat out 
+1
+minishell$ rm out
+minishell$ 
+minishell$ 
+minishell$ 
+minishell$ ls | << prut cat | grep la > pippo
+> > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > minishell$ exit

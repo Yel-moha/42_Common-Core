@@ -1,0 +1,705 @@
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ touch w_block r_block
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0001__%d\n' $?
+__CASE_END__0001__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ chmod -w w_block
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0002__%d\n' $?
+__CASE_END__0002__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ chmod -r r_block
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0003__%d\n' $?
+__CASE_END__0003__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ env
+SHELL=/bin/bash
+SESSION_MANAGER=local/youssef-HP-250-15-6-inch-G9-Notebook-PC:@/tmp/.ICE-unix/2731,unix/youssef-HP-250-15-6-inch-G9-Notebook-PC:/tmp/.ICE-unix/2731
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+HISTCONTROL=ignoreboth
+XDG_MENU_PREFIX=gnome-
+TERM_PROGRAM_VERSION=1.109.3
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GNOME_SHELL_SESSION_MODE=ubuntu
+SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
+XMODIFIERS=@im=ibus
+DESKTOP_SESSION=ubuntu
+GTK_MODULES=gail:atk-bridge
+DBUS_STARTER_BUS_TYPE=session
+PWD=/home/youssef/github/42_Commoncore/minishell
+XDG_SESSION_DESKTOP=ubuntu
+LOGNAME=youssef
+XDG_SESSION_TYPE=wayland
+SYSTEMD_EXEC_PID=2731
+XAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.6XY5K3
+VSCODE_GIT_ASKPASS_NODE=/usr/share/code/code
+HOME=/home/youssef
+USERNAME=youssef
+IM_CONFIG_PHASE=1
+LANG=it_IT.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+MEMORY_PRESSURE_WATCH=/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\x2dsession\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure
+VTE_VERSION=7600
+WAYLAND_DISPLAY=wayland-0
+GIT_ASKPASS=/usr/share/code/resources/app/extensions/git/dist/askpass.sh
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/587555be_216a_4289_b1c3_3b39b489a82a
+CHROME_DESKTOP=code.desktop
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+GNOME_SETUP_DISPLAY=:1
+VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+LESSCLOSE=/usr/bin/lesspipe %s %s
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LESSOPEN=| /usr/bin/lesspipe %s
+USER=youssef
+GIT_PAGER=cat
+VSCODE_GIT_IPC_HANDLE=/run/user/1000/vscode-git-dcb18114fb.sock
+GNOME_TERMINAL_SERVICE=:1.100
+DISPLAY=:0
+SHLVL=3
+GSM_SKIP_SSH_AGENT_WORKAROUND=true
+QT_IM_MODULE=ibus
+DBUS_STARTER_ADDRESS=unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b
+FC_FONTATIONS=1
+XDG_RUNTIME_DIR=/run/user/1000
+DEBUGINFOD_URLS=https://debuginfod.ubuntu.com 
+VSCODE_GIT_ASKPASS_MAIN=/usr/share/code/resources/app/extensions/git/dist/askpass-main.js
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+GDK_BACKEND=wayland
+PATH=/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/youssef/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/youssef/.local/bin:/home/youssef/.local/bin:/home/youssef/.local/bin:/home/youssef/.local/bin
+GDMSESSION=ubuntu
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b
+OLDPWD=/home/youssef/github/42_Commoncore/minishell
+TERM_PROGRAM=vscode
+_=/usr/bin/env
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0004__%d\n' $?
+__CASE_END__0004__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ env > w_block
+bash: w_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0005__%d\n' $?
+__CASE_END__0005__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0006__%d\n' $?
+__CASE_END__0006__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ env < r_block
+bash: r_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0007__%d\n' $?
+__CASE_END__0007__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0008__%d\n' $?
+__CASE_END__0008__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ export var1 var2= var3="" var4="ciao"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0009__%d\n' $?
+__CASE_END__0009__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ export 123asd="ciao" ?=123 var5?="gotcha" var____2!=7
+bash: export: "123asd=ciao": non è un identificatore valido
+bash: export: "?=123": non è un identificatore valido
+bash: export: "var5?=gotcha": non è un identificatore valido
+bash: export: "var____2!=7": non è un identificatore valido
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0010__%d\n' $?
+__CASE_END__0010__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0011__%d\n' $?
+__CASE_END__0011__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ export
+declare -x CHROME_DESKTOP="code.desktop"
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b"
+declare -x DBUS_STARTER_ADDRESS="unix:path=/run/user/1000/bus,guid=71145171bac37dd3ed0ae065699a274b"
+declare -x DBUS_STARTER_BUS_TYPE="session"
+declare -x DEBUGINFOD_URLS="https://debuginfod.ubuntu.com "
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x FC_FONTATIONS="1"
+declare -x GDK_BACKEND="wayland"
+declare -x GDMSESSION="ubuntu"
+declare -x GIT_ASKPASS="/usr/share/code/resources/app/extensions/git/dist/askpass.sh"
+declare -x GIT_PAGER="cat"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_SETUP_DISPLAY=":1"
+declare -x GNOME_SHELL_SESSION_MODE="ubuntu"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/587555be_216a_4289_b1c3_3b39b489a82a"
+declare -x GNOME_TERMINAL_SERVICE=":1.100"
+declare -x GSM_SKIP_SSH_AGENT_WORKAROUND="true"
+declare -x GTK_MODULES="gail:atk-bridge"
+declare -x HISTCONTROL="ignoreboth"
+declare -x HOME="/home/youssef"
+declare -x IM_CONFIG_PHASE="1"
+declare -x LANG="it_IT.UTF-8"
+declare -x LESSCLOSE="/usr/bin/lesspipe %s %s"
+declare -x LESSOPEN="| /usr/bin/lesspipe %s"
+declare -x LOGNAME="youssef"
+declare -x LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:"
+declare -x MEMORY_PRESSURE_WATCH="/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\\x2dsession\\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure"
+declare -x MEMORY_PRESSURE_WRITE="c29tZSAyMDAwMDAgMjAwMDAwMAA="
+declare -x OLDPWD="/home/youssef/github/42_Commoncore/minishell"
+declare -x PATH="/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/youssef/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/youssef/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/youssef/.local/bin:/home/youssef/.local/bin:/home/youssef/.local/bin:/home/youssef/.local/bin"
+declare -x PWD="/home/youssef/github/42_Commoncore/minishell"
+declare -x QT_ACCESSIBILITY="1"
+declare -x QT_IM_MODULE="ibus"
+declare -x SESSION_MANAGER="local/youssef-HP-250-15-6-inch-G9-Notebook-PC:@/tmp/.ICE-unix/2731,unix/youssef-HP-250-15-6-inch-G9-Notebook-PC:/tmp/.ICE-unix/2731"
+declare -x SHELL="/bin/bash"
+declare -x SHLVL="3"
+declare -x SSH_AUTH_SOCK="/run/user/1000/keyring/ssh"
+declare -x SYSTEMD_EXEC_PID="2731"
+declare -x TERM="xterm-256color"
+declare -x TERM_PROGRAM="vscode"
+declare -x TERM_PROGRAM_VERSION="1.109.3"
+declare -x USER="youssef"
+declare -x USERNAME="youssef"
+declare -x VSCODE_GIT_ASKPASS_EXTRA_ARGS=""
+declare -x VSCODE_GIT_ASKPASS_MAIN="/usr/share/code/resources/app/extensions/git/dist/askpass-main.js"
+declare -x VSCODE_GIT_ASKPASS_NODE="/usr/share/code/code"
+declare -x VSCODE_GIT_IPC_HANDLE="/run/user/1000/vscode-git-dcb18114fb.sock"
+declare -x VSCODE_PYTHON_AUTOACTIVATE_GUARD="1"
+declare -x VTE_VERSION="7600"
+declare -x WAYLAND_DISPLAY="wayland-0"
+declare -x XAUTHORITY="/run/user/1000/.mutter-Xwaylandauth.6XY5K3"
+declare -x XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+declare -x XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+declare -x XDG_DATA_DIRS="/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop"
+declare -x XDG_MENU_PREFIX="gnome-"
+declare -x XDG_RUNTIME_DIR="/run/user/1000"
+declare -x XDG_SESSION_CLASS="user"
+declare -x XDG_SESSION_DESKTOP="ubuntu"
+declare -x XDG_SESSION_TYPE="wayland"
+declare -x XMODIFIERS="@im=ibus"
+declare -x var1
+declare -x var2=""
+declare -x var3=""
+declare -x var4="ciao"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0012__%d\n' $?
+__CASE_END__0012__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ export > w_block
+bash: w_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0013__%d\n' $?
+__CASE_END__0013__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0014__%d\n' $?
+__CASE_END__0014__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ export < r_block
+bash: r_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0015__%d\n' $?
+__CASE_END__0015__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0016__%d\n' $?
+__CASE_END__0016__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo     0var4 ?
+0var4 ?
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0017__%d\n' $?
+__CASE_END__0017__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo concatenated: 
+concatenated:
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0018__%d\n' $?
+__CASE_END__0018__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo just            one              space here!      !   -n      !       ! 
+bash: !     : event not found
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0019__%d\n' $?
+__CASE_END__0019__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo -n -nnnnnnnnnnnnnnnnnnnnnnn -nnmn ciao
+-nnmn ciao]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0020__%d\n' $?
+__CASE_END__0020__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo -n -nnnnn n - nnn ciao
+n - nnn ciao]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0021__%d\n' $?
+__CASE_END__0021__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo 'hello there' > w_block
+bash: w_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0022__%d\n' $?
+__CASE_END__0022__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0023__%d\n' $?
+__CASE_END__0023__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo 'hello there' < r_block
+bash: r_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0024__%d\n' $?
+__CASE_END__0024__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0025__%d\n' $?
+__CASE_END__0025__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ unset
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0026__%d\n' $?
+__CASE_END__0026__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0027__%d\n' $?
+__CASE_END__0027__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ unset var1 var2 var3 var4 var5
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0028__%d\n' $?
+__CASE_END__0028__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0029__%d\n' $?
+__CASE_END__0029__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ unset 123asd="ciao"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0030__%d\n' $?
+__CASE_END__0030__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0031__%d\n' $?
+__CASE_END__0031__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ touch not_a_dir
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0032__%d\n' $?
+__CASE_END__0032__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ mkdir aaa
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0033__%d\n' $?
+__CASE_END__0033__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ mkdir aaa/no_perms_dir
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0034__%d\n' $?
+__CASE_END__0034__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ mkdir aaa/no_perms_dir/ccc
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0035__%d\n' $?
+__CASE_END__0035__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ chmod 000 aaa/no_perms_dir
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0036__%d\n' $?
+__CASE_END__0036__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ export home=/home/yel-moha
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0037__%d\n' $?
+__CASE_END__0037__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: ~/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m~/github/42_Commoncore/minishell[00m$ unset HOME
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0038__%d\n' $?
+__CASE_END__0038__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ cd
+bash: cd: HOME non impostata
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0039__%d\n' $?
+__CASE_END__0039__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0040__%d\n' $?
+__CASE_END__0040__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ cd do_not_exist
+bash: cd: do_not_exist: File o directory non esistente
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0041__%d\n' $?
+__CASE_END__0041__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0042__%d\n' $?
+__CASE_END__0042__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ cd not_a_dir
+bash: cd: not_a_dir: Non è una directory
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0043__%d\n' $?
+__CASE_END__0043__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0044__%d\n' $?
+__CASE_END__0044__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ cd aaa/no_perms_dir/ccc
+bash: cd: aaa/no_perms_dir/ccc: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0045__%d\n' $?
+__CASE_END__0045__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0046__%d\n' $?
+__CASE_END__0046__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ chmod 777 aaa/no_perms_dir
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0047__%d\n' $?
+__CASE_END__0047__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ rm -rf not_a_dir aaa
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0048__%d\n' $?
+__CASE_END__0048__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ export HOME=
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0049__%d\n' $?
+__CASE_END__0049__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ pwd
+/home/youssef/github/42_Commoncore/minishell
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0050__%d\n' $?
+__CASE_END__0050__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ pwd
+/home/youssef/github/42_Commoncore/minishell
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0051__%d\n' $?
+__CASE_END__0051__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ env | grep PWD
+PWD=/home/youssef/github/42_Commoncore/minishell
+OLDPWD=/home/youssef/github/42_Commoncore/minishell
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ printf '__CASE_END__0052__%d\n' $?
+__CASE_END__0052__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore/minishell[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore/minishell[00m$ cd ..
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ printf '__CASE_END__0053__%d\n' $?
+__CASE_END__0053__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ env | grep PWD
+PWD=/home/youssef/github/42_Commoncore
+OLDPWD=/home/youssef/github/42_Commoncore/minishell
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ printf '__CASE_END__0054__%d\n' $?
+__CASE_END__0054__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ unset PWD
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ printf '__CASE_END__0055__%d\n' $?
+__CASE_END__0055__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ pwd
+/home/youssef/github/42_Commoncore
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ printf '__CASE_END__0056__%d\n' $?
+__CASE_END__0056__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ cd /home/yel-moha/github/42_Common-Core
+bash: cd: /home/yel-moha/github/42_Common-Core: File o directory non esistente
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ printf '__CASE_END__0057__%d\n' $?
+__CASE_END__0057__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ env | grep PWD
+OLDPWD=/home/youssef/github/42_Commoncore/minishell
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ printf '__CASE_END__0058__%d\n' $?
+__CASE_END__0058__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github/42_Commoncore[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github/42_Commoncore[00m$ cd ..
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0059__%d\n' $?
+__CASE_END__0059__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ export PWD [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[KD
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0060__%d\n' $?
+__CASE_END__0060__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ exit 1 | exit 2 | exit 3
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0061__%d\n' $?
+__CASE_END__0061__3
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0062__%d\n' $?
+__CASE_END__0062__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ exit 10 | exit -10
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0063__%d\n' $?
+__CASE_END__0063__246
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0064__%d\n' $?
+__CASE_END__0064__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ error 127
+Comando «error» non trovato, si intendeva forse:
+  comando «perror» da deb mysql-server-core-8.0 (8.0.45-0ubuntu0.24.04.1)
+  comando «perror» da deb mariadb-client (1:10.11.14-0ubuntu0.24.04.1)
+Provare: sudo apt install <nome deb>
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0065__%d\n' $?
+__CASE_END__0065__127
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0066__%d\n' $?
+__CASE_END__0066__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo ciao > 
+bash: errore di sintassi vicino al token non atteso "newline"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0067__%d\n' $?
+__CASE_END__0067__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0068__%d\n' $?
+__CASE_END__0068__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm -f out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0069__%d\n' $?
+__CASE_END__0069__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo "BIG BOY TEXT" | > out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0070__%d\n' $?
+__CASE_END__0070__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0071__%d\n' $?
+__CASE_END__0071__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ cat out 
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0072__%d\n' $?
+__CASE_END__0072__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0073__%d\n' $?
+__CASE_END__0073__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm -f out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0074__%d\n' $?
+__CASE_END__0074__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ ls > out | <out cat
+bash: out: File o directory non esistente
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0075__%d\n' $?
+__CASE_END__0075__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo sometext > out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0076__%d\n' $?
+__CASE_END__0076__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ ls > out | <out cat
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0077__%d\n' $?
+__CASE_END__0077__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ cat out 
+42_Commoncore
+42_examshell
+AllarmGSM
+Analisi_Numerica
+fil3
+kali_tools
+minishell
+minishell_tester
+mio-sito-futuro
+out
+pippo
+yel-moha
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0078__%d\n' $?
+__CASE_END__0078__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0079__%d\n' $?
+__CASE_END__0079__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ touch w_block r_block
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0080__%d\n' $?
+__CASE_END__0080__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ chmod -w w_block
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0081__%d\n' $?
+__CASE_END__0081__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ chmod -r r_block
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0082__%d\n' $?
+__CASE_END__0082__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ < r_block cat
+bash: r_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0083__%d\n' $?
+__CASE_END__0083__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0 
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0084__%d\n' $?
+__CASE_END__0084__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ > w_block echo ciao 
+bash: w_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0085__%d\n' $?
+__CASE_END__0085__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0086__%d\n' $?
+__CASE_END__0086__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ < r_block greppp
+bash: r_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0087__%d\n' $?
+__CASE_END__0087__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0088__%d\n' $?
+__CASE_END__0088__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ > w_block greppp
+bash: w_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0089__%d\n' $?
+__CASE_END__0089__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0090__%d\n' $?
+__CASE_END__0090__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo some_text >file1>file2>fil3>w_block>file4
+bash: w_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0091__%d\n' $?
+__CASE_END__0091__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0092__%d\n' $?
+__CASE_END__0092__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ ls | grep file
+file1
+file2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0093__%d\n' $?
+__CASE_END__0093__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm -f file1 file2 file3 file4
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0094__%d\n' $?
+__CASE_END__0094__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ ls > w_block | grep a | grep b | cat > w_block
+bash: w_block: Permesso negato
+bash: w_block: Permesso negato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0095__%d\n' $?
+__CASE_END__0095__1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0096__%d\n' $?
+__CASE_END__0096__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo ciao > 
+bash: errore di sintassi vicino al token non atteso "newline"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0097__%d\n' $?
+__CASE_END__0097__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0098__%d\n' $?
+__CASE_END__0098__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm -f w_block r_block
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0099__%d\n' $?
+__CASE_END__0099__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ export ciao=XXXX
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0100__%d\n' $?
+__CASE_END__0100__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo ciao$""805409''
+ciao805409
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0101__%d\n' $?
+__CASE_END__0101__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo ci$""$''
+ci
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0102__%d\n' $?
+__CASE_END__0102__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ unset ciao [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ko
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0103__%d\n' $?
+__CASE_END__0103__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ export a='Paperon"de"Paperoni'
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0104__%d\n' $?
+__CASE_END__0104__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo '"ciao doveri ieri sera ?" - "non sono fatti tuoi"'
+"ciao doveri ieri sera ?" - "non sono fatti tuoi"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0105__%d\n' $?
+__CASE_END__0105__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0 
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0106__%d\n' $?
+__CASE_END__0106__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo "ciao dov'eri ieri sera ?" - "non sono fatti tuoi"
+ciao dov'eri ieri sera ? - non sono fatti tuoi
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0107__%d\n' $?
+__CASE_END__0107__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0108__%d\n' $?
+__CASE_END__0108__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ unset a
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0109__%d\n' $?
+__CASE_END__0109__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ e'ch'"o " ciao
+Comando «echo » non trovato, si intendeva forse:
+  comando «echo» da deb coreutils (9.4-3ubuntu6.1)
+Provare: sudo apt install <nome deb>
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0110__%d\n' $?
+__CASE_END__0110__127
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0111__%d\n' $?
+__CASE_END__0111__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ exit 1 | exit 2 | exit 3
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0112__%d\n' $?
+__CASE_END__0112__3
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0113__%d\n' $?
+__CASE_END__0113__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ ls -l | grep .c
+drwxrwxr-x 18 youssef youssef  4096 feb 13 23:49 42_Commoncore
+drwxrwxr-x  5 youssef youssef  4096 dic 21 00:21 Analisi_Numerica
+drwxrwxr-x  7 youssef youssef  4096 dic 30 02:09 mio-sito-futuro
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0114__%d\n' $?
+__CASE_END__0114__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0115__%d\n' $?
+__CASE_END__0115__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ ls | grepp a | cat
+Comando «grepp» non trovato, si intendeva forse:
+  comando «grep» da deb grep (3.11-3)
+Provare: sudo apt install <nome deb>
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0116__%d\n' $?
+__CASE_END__0116__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0117__%d\n' $?
+__CASE_END__0117__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo pippo | grep
+Uso: grep [OPZIONE]... MODELLI [FILE]...
+Usare "grep --help" per ulteriori informazioni.
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0118__%d\n' $?
+__CASE_END__0118__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0119__%d\n' $?
+__CASE_END__0119__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo "ciao | ls" | grep '' | w"c" -l >out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0120__%d\n' $?
+__CASE_END__0120__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit code: 0
+Exit code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0121__%d\n' $?
+__CASE_END__0121__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ cat out 
+1
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0122__%d\n' $?
+__CASE_END__0122__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm out
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0123__%d\n' $?
+__CASE_END__0123__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ ls | << prut cat | grep la > pippo
+> lalalalalaalla
+> lolololololol
+> prut
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0124__%d\n' $?
+__CASE_END__0124__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ cat pippo
+lalalalalaalla
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0125__%d\n' $?
+__CASE_END__0125__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ rm pippo
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0126__%d\n' $?
+__CASE_END__0126__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ << X cat | grep a
+> ppapapa
+> popoop
+> X
+ppapapa
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0127__%d\n' $?
+__CASE_END__0127__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ << X | cat [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kt
+> ppapapa
+> popoop
+> X
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0128__%d\n' $?
+__CASE_END__0128__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ | | |
+bash: errore di sintassi vicino al token non atteso "|"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0129__%d\n' $?
+__CASE_END__0129__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0130__%d\n' $?
+__CASE_END__0130__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ >><
+bash: errore di sintassi vicino al token non atteso "<"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0131__%d\n' $?
+__CASE_END__0131__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0132__%d\n' $?
+__CASE_END__0132__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ <<>
+bash: errore di sintassi vicino al token non atteso ">"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0133__%d\n' $?
+__CASE_END__0133__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0134__%d\n' $?
+__CASE_END__0134__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ >><<
+bash: errore di sintassi vicino al token non atteso "<<"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0135__%d\n' $?
+__CASE_END__0135__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0136__%d\n' $?
+__CASE_END__0136__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ <<>>
+bash: errore di sintassi vicino al token non atteso ">>"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0137__%d\n' $?
+__CASE_END__0137__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0138__%d\n' $?
+__CASE_END__0138__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ <|>
+bash: errore di sintassi vicino al token non atteso "|"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0139__%d\n' $?
+__CASE_END__0139__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0140__%d\n' $?
+__CASE_END__0140__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ | echo
+bash: errore di sintassi vicino al token non atteso "|"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0141__%d\n' $?
+__CASE_END__0141__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0142__%d\n' $?
+__CASE_END__0142__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ << a << b | | << c cat >out
+bash: errore di sintassi vicino al token non atteso "|"
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0143__%d\n' $?
+__CASE_END__0143__2
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ a
+a: comando non trovato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0144__%d\n' $?
+__CASE_END__0144__127
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ b
+b: comando non trovato
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0145__%d\n' $?
+__CASE_END__0145__127
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo Exit Code: 0
+Exit Code: 0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0146__%d\n' $?
+__CASE_END__0146__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ echo DONE
+DONE
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ printf '__CASE_END__0147__%d\n' $?
+__CASE_END__0147__0
+]0;youssef@youssef-HP-250-15-6-inch-G9-Notebook-PC: /home/youssef/github[01;32myoussef@youssef-HP-250-15-6-inch-G9-Notebook-PC[00m:[01;34m/home/youssef/github[00m$ exit

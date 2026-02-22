@@ -71,9 +71,10 @@ static int	fill_redirs_only(t_token *tok, t_cmd *cmd, char **argv)
 		{
 			if (!tok->next || tok->next->type != T_WORD)
 			{
-				ft_putstr_fd("minishell: syntax error near unexpected ", 1);
-				ft_putstr_fd("token ", 1);
-				ft_putendl_fd("`newline'", 1);
+				write(2, "DEBUG: redir no target at ", 26);
+				if (tok->next)
+					write(2, "token=", 6);
+				ft_putstr_fd("newline\n", 2);
 				i = 0;
 				while (argv[i])
 					free(argv[i++]);

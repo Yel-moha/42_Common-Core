@@ -1,0 +1,68 @@
+# Case-by-case bash vs minishell
+
+- Total: **147**
+- PASS exact: **88**
+- PASS soft: **0**
+- FAIL: **59**
+
+## Failing cases
+
+- Case 004 (line 8): `env` | bash $?=0 vs mini $?=0
+- Case 005 (line 9): `env > w_block` | bash $?=1 vs mini $?=1
+- Case 007 (line 11): `env < r_block` | bash $?=1 vs mini $?=1
+- Case 010 (line 16): `export 123asd="ciao" ?=123 var5?="gotcha" var____2!=7` | bash $?=1 vs mini $?=1
+- Case 012 (line 18): `export` | bash $?=0 vs mini $?=0
+- Case 013 (line 19): `export > w_block` | bash $?=1 vs mini $?=1
+- Case 015 (line 21): `export < r_block` | bash $?=1 vs mini $?=1
+- Case 019 (line 27): `echo just            one              space here!      !   -n      !       ! ` | bash $?=0 vs mini $?=0
+- Case 022 (line 30): `echo 'hello there' > w_block` | bash $?=1 vs mini $?=1
+- Case 024 (line 32): `echo 'hello there' < r_block` | bash $?=1 vs mini $?=1
+- Case 039 (line 54): `cd` | bash $?=1 vs mini $?=1
+- Case 041 (line 56): `cd do_not_exist` | bash $?=1 vs mini $?=1
+- Case 043 (line 58): `cd not_a_dir` | bash $?=1 vs mini $?=1
+- Case 045 (line 60): `cd aaa/no_perms_dir/ccc` | bash $?=1 vs mini $?=1
+- Case 052 (line 70): `env | grep PWD` | bash $?=0 vs mini $?=0
+- Case 054 (line 72): `env | grep PWD` | bash $?=0 vs mini $?=0
+- Case 057 (line 75): `cd /home/yel-moha/github/42_Common-Core` | bash $?=1 vs mini $?=1
+- Case 060 (line 79): `export PWD` | bash $?=0 vs mini $?=0
+- Case 065 (line 90): `error 127` | bash $?=127 vs mini $?=127
+- Case 067 (line 93): `echo ciao > ` | bash $?=2 vs mini $?=2
+- Case 070 (line 97): `echo "BIG BOY TEXT" | > out` | bash $?=0 vs mini $?=1
+- Case 075 (line 106): `ls > out | <out cat` | bash $?=1 vs mini $?=0
+- Case 078 (line 111): `cat out ` | bash $?=0 vs mini $?=0
+- Case 083 (line 120): `< r_block cat` | bash $?=1 vs mini $?=1
+- Case 085 (line 122): `> w_block echo ciao ` | bash $?=1 vs mini $?=1
+- Case 087 (line 124): `< r_block greppp` | bash $?=1 vs mini $?=1
+- Case 089 (line 126): `> w_block greppp` | bash $?=1 vs mini $?=1
+- Case 091 (line 129): `echo some_text >file1>file2>fil3>w_block>file4` | bash $?=1 vs mini $?=1
+- Case 095 (line 134): `ls > w_block | grep a | grep b | cat > w_block` | bash $?=1 vs mini $?=1
+- Case 097 (line 137): `echo ciao > ` | bash $?=2 vs mini $?=2
+- Case 101 (line 146): `echo ciao$""805409''` | bash $?=0 vs mini $?=0
+- Case 102 (line 147): `echo ci$""$''` | bash $?=0 vs mini $?=0
+- Case 103 (line 149): `unset ciao` | bash $?=0 vs mini $?=0
+- Case 110 (line 159): `e'ch'"o " ciao` | bash $?=127 vs mini $?=0
+- Case 116 (line 180): `ls | grepp a | cat` | bash $?=0 vs mini $?=0
+- Case 124 (line 198): `ls | << prut cat | grep la > pippo` | bash $?=0 vs mini $?=None
+- Case 125 (line 203): `cat pippo` | bash $?=0 vs mini $?=None
+- Case 126 (line 204): `rm pippo` | bash $?=0 vs mini $?=None
+- Case 127 (line 208): `<< X cat | grep a` | bash $?=0 vs mini $?=None
+- Case 128 (line 213): `<< X | cat` | bash $?=0 vs mini $?=None
+- Case 129 (line 220): `| | |` | bash $?=2 vs mini $?=None
+- Case 130 (line 221): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 131 (line 222): `>><` | bash $?=2 vs mini $?=None
+- Case 132 (line 223): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 133 (line 224): `<<>` | bash $?=2 vs mini $?=None
+- Case 134 (line 225): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 135 (line 226): `>><<` | bash $?=2 vs mini $?=None
+- Case 136 (line 227): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 137 (line 228): `<<>>` | bash $?=2 vs mini $?=None
+- Case 138 (line 229): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 139 (line 230): `<|>` | bash $?=2 vs mini $?=None
+- Case 140 (line 231): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 141 (line 232): `| echo` | bash $?=2 vs mini $?=None
+- Case 142 (line 233): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 143 (line 235): `<< a << b | | << c cat >out` | bash $?=2 vs mini $?=None
+- Case 144 (line 236): `a` | bash $?=127 vs mini $?=None
+- Case 145 (line 237): `b` | bash $?=127 vs mini $?=None
+- Case 146 (line 238): `echo Exit Code: 0` | bash $?=0 vs mini $?=None
+- Case 147 (line 240): `echo DONE` | bash $?=0 vs mini $?=None

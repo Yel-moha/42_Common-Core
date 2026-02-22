@@ -21,6 +21,8 @@ SRCS = \
 	src/debug.c \
 	src/executor/executor.c \
 	src/executor/executor_single_exec.c \
+	src/executor/executor_single_exec_helpers.c \
+	src/executor/executor_single_exec_exit.c \
 	src/executor/executor_pipeline.c \
 	src/executor/executor_pipeline_utils.c \
 	src/executor/executor_utils.c \
