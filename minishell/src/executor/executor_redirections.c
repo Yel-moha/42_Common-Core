@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 15:26:38 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/21 15:26:39 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/24 17:11:59 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	apply_redirections(t_redir *redirs, t_shell *shell)
 		else if (redirs->type == T_HEREDOC)
 		{
 			dup2(redirs->heredoc_fd, STDIN_FILENO);
-			close(redirs->heredoc_fd);
 		}
 		redirs = redirs->next;
 	}

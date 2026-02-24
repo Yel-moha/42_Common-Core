@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 00:00:00 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/22 00:00:00 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/24 17:07:14 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	exec_external_cmd(t_cmd *cmd, t_shell *shell,
 	{
 		close(*saved_stdin);
 		close(*saved_stdout);
+		close_heredoc_fds(cmd);
 		execve_or_die(cmd, shell);
 	}
 	else if (pid > 0)
