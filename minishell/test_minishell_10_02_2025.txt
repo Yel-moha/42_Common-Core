@@ -144,8 +144,12 @@ rm -f w_block r_block
 
 export ciao=XXXX
 
+/**********************QUIIII***********************/
+da rivedere se avanza tempo ma non neccessariamente
 echo ciao$""805409''
 echo ci$""$''
+/**************************************************/
+
 
 unset ciao
 
@@ -157,7 +161,7 @@ echo Exit Code: 0
 
 unset a
 
-e'ch'"o " ciao
+e'ch'"o " ciao       // mnishell ignora lo spazioe dopo la o (e'ch'"o " = echo), non E vero per bash
 echo Exit Code: 0
 
 ### PIPES ###
@@ -171,7 +175,7 @@ echo Exit Code: 0
 exit 1 | exit 2 | exit 3
 echo Exit Code: 0
 
-# cat | cat | cat | ls
+# cat | cat | cat | ls   //minishell esegue prima ls poi tutti i cat
 
 ls -l | grep .c
 echo Exit Code: 0
@@ -196,7 +200,7 @@ rm out
 
 
 
-ls | << prut cat | grep la > pippo
+ls | << prut cat | grep la > pippo //Qui da sistemare
 lalalalalaalla
 lolololololol
 prut
