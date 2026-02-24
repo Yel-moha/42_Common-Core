@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 15:26:09 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/21 15:26:10 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:11:15 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	execve_or_builtin(t_cmd *cmd, t_shell *shell, t_cmd *cmds_root)
 	int		code;
 
 	if (!cmd || !cmd->argv || !cmd->argv[0] || !*cmd->argv[0])
-		cleanup_and_exit_child(shell, cmds_root, 1);
+		cleanup_and_exit_child(shell, cmds_root, 0);
 	if (is_builtin(cmd->argv[0]))
 	{
 		code = run_builtin(cmd, shell);
