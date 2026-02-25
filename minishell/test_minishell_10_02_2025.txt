@@ -200,7 +200,7 @@ rm out
 
 
 
-ls | << prut cat | grep la > pippo //Qui da sistemare
+ls | << prut cat | grep la > pippo
 lalalalalaalla
 lolololololol
 prut

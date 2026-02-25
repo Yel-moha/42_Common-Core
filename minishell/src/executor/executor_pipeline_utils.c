@@ -14,14 +14,7 @@
 
 void	process_all_heredocs(t_cmd *cmds, t_shell *shell)
 {
-	t_cmd	*current;
-
-	current = cmds;
-	while (current)
-	{
-		process_heredocs(current, shell);
-		current = current->next;
-	}
+	process_heredocs(cmds, shell);
 }
 
 void	setup_child_pipes(int *fd, int prev_fd, t_cmd *current)
