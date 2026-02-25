@@ -12,7 +12,7 @@ env < r_block
 echo Exit Code: 0
 
 #export
-export var1 var2= var3="" var4="ciao"
+env > w_block
 export 123asd="ciao" ?=123 var5?="gotcha" var____2!=7
 echo Exit Code: 0
 export
@@ -94,7 +94,6 @@ echo ciao >
 echo Exit Code: 0
 
 rm -f out
-continuare i test da quiiiiiiiiiiiiiiiii
 echo "BIG BOY TEXT" | > out
 echo Exit Code: 0
 
@@ -148,6 +147,8 @@ export ciao=XXXX
 da rivedere se avanza tempo ma non neccessariamente
 echo ciao$""805409''
 echo ci$""$''
+# bash parity: ciao$""805409'' -> ciao805409
+# bash parity: ci$""$'' -> ci
 /**************************************************/
 
 
@@ -161,7 +162,7 @@ echo Exit Code: 0
 
 unset a
 
-e'ch'"o " ciao       // mnishell ignora lo spazioe dopo la o (e'ch'"o " = echo), non E vero per bash
+e'ch'"o " ciao       // bash parity: comando "echo " (con spazio) non trovato
 echo Exit Code: 0
 
 ### PIPES ###

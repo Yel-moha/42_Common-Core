@@ -29,6 +29,8 @@ static char	*handle_expansion(char *res, char *word, int *i, t_shell *shell)
 	if (word[*i + 1] == '?' || ft_isalpha(word[*i + 1])
 		|| word[*i + 1] == '_')
 		return (expand_variable(res, word, i, shell));
+	if (word[*i + 1] == '"' || word[*i + 1] == '\'')
+		return (((*i)++), res);
 	return (append_char(res, word[(*i)++]));
 }
 

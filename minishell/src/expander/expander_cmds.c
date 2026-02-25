@@ -54,33 +54,6 @@ static void	expand_redirs(t_cmd *cmds, t_shell *shell)
 	}
 }
 
-static void	split_argv_if_needed(t_cmd *cmds)
-{
-	char	**splitted;
-	int		i;
-
-	if (cmds->argv && cmds->argv[0] && ft_strchr(cmds->argv[0], ' '))
-	{
-		splitted = ft_split(cmds->argv[0], ' ');
-		if (splitted)
-		{
-			if (splitted[0])
-			{
-				free(cmds->argv[0]);
-				cmds->argv[0] = splitted[0];
-				i = 1;
-				while (splitted[i])
-				{
-					add_arg_to_cmd(cmds, splitted[i]);
-					free(splitted[i]);
-					i++;
-				}
-			}
-			free(splitted);
-		}
-	}
-}
-
 void	expand_cmds(t_cmd *cmds, t_shell *shell)
 {
 	while (cmds)
@@ -88,7 +61,6 @@ void	expand_cmds(t_cmd *cmds, t_shell *shell)
 		expand_argv(cmds, shell);
 		handle_empty_argv(cmds);
 		expand_redirs(cmds, shell);
-		split_argv_if_needed(cmds);
 		cmds = cmds->next;
 	}
 }
