@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
-/*   Updated: 2026/02/21 15:37:03 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/27 12:45:34 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,12 +225,6 @@ void	print_export_env(t_shell *shell);
 void	export_new_var(t_shell *shell, char *arg);
 void	export_var(t_shell *shell, char *arg);
 
-/*
-builtin_export_no_args(t_shell *shell);
-sort_env(char **env);
-print_export_entry(char *env);
-*/
-
 /* expander */
 void	expand_cmds(t_cmd *cmds, t_shell *shell);
 char	*expand_word(char *word, t_shell *shell);
@@ -250,7 +244,4 @@ void	free_split(char **arr);
 char	**copy_envp(char **envp);
 void	free_envp(char **envp);
 
-/* debug */
-//void	print_cmds(t_cmd *cmds);
-//void	print_tokens(t_token *tokens);
 #endif
