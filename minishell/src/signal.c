@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 15:24:51 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/21 15:24:52 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:58:49 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void	init_signals(void)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	set_signals_for_exec(void)
+{
+	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }
 

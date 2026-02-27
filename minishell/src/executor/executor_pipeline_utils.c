@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 15:26:28 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/21 15:26:29 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/27 18:01:08 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,36 @@ void	close_parent_pipes(int *prev_fd, int *fd, t_cmd *current)
 
 void	handle_pipeline_signal(int status, t_shell *shell)
 {
+	int	sig;
+
 	if (WIFEXITED(status))
 		shell->exit_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		shell->exit_code = 128 + WTERMSIG(status);
+	{
+		sig = WTERMSIG(status);
+		if (sig == SIGINT)
+		{
+			write(1, "\n", 1);
+			shell->exit_code = 130;
+		}
+		else if (sig == SIGQUIT)
+		{
+			shell->exit_code = 131;
+			write(1, "Quit (core dumped)\n", 19);
+		}
+		else
+			shell->exit_code = 128 + sig;
+	}
 }
 
 void	wait_all_and_set_exit(pid_t last_pid, t_shell *shell)
 {
 	int	status;
 
+	set_signals_for_exec();
 	waitpid(last_pid, &status, 0);
 	while (wait(NULL) > 0)
 		;
+	init_signals();
 	handle_pipeline_signal(status, shell);
 }

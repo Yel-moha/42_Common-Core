@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 00:00:00 by youssef           #+#    #+#             */
-/*   Updated: 2026/02/27 12:45:34 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:58:49 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct s_heredoc_ctx
 void	prompt_loop(t_shell *shell);
 int		only_spaces(char *str);
 void	init_signals(void);
+void	set_signals_for_exec(void);
 void	reset_signals_in_child(void);
 
 /* lexer */

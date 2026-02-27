@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 15:26:33 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/24 17:13:21 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:58:49 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	execute_pipeline_child(t_cmd *current, t_shell *shell,
 	t_cmd *cmds, t_pipe_state *ps)
 {
+	reset_signals_in_child();
 	setup_child_pipes(ps->fd, ps->prev_fd, current);
 	close_all_heredoc_fds_except_current(cmds, current);
 	if (apply_redirections(current->redirs, shell) < 0)

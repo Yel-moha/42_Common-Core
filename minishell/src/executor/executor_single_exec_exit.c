@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 00:00:00 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/02/22 00:00:00 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/02/27 18:01:08 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 void	handle_child_exit_signal(int sig, t_shell *shell)
 {
 	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
 		shell->exit_code = 130;
+	}
 	else if (sig == SIGQUIT)
 	{
 		shell->exit_code = 131;
-		printf("Quit (core dumped)\n");
+		write(1, "Quit (core dumped)\n", 19);
 	}
 	else
 		shell->exit_code = 128 + sig;
