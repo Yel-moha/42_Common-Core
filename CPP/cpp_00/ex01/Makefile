@@ -1,6 +1,6 @@
-NAME = megaphone
+NAME = phonebook
 
-SRCS = megaphone.cpp
+SRCS = 
 OBJS = $(SRCS:.cpp=.o)
 
 CC = c++
