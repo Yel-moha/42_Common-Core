@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   contacts_utilities.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 18:07:44 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/13 16:30:43 by yel-moha         ###   ########.fr       */
+/*   Created: 2026/03/13 16:32:51 by yel-moha          #+#    #+#             */
+/*   Updated: 2026/03/13 16:36:51 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
 
-int main(void)
+Contacts add_contact(std::string first_name, std::string last_name, \
+                    std::string nickname, std::string phone_number, \
+                    std::string darkest_secret)
 {
-    int index;
-
-    index = 0;
-    while(1)
-    {
-        std::string choice;
-        std::cout << "Type ADD to add a contact, SEARCH to search an exist one, \
-                      EXIT to quit." << std::endl;
-        std::cin >> choice;
+        Contacts contact; //La classe che vorrei ritornare 
         
         std::string first_name;
         std::string last_name;
@@ -42,6 +36,5 @@ int main(void)
         std::cin >> darkest_secret;
 
         Contacts Contacts(first_name, last_name, nickname, phone_number, darkest_secret);
-    }
-    return (0);  
 }
+
