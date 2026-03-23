@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:33:53 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/23 14:41:45 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:12:17 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ Contacts PhoneBook::find_contact(int index)
         return (Contacts());
     }
     return (this->contacts[index]);
+}
+
+void    PhoneBook::display_cntact(int index)
+{
+    Contacts contact;
+
+    contact = this->find_contact(index);
+    std::cout << index << " | " << contact.get_first_name() << " | "
+              << contact.get_last_name() << " | " << contact.get_nickname()
+              << std::endl;
 }
 
 PhoneBook::~PhoneBook()
