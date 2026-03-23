@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 18:07:44 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/23 16:27:16 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:40:14 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int main(void)
             std::cin >> index;
             phonebook.find_contact(index);
             std::cout << "Search done." << std::endl;
-            phonebook.display_cntact(index);
+            phonebook.display_cntact(index); 
         }
         else
             std::cout << "Unknown command." << std::endl;

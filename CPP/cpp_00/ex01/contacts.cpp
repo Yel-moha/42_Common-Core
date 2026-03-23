@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 18:00:31 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/23 16:29:20 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/23 17:05:08 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,22 @@ Contacts::~Contacts()
 
 std::string Contacts::get_first_name() const
 {
-    return (this->first_name);
+    if (this->first_name.length() > 10)
+        return this->first_name.substr(0, 9) + ".";
+    return this->first_name;
 }
 
 std::string Contacts::get_last_name() const
 {
+    if(this->last_name.length() > 10)
+        return this->first_name.substr(0, 9) + ".";
     return (this->last_name);
 }
 
 std::string Contacts::get_nickname() const
 {
+    if(this->nickname.length() > 10)
+        return this->nickname.substr(0, 9) + ".";
     return (this->nickname);
 }
 

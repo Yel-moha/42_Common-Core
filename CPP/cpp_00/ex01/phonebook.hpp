@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:33:44 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/23 16:11:47 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:52:27 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define PHONE_BOOK_HPP
 
 #include <iostream>
+
+#include <iomanip> // da verificare se possiamo usarla per setw()
+
 #include "contacts.hpp"
 
 class   PhoneBook
