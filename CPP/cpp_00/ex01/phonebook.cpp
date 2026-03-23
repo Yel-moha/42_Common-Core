@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:33:53 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/13 16:00:27 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/23 14:41:45 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,25 @@
 
 PhoneBook::PhoneBook()
 {
-    //Default costructor
+    this->next_index = 0;
 }
-/*
-PhoneBook::PhoneBook(Contacts contact, int index)
+
+void PhoneBook::add_contact(Contacts contact)
 {
-    this->contacts[]
+    this->contacts[this->next_index] = contact;
+    this->next_index = (this->next_index + 1) % 8;
 }
-*/
+
+Contacts PhoneBook::find_contact(int index)
+{
+    if (index < 0 || index > 7)
+    {
+        std::cerr << "Index non valido: deve essere tra 0 e 7" << std::endl;
+        return (Contacts());
+    }
+    return (this->contacts[index]);
+}
+
+PhoneBook::~PhoneBook()
+{
+}

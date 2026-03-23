@@ -27,3 +27,7 @@ Contacts::Contacts(std::string first_name, std::string last_name, \
     this->darkest_secret = darkest_secret;   
     std::cout << "Il costruttore con i parametri e' stato usato\n";         
 }
+
+Contacts::~Contacts()
+{
+}

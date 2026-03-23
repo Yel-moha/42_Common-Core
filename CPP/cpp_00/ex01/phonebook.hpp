@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:33:44 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/13 16:27:57 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/23 14:37:10 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ class   PhoneBook
 {
     public:
         PhoneBook();
-        PhoneBook(Contacts Contact, int index);
+        Contacts    find_contact(int index);
+        void    add_contact(Contacts contact);
         ~PhoneBook();
-        //int get_index(const Contacts &contact);
         
     private:
         Contacts contacts[8];
+        int      next_index;
 };
 
 #endif
