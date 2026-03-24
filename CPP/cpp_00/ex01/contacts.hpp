@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 17:35:18 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/23 16:36:07 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/24 15:50:18 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class   Contacts
         std::string get_first_name() const;
         std::string get_last_name() const;
         std::string get_nickname() const;
+        void print_contact();
     private:
         std::string first_name;
         std::string last_name;

@@ -6,7 +6,7 @@
 /*   By: yel-moha <yel-moha@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 18:00:31 by yel-moha          #+#    #+#             */
-/*   Updated: 2026/03/23 17:05:08 by yel-moha         ###   ########.fr       */
+/*   Updated: 2026/03/24 15:54:13 by yel-moha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ std::string Contacts::get_first_name() const
 std::string Contacts::get_last_name() const
 {
     if(this->last_name.length() > 10)
-        return this->first_name.substr(0, 9) + ".";
+        return this->last_name.substr(0, 9) + ".";
     return (this->last_name);
 }
 
@@ -52,3 +52,11 @@ std::string Contacts::get_nickname() const
     return (this->nickname);
 }
 
+void Contacts::print_contact()
+{
+    std::cout << "first name : " << this->first_name << std::endl;
+    std::cout << "last name : " << this->last_name << std::endl;
+    std::cout << "nickname : " << this->nickname << std::endl;
+    std::cout << "phone number : " << this->phone_number << std::endl;
+    std::cout << "darkest secret : " << this->darkest_secret << std::endl;
+}
