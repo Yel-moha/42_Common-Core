@@ -11,18 +11,34 @@
 /* ************************************************************************** */
 
 #include "Account.hpp"
-#include <iostream>
 
 int main(void)
 {
-    int init_ammounts[8] = {42, 54, 957, 432, 1234, 0, 754, 16576};
+    int const amounts[8] = {42, 54, 957, 432, 1234, 0, 754, 16576};
+    int const deposits[8] = {5, 765, 564, 2, 87, 23, 9, 20};
+    int const withdrawals[8] = {321, 34, 657, 4, 76, 275, 657, 7654};
+
     Account accounts[8] = {
-        Account(init_ammounts[0]), Account(init_ammounts[1]), Account(init_ammounts[2]),
-        Account(init_ammounts[3]), Account(init_ammounts[4]), Account(init_ammounts[5]),
-        Account(init_ammounts[6]), Account(init_ammounts[7])
-    };  
-    for(int i = 0; i < 8; i++)
-    {
-        
-    }
+        Account(amounts[0]), Account(amounts[1]), Account(amounts[2]), Account(amounts[3]),
+        Account(amounts[4]), Account(amounts[5]), Account(amounts[6]), Account(amounts[7])};
+
+    Account::displayAccountsInfos();
+    for (int i = 0; i < 8; ++i)
+        accounts[i].displayStatus();
+
+    for (int i = 0; i < 8; ++i)
+        accounts[i].makeDeposit(deposits[i]);
+
+    Account::displayAccountsInfos();
+    for (int i = 0; i < 8; ++i)
+        accounts[i].displayStatus();
+
+    for (int i = 0; i < 8; ++i)
+        accounts[i].makeWithdrawal(withdrawals[i]);
+
+    Account::displayAccountsInfos();
+    for (int i = 0; i < 8; ++i)
+        accounts[i].displayStatus();
+
+    return 0;
 }
