@@ -43,7 +43,7 @@ int		main( void ) {
 	// sizeof(int)     -> byte di un elemento
 	// divisione       -> numero elementi
 	size_t const			amounts_size( sizeof(amounts) / sizeof(int) );
-	// Costruzione del vector da range [first, last):
+	// Costruzione del vector da range [first, last)\:
 	// - first = amounts
 	// - last  = amounts + amounts_size
 	// In C++ il limite superiore e' escluso.
