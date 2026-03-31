@@ -1,6 +1,6 @@
 NAME = account
 
-SRCS = main.cpp Account.cpp
+SRCS = tests.cpp Account.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
