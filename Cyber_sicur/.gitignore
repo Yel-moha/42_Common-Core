@@ -1,0 +1,5 @@
+*.o
+spider
+scorpion
+.DS_Store
+.vscode/
