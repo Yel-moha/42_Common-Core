@@ -44,6 +44,13 @@
 | [**cub3d**](https://github.com/Yel-moha/cubd) | 3D graphics & cube rendering | ✅ |
 | [**NetPractice**](https://github.com/Yel-moha/net_practice) | Network configuration & TCP/IP | ✅ |
 | [**Exam Rank 04**](https://github.com/Yel-moha/42-exam) | Rank 04 Exam solutions | ✅ |
+| [**cpp_milestone_4**](https://github.com/Yel-moha/cpp_milestone_4) | C++ Modules 00-04 | ✅ |
+
+### Milestone 5 (Advanced)
+
+| Project | Description | Status |
+|---------|-------------|--------|
+| [**cpp_milestone_5**](https://github.com/Yel-moha/cpp_milestone_5) | C++ Modules 05-09 | ✅ |
 
 ### Extra Projects & Corrections
 
@@ -51,7 +58,6 @@
 |---------|-------------|--------|
 | [**My_philosophers**](https://github.com/Yel-moha/my_philosophers) | Advanced threading solutions | ✅ |
 | [**Visual-push_swap**](https://github.com/Yel-moha/visual-push_swap) | Push_swap visualizer | ✅ |
-| [**CPP Modules**](https://github.com/Yel-moha/cpp) | C++ OOP modules | ✅ |
 | [**Cyber_sicur**](https://github.com/Yel-moha/cyber_sicur) | Cybersecurity fundamentals | ✅ |
 | [**Correzioni**](https://github.com/Yel-moha/correzioni) | Corrections & improvements | ✅ |
 | [**Subjects**](https://github.com/Yel-moha/subjects) | Project subjects & documentation | ✅ |
@@ -136,5 +142,5 @@ Found a bug or have suggestions? Feel free to open an issue or reach out!
 ---
 
 **Last Updated**: June 5, 2026  
-**Current Milestone**: Milestone 4 (cub3d, NetPractice, Exam Rank 04) ✅
+**Current Milestone**: Milestone 4 (cub3d, NetPractice, Exam Rank 04, CPP 00-04) ✅
 **Status**: All milestone projects successfully migrated to separate repositories ✅
