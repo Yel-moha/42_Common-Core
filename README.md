@@ -6,47 +6,54 @@
 
 ## 📚 Projects Overview
 
-### Rank 0-2 | Fundamentals
+### Milestone 0
 
 | Project | Description | Status |
 |---------|-------------|--------|
 | [**libft**](https://github.com/Yel-moha/libft) | C library implementation - Core functions | ✅ |
+
+### Milestone 1
+
+| Project | Description | Status |
+|---------|-------------|--------|
 | [**ft_printf**](https://github.com/Yel-moha/ft_printf) | Printf function recreation | ✅ |
 | [**get_next_line**](https://github.com/Yel-moha/get_next_line) | Read file line by line | ✅ |
-
-### Rank 3 | First Projects
-
-| Project | Description | Status |
-|---------|-------------|--------|
 | [**Born2beroot**](https://github.com/Yel-moha/born2beroot) | Linux system administration & virtualization | ✅ |
-| [**Minitalk**](https://github.com/Yel-moha/minitalk) | IPC communication using signals | ✅ |
-| [**Push_swap**](https://github.com/Yel-moha/push_swap) | Sorting algorithm visualizer | ✅ |
 
-### Rank 4 | Advanced Projects
+### Milestone 2
 
 | Project | Description | Status |
 |---------|-------------|--------|
+| [**push_swap**](https://github.com/Yel-moha/push_swap) | Sorting algorithm visualizer | ✅ |
+| [**minitalk**](https://github.com/Yel-moha/minitalk) | IPC communication using signals | ✅ |
+| [**fract-ol**](https://github.com/Yel-moha/fractol) | Fractal rendering graphics | ✅ |
+| [**Exam Rank 02**](https://github.com/Yel-moha/42-exam) | Rank 02 Exam solutions | ✅ |
+
+### Milestone 3
+
+| Project | Description | Status |
+|---------|-------------|--------|
+| [**minishell**](https://github.com/Yel-moha/minishell) | Unix shell implementation | ✅ |
 | [**Philosophers**](https://github.com/Yel-moha/philosophers) | Multithreading & concurrency | ✅ |
-| [**Minishell**](https://github.com/Yel-moha/minishell) | Unix shell implementation | ✅ |
-| [**Fractol**](https://github.com/Yel-moha/fractol) | Fractal rendering graphics | ✅ |
-| [**Cubd**](https://github.com/Yel-moha/cubd) | 3D graphics & cube rendering | ✅ |
+| [**Exam Rank 03**](https://github.com/Yel-moha/42-exam) | Rank 03 Exam solutions | ✅ |
 
-### Rank 5+ | Advanced Topics
+### Milestone 4 (Current)
 
 | Project | Description | Status |
 |---------|-------------|--------|
-| [**Cpp_00-cpp_09**](https://github.com/Yel-moha/cpp) | C++ modules & OOP | ✅ |
-| [**Net_practice**](https://github.com/Yel-moha/net_practice) | Network configuration & TCP/IP | ✅ |
-| [**Cyber_sicur**](https://github.com/Yel-moha/cyber_sicur) | Cybersecurity fundamentals | ✅ |
+| [**cub3d**](https://github.com/Yel-moha/cubd) | 3D graphics & cube rendering | ✅ |
+| [**NetPractice**](https://github.com/Yel-moha/net_practice) | Network configuration & TCP/IP | ✅ |
+| [**Exam Rank 04**](https://github.com/Yel-moha/42-exam) | Rank 04 Exam solutions | ✅ |
 
-### Extras & Corrections
+### Extra Projects & Corrections
 
 | Project | Description | Status |
 |---------|-------------|--------|
 | [**My_philosophers**](https://github.com/Yel-moha/my_philosophers) | Advanced threading solutions | ✅ |
 | [**Visual-push_swap**](https://github.com/Yel-moha/visual-push_swap) | Push_swap visualizer | ✅ |
+| [**CPP Modules**](https://github.com/Yel-moha/cpp) | C++ OOP modules | ✅ |
+| [**Cyber_sicur**](https://github.com/Yel-moha/cyber_sicur) | Cybersecurity fundamentals | ✅ |
 | [**Correzioni**](https://github.com/Yel-moha/correzioni) | Corrections & improvements | ✅ |
-| [**42-EXAM**](https://github.com/Yel-moha/42-exam) | Exam preparations & solutions | ✅ |
 | [**Subjects**](https://github.com/Yel-moha/subjects) | Project subjects & documentation | ✅ |
 
 ---
@@ -129,4 +136,5 @@ Found a bug or have suggestions? Feel free to open an issue or reach out!
 ---
 
 **Last Updated**: June 5, 2026  
-**Status**: All projects successfully migrated to separate repositories ✅
+**Current Milestone**: Milestone 4 (cub3d, NetPractice, Exam Rank 04) ✅
+**Status**: All milestone projects successfully migrated to separate repositories ✅
