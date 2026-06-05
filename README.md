@@ -21,7 +21,6 @@
 | [**Born2beroot**](https://github.com/Yel-moha/born2beroot) | Linux system administration & virtualization | ✅ |
 | [**Minitalk**](https://github.com/Yel-moha/minitalk) | IPC communication using signals | ✅ |
 | [**Push_swap**](https://github.com/Yel-moha/push_swap) | Sorting algorithm visualizer | ✅ |
-| [**So_long**](https://github.com/Yel-moha/so_long) | 2D game development | 🚀 |
 
 ### Rank 4 | Advanced Projects
 
@@ -30,6 +29,7 @@
 | [**Philosophers**](https://github.com/Yel-moha/philosophers) | Multithreading & concurrency | ✅ |
 | [**Minishell**](https://github.com/Yel-moha/minishell) | Unix shell implementation | ✅ |
 | [**Fractol**](https://github.com/Yel-moha/fractol) | Fractal rendering graphics | ✅ |
+| [**Cubd**](https://github.com/Yel-moha/cubd) | 3D graphics & cube rendering | ✅ |
 
 ### Rank 5+ | Advanced Topics
 
