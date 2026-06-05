@@ -56,11 +56,14 @@
 
 | Project | Description | Status |
 |---------|-------------|--------|
-| [**My_philosophers**](https://github.com/Yel-moha/my_philosophers) | Advanced threading solutions | ✅ |
-| [**Visual-push_swap**](https://github.com/Yel-moha/visual-push_swap) | Push_swap visualizer | ✅ |
-| [**Cyber_sicur**](https://github.com/Yel-moha/cyber_sicur) | Cybersecurity fundamentals | ✅ |
-| [**Correzioni**](https://github.com/Yel-moha/correzioni) | Corrections & improvements | ✅ |
-| [**Subjects**](https://github.com/Yel-moha/subjects) | Project subjects & documentation | ✅ |
+| [**extras**](https://github.com/Yel-moha/extras) | Private repo - corrections & extra projects | 🔒 |
+
+**Contents:**
+- `my_philosophers/` - Advanced threading solutions
+- `visual_push_swap/` - Push_swap visualizer
+- `cyber_sicur/` - Cybersecurity fundamentals
+- `correzioni/` - Corrections & improvements
+- `subjects/` - Project subjects & documentation
 
 ---
 
