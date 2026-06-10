@@ -27,7 +27,6 @@
 | [**push_swap**](https://github.com/Yel-moha/push_swap) | Sorting algorithm visualizer | ✅ |
 | [**minitalk**](https://github.com/Yel-moha/minitalk) | IPC communication using signals | ✅ |
 | [**fract-ol**](https://github.com/Yel-moha/fractol) | Fractal rendering graphics | ✅ |
-| [**Exam Rank 02**](https://github.com/Yel-moha/42-exam) | Rank 02 Exam solutions | ✅ |
 
 ### Milestone 3
 
@@ -35,7 +34,6 @@
 |---------|-------------|--------|
 | [**minishell**](https://github.com/Yel-moha/minishell) | Unix shell implementation | ✅ |
 | [**Philosophers**](https://github.com/Yel-moha/philosophers) | Multithreading & concurrency | ✅ |
-| [**Exam Rank 03**](https://github.com/Yel-moha/42-exam) | Rank 03 Exam solutions | ✅ |
 
 ### Milestone 4 (Current)
 
@@ -43,7 +41,6 @@
 |---------|-------------|--------|
 | [**cub3d**](https://github.com/Yel-moha/cub3D) | 3D graphics & cube rendering | ✅ |
 | [**NetPractice**](https://github.com/Yel-moha/net_practice) | Network configuration & TCP/IP | ✅ |
-| [**Exam Rank 04**](https://github.com/Yel-moha/42-exam) | Rank 04 Exam solutions | ✅ |
 | [**cpp_milestone_4**](https://github.com/Yel-moha/cpp_milestone_4) | C++ Modules 00-04 | ✅ |
 
 ### Milestone 5 (Advanced)
