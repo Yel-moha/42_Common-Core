@@ -41,7 +41,7 @@
 
 | Project | Description | Status |
 |---------|-------------|--------|
-| [**cub3d**](https://github.com/Yel-moha/cubd) | 3D graphics & cube rendering | ✅ |
+| [**cub3d**](https://github.com/Yel-moha/cub3D) | 3D graphics & cube rendering | ✅ |
 | [**NetPractice**](https://github.com/Yel-moha/net_practice) | Network configuration & TCP/IP | ✅ |
 | [**Exam Rank 04**](https://github.com/Yel-moha/42-exam) | Rank 04 Exam solutions | ✅ |
 | [**cpp_milestone_4**](https://github.com/Yel-moha/cpp_milestone_4) | C++ Modules 00-04 | ✅ |
